@@ -1,0 +1,94 @@
+path: src/public/images/assets/vecteezy_white-fog-illustration_24065530.png
+source: https://www.vecteezy.com/png/24065530-white-fog-illustration
+creator: https://www.vecteezy.com/members/nurnazrhia
+attribution: <a href="https://www.vecteezy.com/free-png/fog">Fog PNGs by Vecteezy</a>
+
+path: src/public/images/assets/vecteezy_white-fog-illustration_24065528.png
+source: https://www.vecteezy.com/png/24065528-white-fog-illustration
+creator: https://www.vecteezy.com/members/nurnazrhia
+attribution: <a href="https://www.vecteezy.com/free-png/fog">Fog PNGs by Vecteezy</a>
+
+path: src/public/images/assets/vecteezy_white-fog-illustration_24065547.png
+source: https://www.vecteezy.com/png/24065547-white-fog-illustration
+creator: https://www.vecteezy.com/members/nurnazrhia
+attribution: <a href="https://www.vecteezy.com/free-png/fog">Fog PNGs by Vecteezy</a>
+
+path: src/public/images/assets/vecteezy_white-fog-illustration_24065528.png
+source: https://www.vecteezy.com/png/24065528-white-fog-illustration
+creator: https://www.vecteezy.com/members/nurnazrhia
+attribution: <a href="https://www.vecteezy.com/free-png/fog">Fog PNGs by Vecteezy</a>
+
+path: src/public/images/assets/vecteezy_white-fog-illustration_24065516.png
+source: https://www.vecteezy.com/png/24065516-white-fog-illustration
+creator: https://www.vecteezy.com/members/nurnazrhia
+attribution: <a href="https://www.vecteezy.com/free-png/fog">Fog PNGs by Vecteezy</a>
+
+path: src/public/images/assets/vecteezy_white-fog-illustration_24065523.png
+source: https://www.vecteezy.com/png/24065523-white-fog-illustration
+creator: https://www.vecteezy.com/members/nurnazrhia
+attribution: <a href="https://www.vecteezy.com/free-png/fog">Fog PNGs by Vecteezy</a>
+
+path: src/public/images/assets/vecteezy_paper-shape-shadow-effect_25027269.png
+source: https://www.vecteezy.com/png/25027269-paper-shape-shadow-effect
+creator: https://www.vecteezy.com/members/nurnazrhia
+attribution: <a href="https://www.vecteezy.com/free-png/fog">Fog PNGs by Vecteezy</a>
+
+path: src/public/images/brand/mesh/intentïon-mesh-black-#000000-2024-05-02.jpg
+source: https://github.com/Polycode-Limited/xn--intenton-z2a.com/blob/main/src/public/images/brand/mesh/intent%C3%AFon-mesh-black-%23000000-2024-05-02.jpg
+creator: laura@sociallolly.co.uk
+attribution: <a href="https://polycode.co.uk/">Ownership transferred to Polycode Limited, May 2024</a>
+
+path: src/public/images/brand/mesh/intentïon-mesh-black-#000000-2024-05-02.pdf
+source: https://github.com/Polycode-Limited/xn--intenton-z2a.com/blob/main/src/public/images/brand/mesh/intent%C3%AFon-mesh-black-%23000000-2024-05-02.pdf
+creator: laura@sociallolly.co.uk
+attribution: <a href="https://polycode.co.uk/">Ownership transferred to Polycode Limited, May 2024</a>
+
+path: src/public/images/brand/mesh/intentïon-mesh-black-#000000-2024-05-02.png
+source: https://github.com/Polycode-Limited/xn--intenton-z2a.com/blob/main/src/public/images/brand/mesh/intent%C3%AFon-mesh-black-%23000000-2024-05-02.png
+creator: laura@sociallolly.co.uk
+attribution: <a href="https://polycode.co.uk/">Ownership transferred to Polycode Limited, May 2024</a>
+
+path: src/public/images/brand/mesh/intentïon-mesh-black-#000000-2024-05-02.svg
+source: https://github.com/Polycode-Limited/xn--intenton-z2a.com/blob/main/src/public/images/brand/mesh/intent%C3%AFon-mesh-black-%23000000-2024-05-02.svg
+creator: laura@sociallolly.co.uk
+attribution: <a href="https://polycode.co.uk/">Ownership transferred to Polycode Limited, May 2024</a>
+
+path: src/public/images/brand/mesh/intentïon-mesh-steel-#3F5965-2024-05-02.jpg
+source: https://github.com/Polycode-Limited/xn--intenton-z2a.com/blob/main/src/public/images/brand/mesh/intent%C3%AFon-mesh-steel-%233F5965-2024-05-02.jpg
+creator: laura@sociallolly.co.uk
+attribution: <a href="https://polycode.co.uk/">Ownership transferred to Polycode Limited, May 2024</a>
+
+path: src/public/images/brand/mesh/intentïon-mesh-steel-#3F5965-2024-05-02.pdf
+source: https://github.com/Polycode-Limited/xn--intenton-z2a.com/blob/main/src/public/images/brand/mesh/intent%C3%AFon-mesh-steel-%233F5965-2024-05-02.pdf
+creator: laura@sociallolly.co.uk
+attribution: <a href="https://polycode.co.uk/">Ownership transferred to Polycode Limited, May 2024</a>
+
+path: src/public/images/brand/mesh/intentïon-mesh-steel-#3F5965-2024-05-02.png
+source: https://github.com/Polycode-Limited/xn--intenton-z2a.com/blob/main/src/public/images/brand/mesh/intent%C3%AFon-mesh-steel-%233F5965-2024-05-02.png
+creator: laura@sociallolly.co.uk
+attribution: <a href="https://polycode.co.uk/">Ownership transferred to Polycode Limited, May 2024</a>
+
+path: src/public/images/brand/mesh/intentïon-mesh-steel-#3F5965-2024-05-02.svg
+source: https://github.com/Polycode-Limited/xn--intenton-z2a.com/blob/main/src/public/images/brand/mesh/intent%C3%AFon-mesh-steel-%233F5965-2024-05-02.svg
+creator: laura@sociallolly.co.uk
+attribution: <a href="https://polycode.co.uk/">Ownership transferred to Polycode Limited, May 2024</a>
+
+path: src/public/images/brand/mesh/intentïon-mesh-white-#FFFFFF-2024-05-02.jpg
+source: https://github.com/Polycode-Limited/xn--intenton-z2a.com/blob/main/src/public/images/brand/mesh/intent%C3%AFon-mesh-white-%23FFFFFF-2024-05-02.jpg
+creator: laura@sociallolly.co.uk
+attribution: <a href="https://polycode.co.uk/">Ownership transferred to Polycode Limited, May 2024</a>
+
+path: src/public/images/brand/mesh/intentïon-mesh-white-#FFFFFF-2024-05-02.pdf
+source: https://github.com/Polycode-Limited/xn--intenton-z2a.com/blob/main/src/public/images/brand/mesh/intent%C3%AFon-mesh-white-%23FFFFFF-2024-05-02.pdf
+creator: laura@sociallolly.co.uk
+attribution: <a href="https://polycode.co.uk/">Ownership transferred to Polycode Limited, May 2024</a>
+
+path: src/public/images/brand/mesh/intentïon-mesh-white-#FFFFFF-2024-05-02.png
+source: https://github.com/Polycode-Limited/xn--intenton-z2a.com/blob/main/src/public/images/brand/mesh/intent%C3%AFon-mesh-white-%23FFFFFF-2024-05-02.png
+creator: laura@sociallolly.co.uk
+attribution: <a href="https://polycode.co.uk/">Ownership transferred to Polycode Limited, May 2024</a>
+
+path: src/public/images/brand/mesh/intentïon-mesh-white-#FFFFFF-2024-05-02.svg
+source: https://github.com/Polycode-Limited/xn--intenton-z2a.com/blob/main/src/public/images/brand/mesh/intent%C3%AFon-mesh-white-%23FFFFFF-2024-05-02.svg
+creator: laura@sociallolly.co.uk
+attribution: <a href="https://polycode.co.uk/">Ownership transferred to Polycode Limited, May 2024</a>
