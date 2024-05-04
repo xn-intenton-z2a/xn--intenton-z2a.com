@@ -18,12 +18,16 @@ Public brand:
 - [ ] Showcase links
 - [ ] Audience Dashboard
 - [ ] Projects links
-- [ ] Request email action.
+- [ ] Web analytics
+- [ ] Request email action
 - [ ] Automated feed generation
 - [ ] Automated activity generation from showcased projects
 - [ ] Add contact bots for socials
 - [ ] Add contact bots via Slack / Discord or Redit
 - [ ] Brand protection
+- [ ] CDK deploy
+- [ ] Extract CDK deploy to open source it under intentïon (by Polycode). 
+- [ ] Extract CI deploy action to open source it under intentïon (by Polycode).
 
 LinkedIn - https://www.linkedin.com/company/intentïon
 -> intentïon.com
