@@ -6,11 +6,22 @@
 
 Public brand:
 - [x] Website for intentïon.com text light, light grey or misty: https://xn--intenton-z2a.com/
-- [~] Logo selection
+- [x] Logo selection
+- [ ] Brand ownership
 - [ ] Brand protection
 - [ ] "What is your intentïon?" as a tagline and pronunciation guide.
-- [ ] Box allowing user submitted content with terms and conditions.
+- [ ] "What is your intentïon" submission xox allowing user submitted content with terms and conditions.
 - [ ] Company registration.
+- [ ] Request email action.
+- [ ] LinkTree
+- [ ] Contact Bots
+- [ ] Ownership link
+- [ ] Social links
+- [ ] Projects links
+- [ ] Showcase links
+- [ ] Dashboard
+- [ ] Automated feed generation
+- [ ] Automated activity generation from showcased projects
 
 ## Getting Started
 
@@ -21,7 +32,7 @@ TODO Instructions on how to get started with the project...:
 
 # Handy scripts
 
-Cat the workflow and source files to datestamped files in the export directory.
+Cat the workflow and source files to datestamp the files in the export directory.
 ```shell
 ./export-source.sh
 ```
@@ -66,7 +77,7 @@ What intentïon brings to the table is not just a promise but a steady march tow
 
 ## Pronunciation
 
-:intentïon. Pronunciation: /ɪnˈtɛnʃən/. The diaeresis? It's a style thing (and .com was available for 13 bucks); you are invited to pronounce your intentïon as you please.
+intentïon. Pronunciation: /ɪnˈtɛnʃən/. The diaeresis? It's a style thing (and .com was available for 13 bucks); you are invited to pronounce your intentïon as you please.
 
 # Glossary
 
