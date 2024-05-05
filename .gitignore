@@ -128,6 +128,16 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
+# IntelliJ
 /.idea/
+
+# Terraform
 /infrastructure/.terragrunt-cache/
 /infrastructure/.terraform.lock.hcl
+
+# Maven
+/**/target/
+
+# Misc
+.DS_Store

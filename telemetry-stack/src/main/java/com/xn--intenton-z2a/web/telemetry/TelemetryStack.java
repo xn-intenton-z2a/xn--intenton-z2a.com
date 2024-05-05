@@ -23,7 +23,7 @@ public class TelemetryStack extends Stack {
 
     private static final Logger logger = LogManager.getLogger(TelemetryStack.class);
 
-    private String domainName(String env) { return "%s.web.%s".formatted(env, AccountConstants.hostedZoneName); }
+    private String domainName(String env) { return "%s.web.%s".formatted(env, WebConstants.hostedZoneName); }
     private String dashedDomainName(String env) { return ResourceNameUtils.convertDashSeparatedToDotSeparated(domainName(env)); }
     private String cloudTrailLogBucketName(String env) { return "%s-cloud-trail".formatted(dashedDomainName(env)); }
 

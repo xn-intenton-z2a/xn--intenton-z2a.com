@@ -216,42 +216,7 @@ Bootstrap the stack with a state bucket
     "Account": "887764105431",
     "Arn": "arn:aws:sts::887764105431:assumed-role/diyaccounting-co-uk-account-deployment-role/WorkstationSession-for-antony"
 }
- % cdk bootstrap --environment account=${AWS_ACCOUNT_ID?},region=${AWS_DEFAULT_REGION?}
-  ⏳  Bootstrapping environment aws://887764105431/eu-west-2...
-Trusted accounts for deployment: (none)
-Trusted accounts for lookup: (none)
-Using default execution policy of 'arn:aws:iam::aws:policy/AdministratorAccess'. Pass '--cloudformation-execution-policies' to customize.
-CDKToolkit: creating CloudFormation changeset...
- ✅  Environment aws://887764105431/eu-west-2 bootstrapped.
- %
-````
-(CDK created the bucket from the `--bootstrap-bucket-name "account-diyaccounting-co-uk-cdk-state"` option but ignored
-this on the `cdk deploy` command, so I manually created the bucket `cdk-hnb659fds-assets-887764105431-eu-west-2`.)
-See: https://docs.aws.amazon.com/cdk/v2/guide/getting_started.html
-
-From: Your first AWS CDK app from: https://docs.aws.amazon.com/cdk/v2/guide/hello_world.html
-````bash
- % ./mvnw compile -q
- % cdk synth
-Resources:
-  accountdiyaccountingcoukcdkfirsttest8B2001FD:
-    Type: AWS::S3::Bucket
-    Properties:
-      VersioningConfiguration:
-        Status: Enabled
-...
- % cdk deploy
-...
- ✅  DeploymentStack
-
-✨  Deployment time: 12.84s
-
-Stack ARN:
-arn:aws:cloudformation:eu-west-2:887764105431:stack/DeploymentStack/89fbb770-e6a9-11ed-a048-0a6a934cfbce
-
-✨  Total time: 16.81s
- 
- % 
+ % TODO...
 ````
 
 # Handy scripts
