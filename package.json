@@ -1,0 +1,22 @@
+{
+  "name": "xn--intenton-z2a.com",
+  "version": "1.0.0",
+  "description": "intentïon: The feedback loop of innovation",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Polycode-Limited/xn--intenton-z2a.com.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Polycode-Limited/xn--intenton-z2a.com/issues"
+  },
+  "homepage": "https://github.com/Polycode-Limited/xn--intenton-z2a.com#readme"
+}

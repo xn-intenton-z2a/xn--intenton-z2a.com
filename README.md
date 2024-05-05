@@ -166,7 +166,7 @@ Software required:
  % ./aws-create-infrastructure-role.sh
 ```
 
-Assume the role created by the script and use Terragrunt to create the infrastructure level resources by running:
+Assume the infrastructure role created by the script and use Terragrunt to create the infrastructure level resources by running:
 ```shell
  % source ./aws-reset-assumed-role.sh
 {
@@ -183,7 +183,18 @@ Assume the role created by the script and use Terragrunt to create the infrastru
  % terragrunt apply -auto-approve --terragrunt-non-interactive --terragrunt-working-dir ./infrastructure
 ```
 
-Assume the role created by the script by running:
+Add GitHub as an identity provider
+To be able to authenticate with OIDC from GitHub you will first need to set up GitHub as a federated identity provider in your AWS account.
+1. To do that, navigate to the AWS IAM console and click on Identity Providers on the left-hand side.
+2. Then, click on the Add provider button.
+3. For Provider type, select OpenID Connect.
+4. For Provider URL, enter https://token.actions.githubusercontent.com
+5. Click on Get thumbprint to get the thumbprint of the provider
+6. For Audience, enter `sts.amazonaws.com`
+See:
+![setup-add-identity-provider](docs/setup-add-identity-provider.png)
+
+Assume the deployment role locally created by the script by running:
 ```shell
  % source ./aws-reset-assumed-role.sh
 {
