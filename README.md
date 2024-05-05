@@ -25,6 +25,7 @@ Public brand:
 - [ ] Add contact bots for socials
 - [ ] Add contact bots via Slack / Discord or Redit
 - [ ] Brand protection
+- [ ] Register: intentiion.com, intentionai.com, intentiionai.com, intentiionaii.com
 - [ ] CDK deploy
 - [ ] Extract CDK deploy to open source it under intentïon (by Polycode). 
 - [ ] Extract CI deploy action to open source it under intentïon (by Polycode).
@@ -114,10 +115,144 @@ intentïon. Pronunciation: /ɪnˈtɛnʃən/. The diaeresis? It's a style thing (
 
 ## Getting Started
 
-TODO Instructions on how to get started with the project...:
+# Infrastructure setup
+
+## Prerequisites
+
+A user with full IAM access to create a role will be needed to execute the Terraform scripts which in turn to create
+the infrastructure level resources such as:
+* The IAM role for the deployment user
+
+Software required:
+* [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html)
+* [jq](https://stedolan.github.io/jq/download/)
+* [Terraform](https://www.terraform.io/downloads.html)
+* Terragrunt
 ```shell
-...and initial setup steps.
+ % brew install terragrunt
 ```
+
+## Steps
+
+* Run:
+```shell
+ % export AWS_ACCOUNT_ID='541134664601'
+ % export AWS_ACCESS_KEY_ID='...redacted...'
+ % export AWS_SECRET_ACCESS_KEY='...redacted...'
+ % aws sts get-caller-identity                                            
+{
+    "UserId": "AIDAI5QAEKWGGXBYLAZ5G",
+    "Account": "541134664601",
+    "Arn": "arn:aws:iam::541134664601:user/polycode-deploy"
+}
+ % ./aws-create-infrastructure-role.sh
+```
+
+Assume the role created by the script and use Terragrunt to create the infrastructure level resources by running:
+```shell
+ % source ./aws-reset-assumed-role.sh
+{
+    "UserId": "AIDAX37RDWOMUJDFBDE6Y",
+    "Account": "541134664601",
+    "Arn": "arn:aws:iam::541134664601:user/polycode-default-account"
+}
+ % source ./aws-assume-infrastructure-role.sh
+ {
+    "UserId": "AROA45MW5HDLQ2F53F3V4:WorkstationSession-for-antony",
+    "Account": "541134664601",
+    "Arn": "arn:aws:sts::541134664601:assumed-role/xn--intenton-z2a-web-infrastructure-role/WorkstationSession-for-antony"
+}
+ % terragrunt apply -auto-approve --terragrunt-non-interactive --terragrunt-working-dir ./infrastructure
+```
+
+Assume the role created by the script by running:
+```shell
+ % source ./aws-reset-assumed-role.sh
+{
+    "UserId": "AIDAX37RDWOMUJDFBDE6Y",
+    "Account": "541134664601",
+    "Arn": "arn:aws:iam::541134664601:user/polycode-default-account"
+}
+ % source ./aws-assume-deployment-role.sh
+{
+    "UserId": "AROA45MW5HDLRUMTIBS4I:WorkstationSession-for-antony",
+    "Account": "887764105431",
+    "Arn": "arn:aws:sts::887764105431:assumed-role/diyaccounting-co-uk-account-deployment-role/WorkstationSession-for-antony"
+}
+ %
+```
+
+## Infrastructure tear-down
+
+Run the following in sequence:
+```shell
+ % source ./aws-assume-infrastructure-role.sh
+ % terragrunt run-all destroy -auto-approve --terragrunt-non-interactive --terragrunt-working-dir ./infrastructure
+ % ./aws-delete-infrastructure-role.sh
+```
+
+# CDK setup
+
+Install the AWS CDK and ensure that version 2 is installed:
+````bash
+ % npm install -g aws-cdk
+ % cdk --version
+2.140.0 (build 46168aa)
+````
+
+## Preparing the AWS account for CDK deployment
+
+Bootstrap the stack with a state bucket
+```bash
+ % source ./aws-reset-assumed-role.sh
+{
+    "UserId": "AIDAX37RDWOMUJDFBDE6Y",
+    "Account": "541134664601",
+    "Arn": "arn:aws:iam::541134664601:user/polycode-default-account"
+}
+ % source ./aws-assume-deployment-role.sh
+{
+    "UserId": "AROA45MW5HDLRUMTIBS4I:WorkstationSession-for-antony",
+    "Account": "887764105431",
+    "Arn": "arn:aws:sts::887764105431:assumed-role/diyaccounting-co-uk-account-deployment-role/WorkstationSession-for-antony"
+}
+ % cdk bootstrap --environment account=${AWS_ACCOUNT_ID?},region=${AWS_DEFAULT_REGION?}
+  ⏳  Bootstrapping environment aws://887764105431/eu-west-2...
+Trusted accounts for deployment: (none)
+Trusted accounts for lookup: (none)
+Using default execution policy of 'arn:aws:iam::aws:policy/AdministratorAccess'. Pass '--cloudformation-execution-policies' to customize.
+CDKToolkit: creating CloudFormation changeset...
+ ✅  Environment aws://887764105431/eu-west-2 bootstrapped.
+ %
+````
+(CDK created the bucket from the `--bootstrap-bucket-name "account-diyaccounting-co-uk-cdk-state"` option but ignored
+this on the `cdk deploy` command, so I manually created the bucket `cdk-hnb659fds-assets-887764105431-eu-west-2`.)
+See: https://docs.aws.amazon.com/cdk/v2/guide/getting_started.html
+
+From: Your first AWS CDK app from: https://docs.aws.amazon.com/cdk/v2/guide/hello_world.html
+````bash
+ % ./mvnw compile -q
+ % cdk synth
+Resources:
+  accountdiyaccountingcoukcdkfirsttest8B2001FD:
+    Type: AWS::S3::Bucket
+    Properties:
+      VersioningConfiguration:
+        Status: Enabled
+...
+ % cdk deploy
+...
+ ✅  DeploymentStack
+
+✨  Deployment time: 12.84s
+
+Stack ARN:
+arn:aws:cloudformation:eu-west-2:887764105431:stack/DeploymentStack/89fbb770-e6a9-11ed-a048-0a6a934cfbce
+
+✨  Total time: 16.81s
+ 
+ % 
+````
 
 # Handy scripts
 
@@ -149,6 +284,40 @@ different rates.
 Please show the HTML (all inline JS and CSS) the images
 and any libraries you pull in would be links.
 ```
+
+## CDK  Installation and initialisation of a project deployment directory
+
+Create a deployment directory, initialise it with a CDK project then move the files to the root of the repository:
+````bash
+ % mkdir account
+ % cd ./account
+ % cdk init app --language java
+Applying project template app for java
+# Welcome to your CDK Java project!
+...
+ % rm -rf target README .gitignore
+mv -v * ../.
+cdk.json -> .././cdk.json
+pom.xml -> .././pom.xml
+src -> .././src
+ % cd ..
+ % rm -rf ./account
+````
+
+## The CDK README
+
+The `cdk.json` file tells the CDK Toolkit how to execute your app.
+
+It is a [Maven](https://maven.apache.org/) based project, so you can open this project with any Maven compatible Java IDE to build and run tests.
+
+Useful commands:
+
+* `./mvnw package`     compile and run tests
+* `cdk ls`          list all stacks in the app
+* `cdk synth`       emits the synthesized CloudFormation template
+* `cdk deploy`      deploy this stack to your default AWS account/region
+* `cdk diff`        compare deployed stack with current state
+* `cdk docs`        open CDK documentation
 
 # Ownership
 

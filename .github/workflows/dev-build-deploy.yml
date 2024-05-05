@@ -1,0 +1,80 @@
+name: Build and deploy dev
+concurrency: build-deploy-or-infrastructure
+
+on:
+  push:
+    paths-ignore:
+      - './LICENSE'
+      - './README.md'
+      - '.github/workflows/check*.yml'
+      - '.github/workflows/infrastructure*.yml'
+      - '.gitignore'
+      - './deployment/src/test/**'
+      - './infrastructure/**'
+      - './*.sh'
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  dev-build-deploy:
+
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      packages: write
+      id-token: write
+
+    steps:
+
+      - uses: actions/checkout@v3
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1-node16
+        with:
+          aws-region: eu-west-2
+          role-to-assume: arn:aws:iam::541134664601:role/xn--intenton-z2a-web-deployment-role
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: 'npm'
+          check-latest: true
+
+      - name: Set up Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'corretto'
+          java-version: '17'
+          cache: 'maven'
+          check-latest: true
+
+      - name: Install AWS CDK
+        run: npm install -g aws-cdk ;
+
+      - name: Check versions
+        run: |
+          echo 'AWS CLI:' ; aws --version ; echo ;
+          echo 'Java and Maven:' ; ./mvnw --version ; echo ;
+          echo 'Node:' ; node --version ; echo ;
+          echo 'AWS CDK:' ; cdk --version ; echo ;
+
+      - name: Check AWS authentication
+        run: aws sts get-caller-identity ;
+
+      - name: Build, test, then log CloudFormation template
+        run: |
+          ./mvnw clean install ;
+          export ACCOUNT_ENV='dev' ;
+          cd ./network-stack ; cdk synth ; cd ..
+          cd ./telemetry-stack ; cdk synth ; cd ..
+          cd ./application-stack ; cdk synth ; cd ..
+
+      - name: Deploy CloudFormation template
+        run: |
+          export ACCOUNT_ENV='dev' ;
+          cd ./network-stack ; cdk deploy --require-approval never ; cd ..
+          cd ./telemetry-stack ; cdk deploy --require-approval never ; cd ..
+          cd ./application-stack ; cdk deploy --require-approval never ; cd ..
