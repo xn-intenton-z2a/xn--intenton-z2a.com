@@ -1,8 +1,8 @@
-package com.xn--intenton-z2a.web.constructs;
+package com.intention.web.constructs;
 
-import com.xn--intenton-z2a.web.functions.LogS3ObjectEvent;
-import com.xn--intenton-z2a.web.utils.WebConstants;
-import com.xn--intenton-z2a.web.utils.ResourceNameUtils;
+import com.intention.web.functions.LogS3ObjectEvent;
+import com.intention.web.utils.WebConstants;
+import com.intention.web.utils.ResourceNameUtils;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
 import com.amazonaws.services.lambda.runtime.events.S3Event;
 import org.apache.logging.log4j.LogManager;
@@ -39,7 +39,7 @@ public class LogForwardingBucket extends Stack {
 
     public LogForwardingBucket(final Construct scope, final String id, final StackProps props) {
         super(scope, id, props);
-        final String env = props != null && props.getTags() != null && props.getTags().get(AccountConstants.envTag) != null
+        final String env = props != null && props.getTags() != null && props.getTags().get(WebConstants.envTag) != null
                 ? props.getTags().get(WebConstants.envTag)
                 : WebConstants.defaultEnv ;
 

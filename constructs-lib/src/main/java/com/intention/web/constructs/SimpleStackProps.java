@@ -1,7 +1,7 @@
-package com.xn--intenton-z2a.web.constructs;
+package com.intention.web.constructs;
 
-import com.xn--intenton-z2a.web.utils.WebConstants;
-import com.xn--intenton-z2a.web.utils.ResourceNameUtils;
+import com.intention.web.utils.WebConstants;
+import com.intention.web.utils.ResourceNameUtils;
 import software.amazon.awscdk.Environment;
 import software.amazon.awscdk.Stack;
 import software.amazon.awscdk.StackProps;

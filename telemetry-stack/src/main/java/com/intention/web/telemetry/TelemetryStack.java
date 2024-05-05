@@ -1,9 +1,7 @@
-package com.intention.web.telemetry
+package com.intention.web.telemetry;
 
---intenton-z2a.web.telemetry;
-
-import com.xn--intenton-z2a.web.utils.WebConstants;
---intenton-z2a.web.utils.ResourceNameUtils;
+import com.intention.web.utils.WebConstants;
+import com.intention.web.utils.ResourceNameUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import software.amazon.awscdk.Duration;

@@ -1,7 +1,7 @@
-package com.xn--intenton-z2a.web.application;
+package com.intention.web.application;
 
-import com.xn--intenton-z2a.web.constructs.SimpleStackProps;
-import com.xn--intenton-z2a.web.utils.WebConstants;
+import com.intention.web.constructs.SimpleStackProps;
+import com.intention.web.utils.WebConstants;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.Assertions;

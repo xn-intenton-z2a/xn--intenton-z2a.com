@@ -1,9 +1,7 @@
-package com.intention.web.telemetry
+package com.intention.web.telemetry;
 
---intenton-z2a.web.telemetry;
-
-import com.xn--intenton-z2a.web.constructs.SimpleStackProps;
---intenton-z2a.web.utils.WebConstants;
+import com.intention.web.constructs.SimpleStackProps;
+import com.intention.web.utils.WebConstants;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import software.amazon.awscdk.App;

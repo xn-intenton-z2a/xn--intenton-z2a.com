@@ -1,6 +1,6 @@
-package com.xn--intenton-z2a.web.constructs;
+package com.intention.web.constructs;
 
-import com.xn--intenton-z2a.web.utils.WebConstants;
+import com.intention.web.utils.WebConstants;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

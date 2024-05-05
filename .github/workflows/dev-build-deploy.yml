@@ -30,12 +30,6 @@ jobs:
 
       - uses: actions/checkout@v3
 
-      - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v1-node16
-        with:
-          aws-region: eu-west-2
-          role-to-assume: arn:aws:iam::541134664601:role/xn--intenton-z2a-web-deployment-role
-
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
@@ -61,9 +55,6 @@ jobs:
           echo 'Node:' ; node --version ; echo ;
           echo 'AWS CDK:' ; cdk --version ; echo ;
 
-      - name: Check AWS authentication
-        run: aws sts get-caller-identity ;
-
       - name: Build, test, then log CloudFormation template
         run: |
           ./mvnw clean install ;
@@ -71,6 +62,15 @@ jobs:
           cd ./network-stack ; cdk synth ; cd ..
           cd ./telemetry-stack ; cdk synth ; cd ..
           cd ./application-stack ; cdk synth ; cd ..
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1-node16
+        with:
+          aws-region: eu-west-2
+          role-to-assume: arn:aws:iam::541134664601:role/xn--intenton-z2a-web-deployment-role
+
+      - name: Check AWS authentication
+        run: aws sts get-caller-identity ;
 
       - name: Deploy CloudFormation template
         run: |

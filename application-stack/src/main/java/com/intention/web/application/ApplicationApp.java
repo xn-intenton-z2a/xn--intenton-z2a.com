@@ -1,6 +1,6 @@
-package com.xn--intenton-z2a.web.application;
+package com.intention.web.application;
 
-import com.xn--intenton-z2a.web.constructs.SimpleStackProps;
+import com.intention.web.constructs.SimpleStackProps;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import software.amazon.awscdk.App;

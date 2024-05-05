@@ -1,9 +1,7 @@
-package com.intention.web.telemetry
+package com.intention.web.telemetry;
 
---intenton-z2a.web.telemetry;
-
-import com.xn--intenton-z2a.web.constructs.SimpleStackProps;
-import com.xn--intenton-z2a.web.utils.WebConstants;
+import com.intention.web.constructs.SimpleStackProps;
+import com.intention.web.utils.WebConstants;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import software.amazon.awscdk.App;

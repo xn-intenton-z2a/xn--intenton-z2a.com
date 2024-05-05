@@ -1,10 +1,10 @@
-package com.xn--intenton-z2a.web.application;
+package com.intention.web.application;
 
-import com.xn--intenton-z2a.web.constructs.LogForwardingBucket;
-import com.xn--intenton-z2a.web.functions.LogGzippedS3ObjectEvent;
-import com.xn--intenton-z2a.web.functions.LogS3ObjectEvent;
-import com.xn--intenton-z2a.web.utils.WebConstants;
-import com.xn--intenton-z2a.web.utils.ResourceNameUtils;
+import com.intention.web.constructs.LogForwardingBucket;
+import com.intention.web.functions.LogGzippedS3ObjectEvent;
+import com.intention.web.functions.LogS3ObjectEvent;
+import com.intention.web.utils.WebConstants;
+import com.intention.web.utils.ResourceNameUtils;
 import org.apache.hc.core5.http.HttpStatus;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -107,7 +107,7 @@ public class ApplicationStack extends Stack {
         final String WebWebsitePath = "%s%s%s".formatted(
                 WebConstants.baseDirPath,
                 File.separator,
-                WebWebsiteDirName);
+                webWebsiteDirName);
         BucketDeployment.Builder.create(this, "DeployWebWebsite")
                 .sources(List.of(Source.asset(WebWebsitePath)))
                 .destinationBucket(originBucket)

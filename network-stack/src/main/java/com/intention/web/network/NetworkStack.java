@@ -1,8 +1,6 @@
-package com.intention.web.network
+package com.intention.web.network;
 
---intenton-z2a.web.network;
-
-import com.xn--intenton-z2a.web.utils.WebConstants;
+import com.intention.web.utils.WebConstants;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import software.amazon.awscdk.Duration;
@@ -22,7 +20,7 @@ public class NetworkStack extends Stack {
 
     private static final Logger logger = LogManager.getLogger(NetworkStack.class);
 
-    private String domainName(String env) { return "%s.web.%s".formatted(env, AccountConstants.hostedZoneName); }
+    private String domainName(String env) { return "%s.web.%s".formatted(env, WebConstants.hostedZoneName); }
 
     public NetworkStack(final Construct scope, final String id) {
         this(scope, id, null);

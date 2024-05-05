@@ -1,8 +1,6 @@
-package com.intention.web.functions
+package com.intention.web.functions;
 
---intenton-z2a.web.functions;
-
-import com.xn--intenton-z2a.web.utils.S3;
+import com.intention.web.utils.S3;
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
 import com.amazonaws.services.lambda.runtime.events.S3Event;
