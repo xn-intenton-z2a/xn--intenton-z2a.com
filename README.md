@@ -10,7 +10,7 @@ Public brand:
 - [x] Website for intentïon.com text light, light grey or misty: https://xn--intenton-z2a.com/
 - [x] Logo selection
 - [ ] Brand ownership
-- [ ] CI deployment
+- [~] CI deployment
 - [x] Sign up for LinkTree
 - [ ] Link to Linktree
 - [ ] "What is your intentïon?" as a tagline and pronunciation guide.
@@ -29,40 +29,53 @@ Public brand:
 - [ ] CDK deploy
 - [ ] Extract CDK deploy to open source it under intentïon (by Polycode). 
 - [ ] Extract CI deploy action to open source it under intentïon (by Polycode).
+- [ ] Deploy through to live including some tests.
+- [ ] Quick deploy for changes to the application stack only.
 
 LinkedIn - https://www.linkedin.com/company/intentïon
+```
 -> intentïon.com
 -> Personal LinkedIn
 -> Shared showcased projects posts crediting the service or API used
 -> No direct messages
 -> Comments and mentions are an [Inbox]
+```
 
 Facebook - https://www.facebook.com/profile.php?id=61559328506140
+```
 -> intentïon.com
 -> Shared showcased projects posts crediting the service or API used
 -> No direct messages
 -> Comments and mentions are an [Inbox]
+```
 
 Twitter - https://twitter.com/intentiionai
+```
 -> intentïon.com
 -> Re-Tweets of showcased projects tweets crediting the service or API used
 -> No direct messages
 -> Replies and mentions are an [Inbox]
+```
 
 Instagram - https://www.instagram.com/intentiionaii
+```
 -> LinkTree
 -> Shared showcased projects posts crediting the service or API used
 -> No direct messages
 -> Comments and mentions are an [Inbox]
+```
 
 LinkTree - https://linktr.ee/intentiion
+```
 -> intentïon.com
 -> LinkedIn
 -> Facebook
 -> Twitter
 -> Instagram
+```
 
 GitHub (showcase projects)
+```
 -> How to seed a new similar project [Goal]
 -> Featured intentïon services
 -> Featured intentïon APIs
@@ -70,17 +83,22 @@ GitHub (showcase projects)
 -> CI stats
 -> Attribution documents
 -> Contributor guidelines
+```
 
 GitHub (projects)
+```
 -> How to seed a project [Goal]
 -> Examples (such as the showcase projects)
 -> Activity in social media
 -> Discussion forum
 -> Wiki
 -> Ticketing system [Inbox]
+```
 
 Request email
+```
 -> Link on intentïon.com to a form to request contact by email [Inbox]
+```
 
 # intentïon: The Feedback Loop of Innovation
 
