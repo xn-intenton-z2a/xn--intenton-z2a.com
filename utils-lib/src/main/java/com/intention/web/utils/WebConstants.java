@@ -2,6 +2,10 @@ package com.intention.web.utils;
 
 import software.amazon.awssdk.regions.Region;
 
+import java.util.AbstractMap;
+import java.util.List;
+import java.util.regex.Pattern;
+
 public class WebConstants {
     public static final String envTag = "env";
     public static final String defaultEnv = "local";
@@ -16,4 +20,7 @@ public class WebConstants {
     public static final String CDK_DEFAULT_REGION = "CDK_DEFAULT_REGION";
     public static final String JSII_SILENCE_WARNING_UNTESTED_NODE_VERSION = "JSII_SILENCE_WARNING_UNTESTED_NODE_VERSION";
     public static final String JSII_SILENCE_WARNING_DEPRECATED_NODE_VERSION = "JSII_SILENCE_WARNING_DEPRECATED_NODE_VERSION";
+    public static final List<AbstractMap.SimpleEntry<Pattern, String>> domainNameMappings = List.of(
+            new AbstractMap.SimpleEntry<>(Pattern.compile("xn--intenton-z2a"), "intention")
+    );
 }

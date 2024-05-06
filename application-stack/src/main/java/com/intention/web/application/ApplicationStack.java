@@ -43,8 +43,10 @@ import software.amazon.awscdk.services.s3.deployment.Source;
 import software.constructs.Construct;
 
 import java.io.File;
+import java.util.AbstractMap;
 import java.util.Collections;
 import java.util.List;
+import java.util.regex.Pattern;
 
 public class ApplicationStack extends Stack {
 
@@ -57,7 +59,7 @@ public class ApplicationStack extends Stack {
     private static final String defaultHtmlDocument = "index.html";
     private static final String error404HtmlDistribution = "404-error-distribution.html";
     private String domainName(String env) { return "%s.web.%s".formatted(env, WebConstants.hostedZoneName); }
-    private String dashedDomainName(String env) { return ResourceNameUtils.convertDashSeparatedToDotSeparated(domainName(env)); }
+    private String dashedDomainName(String env) { return ResourceNameUtils.convertDashSeparatedToDotSeparated(domainName(env), WebConstants.domainNameMappings); }
     private String cloudTrailLogBucketName(String env) { return "%s-cloud-trail".formatted(dashedDomainName(env)); }
     private String originAccessLogBucketName(String env) { return "%s-origin-access-logs".formatted(dashedDomainName(env)); }
     private String distributionAccessLogBucketName(String env) { return "%s-distribution-access-logs".formatted(dashedDomainName(env));}
@@ -65,6 +67,11 @@ public class ApplicationStack extends Stack {
     public String certificateArn(final String certificateName) {
         return "arn:aws:acm:us-east-1:%s:certificate/%s".formatted(this.getAccount(), certificateName);
     }
+
+    private static final List<AbstractMap.SimpleEntry<Pattern, String>> domainNameMappings = List.of(
+            new AbstractMap.SimpleEntry<>(Pattern.compile("xn--intenton-z2a"), "intention")
+    );
+
     public ApplicationStack(final Construct scope, final String id) {
         this(scope, id, null);
     }

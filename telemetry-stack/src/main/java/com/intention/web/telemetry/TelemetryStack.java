@@ -1,7 +1,7 @@
 package com.intention.web.telemetry;
 
-import com.intention.web.utils.WebConstants;
 import com.intention.web.utils.ResourceNameUtils;
+import com.intention.web.utils.WebConstants;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import software.amazon.awscdk.Duration;
@@ -17,20 +17,14 @@ import software.amazon.awscdk.services.s3.LifecycleRule;
 import software.amazon.awscdk.services.s3.ObjectOwnership;
 import software.constructs.Construct;
 
-import java.util.AbstractMap;
 import java.util.List;
-import java.util.regex.Pattern;
 
 public class TelemetryStack extends Stack {
 
     private static final Logger logger = LogManager.getLogger(TelemetryStack.class);
 
-    private static final List<AbstractMap.SimpleEntry<Pattern, String>> domainNameMappings = List.of(
-            new AbstractMap.SimpleEntry<>(Pattern.compile("xn--intenton-z2a"), "intention")
-    );
-
     private String domainName(String env) { return "%s.web.%s".formatted(env, WebConstants.hostedZoneName); }
-    private String dashedDomainName(String env) { return ResourceNameUtils.convertDashSeparatedToDotSeparated(domainName(env), domainNameMappings); }
+    private String dashedDomainName(String env) { return ResourceNameUtils.convertDashSeparatedToDotSeparated(domainName(env), WebConstants.domainNameMappings); }
     private String cloudTrailLogBucketName(String env) { return "%s-cloud-trail".formatted(dashedDomainName(env)); }
 
     public TelemetryStack(final Construct scope, final String id) {

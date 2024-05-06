@@ -31,6 +31,11 @@ Public brand:
 - [ ] Extract CI deploy action to open source it under intentïon (by Polycode).
 - [ ] Deploy through to live including some tests.
 - [ ] Quick deploy for changes to the application stack only.
+- [ ] Maven version upgrades
+- [ ] Maven clean running (no warnings)
+- [ ] Stacks to stacks directory
+- [ ] Libs to libs directory
+- [ ] Pull WebConstants out into a Config module's Parameters class and pass into the stacks 
 
 LinkedIn - https://www.linkedin.com/company/intentïon
 ```
