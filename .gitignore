@@ -133,8 +133,8 @@ dist
 /.idea/
 
 # Terraform
-/infrastructure/.terragrunt-cache/
-/infrastructure/.terraform.lock.hcl
+/**/.terragrunt-cache/
+/**/.terraform.lock.hcl
 
 # Maven
 /**/target/
@@ -142,3 +142,4 @@ dist
 # Misc
 .DS_Store
 /**/dependency-reduced-pom.xml
+/**/cdk.out
