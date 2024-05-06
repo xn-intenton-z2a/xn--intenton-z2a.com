@@ -70,7 +70,7 @@ resource "aws_iam_role_policy_attachment" "route-attachment" { # 2
 resource "aws_iam_role_policy_attachment" "cloudwatch-attachment" { # 3
   depends_on = [aws_iam_role.iam_deploy_role]
   role = aws_iam_role.iam_deploy_role.name
-  policy_arn = "arn:aws:iam::aws:policy/CloudWatchFullAccess"
+  policy_arn = "arn:aws:iam::aws:policy/CloudWatchFullAccessV2"
 }
 resource "aws_iam_role_policy_attachment" "ecr-attachment" { # 4
   depends_on = [aws_iam_role.iam_deploy_role]
@@ -92,15 +92,10 @@ resource "aws_iam_role_policy_attachment" "cloudtrail-attachment" { # 7
   role = aws_iam_role.iam_deploy_role.name
   policy_arn = "arn:aws:iam::aws:policy/AWSCloudTrail_FullAccess"
 }
-resource "aws_iam_role_policy_attachment" "cloudtrail-attachment" { # 7
-  depends_on = [aws_iam_role.iam_deploy_role]
-  role = aws_iam_role.iam_deploy_role.name
-  policy_arn = "arn:aws:iam::aws:policy/AWSCloudTrail_FullAccess"
-}
 resource "aws_iam_role_policy_attachment" "acm-attachment" { # 8
   depends_on = [aws_iam_role.iam_deploy_role]
   role = aws_iam_role.iam_deploy_role.name
-  policy_arn = "arn:aws:iam::aws:policy/AmazonCertificateManagerFullAccess"
+  policy_arn = "arn:aws:iam::aws:policy/AWSCertificateManagerFullAccess"
 }
 data "aws_iam_policy_document" "inline_policy_document" { # 9
   statement {
