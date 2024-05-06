@@ -57,37 +57,42 @@ resource "aws_iam_role" "iam_deploy_role" {
   assume_role_policy = data.aws_iam_policy_document.trust_policy_document.json
 }
 
-resource "aws_iam_role_policy_attachment" "iam-attachment" {
+resource "aws_iam_role_policy_attachment" "iam-attachment" { # 1
   depends_on = [aws_iam_role.iam_deploy_role]
   role = aws_iam_role.iam_deploy_role.name
   policy_arn = "arn:aws:iam::aws:policy/IAMFullAccess"
 }
-resource "aws_iam_role_policy_attachment" "cloudwatch-attachment" {
+resource "aws_iam_role_policy_attachment" "route-attachment" { # 2
+  depends_on = [aws_iam_role.iam_deploy_role]
+  role = aws_iam_role.iam_deploy_role.name
+  policy_arn = "arn:aws:iam::aws:policy/AmazonRoute53FullAccess"
+}
+resource "aws_iam_role_policy_attachment" "cloudwatch-attachment" { # 3
   depends_on = [aws_iam_role.iam_deploy_role]
   role = aws_iam_role.iam_deploy_role.name
   policy_arn = "arn:aws:iam::aws:policy/CloudWatchFullAccess"
 }
-resource "aws_iam_role_policy_attachment" "ecr-attachment" {
+resource "aws_iam_role_policy_attachment" "ecr-attachment" { # 4
   depends_on = [aws_iam_role.iam_deploy_role]
   role = aws_iam_role.iam_deploy_role.name
   policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryFullAccess"
 }
-resource "aws_iam_role_policy_attachment" "ssm-attachment" {
+resource "aws_iam_role_policy_attachment" "ssm-attachment" { # 5
   depends_on = [aws_iam_role.iam_deploy_role]
   role = aws_iam_role.iam_deploy_role.name
   policy_arn = "arn:aws:iam::aws:policy/AmazonSSMFullAccess"
 }
-resource "aws_iam_role_policy_attachment" "tag-attachment" {
+resource "aws_iam_role_policy_attachment" "tag-attachment" { # 6
   depends_on = [aws_iam_role.iam_deploy_role]
   role = aws_iam_role.iam_deploy_role.name
   policy_arn = "arn:aws:iam::aws:policy/ResourceGroupsandTagEditorFullAccess"
 }
-resource "aws_iam_role_policy_attachment" "cloudtrail-attachment" {
+resource "aws_iam_role_policy_attachment" "cloudtrail-attachment" { # 7
   depends_on = [aws_iam_role.iam_deploy_role]
   role = aws_iam_role.iam_deploy_role.name
   policy_arn = "arn:aws:iam::aws:policy/AWSCloudTrail_FullAccess"
 }
-data "aws_iam_policy_document" "inline_policy_document" {
+data "aws_iam_policy_document" "inline_policy_document" { # 8
   statement {
     effect = "Allow"
     actions = [
