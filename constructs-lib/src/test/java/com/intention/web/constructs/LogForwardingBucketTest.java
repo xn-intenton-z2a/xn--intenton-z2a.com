@@ -20,7 +20,7 @@ public class LogForwardingBucketTest {
             new EnvironmentVariables(
                     WebConstants.JSII_SILENCE_WARNING_UNTESTED_NODE_VERSION, "true",
                     WebConstants.JSII_SILENCE_WARNING_DEPRECATED_NODE_VERSION, "true",
-                    WebConstants.ACCOUNT_ENV, "test",
+                    WebConstants.TARGET_ENV, "test",
                     WebConstants.CDK_DEFAULT_ACCOUNT, testAccount,
                     WebConstants.CDK_DEFAULT_REGION, WebConstants.defaultRegion
             );

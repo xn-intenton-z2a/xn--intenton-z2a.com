@@ -44,5 +44,5 @@ jobs:
 
       - name: Destroy deployment
         run: |
-          export ACCOUNT_ENV='dev' ;
+          export TARGET_ENV='dev' ;
           cdk destroy --require-approval never --force ;

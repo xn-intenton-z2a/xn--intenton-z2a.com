@@ -65,19 +65,30 @@ jobs:
       - name: Check AWS authentication
         run: aws sts get-caller-identity ;
 
-      - name: Build, test, then log CloudFormation template
-        run: |
-          ./mvnw clean install \
-          ; export ACCOUNT_ENV='dev' \
-          ; cd ./network-stack ; cdk synth ; cd .. \
-          ; cd ./telemetry-stack ; cdk synth ; cd .. \
-          ; cd ./application-stack ; cdk synth ; cd .. \
-          ;
+      - name: Build & test
+        run: ./mvnw clean install ;
 
+      - name: Log network stack CloudFormation template
+        run: cd ./network-stack ; TARGET_ENV='dev' cdk synth ;
+
+      - name: Log telemetry stack CloudFormation template
+        run: cd ./telemetry-stack ; TARGET_ENV='dev' cdk synth ;
+
+      - name: Log application stack CloudFormation template
+        run: cd ./application-stack ; TARGET_ENV='dev' cdk synth ;
+
+     # - name: Build, test, then log CloudFormation template
+     #   run: |
+     #     ./mvnw clean install \
+     #     ; export TARGET_ENV='dev' \
+     #     ; cd ./network-stack ; cdk synth ; cd .. \
+     #     ; cd ./telemetry-stack ; cdk synth ; cd .. \
+     #     ; cd ./application-stack ; cdk synth ; cd .. \
+     #     ;
 
       - name: Deploy CloudFormation template
         run: |
-          export ACCOUNT_ENV='dev' \
+          export TARGET_ENV='dev' \
           ; cd ./network-stack ; cdk deploy --require-approval never ; cd .. \
           ; cd ./telemetry-stack ; cdk deploy --require-approval never ; cd .. \
           ; cd ./application-stack ; cdk deploy --require-approval never ; cd .. \

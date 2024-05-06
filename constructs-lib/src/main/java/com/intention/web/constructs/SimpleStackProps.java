@@ -29,8 +29,8 @@ public class SimpleStackProps implements StackProps {
 
         public Builder env() {
             return env(
-                    System.getenv(WebConstants.ACCOUNT_ENV) != null
-                            ? System.getenv(WebConstants.ACCOUNT_ENV)
+                    System.getenv(WebConstants.TARGET_ENV) != null
+                            ? System.getenv(WebConstants.TARGET_ENV)
                             : WebConstants.defaultEnv
             );
         }

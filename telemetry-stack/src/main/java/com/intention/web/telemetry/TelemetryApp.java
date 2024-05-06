@@ -11,8 +11,8 @@ public class TelemetryApp {
     private static final Logger logger = LogManager.getLogger(TelemetryApp.class);
 
     private final static String env =
-            System.getenv(WebConstants.ACCOUNT_ENV) != null
-                    ? System.getenv(WebConstants.ACCOUNT_ENV)
+            System.getenv(WebConstants.TARGET_ENV) != null
+                    ? System.getenv(WebConstants.TARGET_ENV)
                     : WebConstants.defaultEnv ;
 
     public static void main(final String[] args) {
