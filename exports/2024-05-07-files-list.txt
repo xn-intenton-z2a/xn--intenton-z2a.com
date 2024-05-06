@@ -26,7 +26,7 @@
 ./docs/setup-add-identity-provider.png
 ./telemetry-stack/pom.xml
 ./telemetry-stack/cdk.json
-./telemetry-stack/deployment.iml
+./telemetry-stack/telemetry-stack.iml
 ./telemetry-stack/src/test/resources/placeholder.txt
 ./telemetry-stack/src/test/java/com/intention/web/telemetry/TelemetryTest.java
 ./telemetry-stack/src/main/resources/log4j2.yml
@@ -129,9 +129,10 @@
 ./brand-usage/Instagram_Glyph_Gradient.png
 ./brand-usage/banner-1584x396.png
 ./deployment-parameters-live.yml
+./network-stack/network-stack.iml
 ./network-stack/pom.xml
 ./network-stack/cdk.json
-./network-stack/deployment.iml
+./network-stack/cdk.out/synth.lock
 ./network-stack/src/test/resources/placeholder.txt
 ./network-stack/src/test/java/com/intention/web/network/NetworkTest.java
 ./network-stack/src/main/resources/log4j2.yml

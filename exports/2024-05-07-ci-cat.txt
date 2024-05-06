@@ -1,0 +1,336 @@
+./.github/workflows/dev-destroy.yml
+==== Content of ./.github/workflows/dev-destroy.yml ====
+name: Destroy dev
+concurrency: build-deploy-or-infrastructure
+
+on:
+  workflow_dispatch:
+
+jobs:
+  dev-destroy:
+
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      packages: write
+      id-token: write
+
+    steps:
+
+      - uses: actions/checkout@v3
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1-node16
+        with:
+          aws-region: eu-west-2
+          role-to-assume: arn:aws:iam::541134664601:role/intention-com-web-deployment-role
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: 'npm'
+          check-latest: true
+
+      - name: Set up Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'corretto'
+          java-version: '17'
+          cache: 'maven'
+          check-latest: true
+
+      - name: Install AWS CDK
+        run: npm install -g aws-cdk ;
+
+      - name: Destroy deployment
+        run: |
+          export TARGET_ENV='dev' ;
+          cdk destroy --require-approval never --force ;
+./.github/workflows/check-aws-access-for-deployment-role.yml
+==== Content of ./.github/workflows/check-aws-access-for-deployment-role.yml ====
+name: Check AWS deployment credentials
+
+on:
+  workflow_dispatch:
+
+jobs:
+  check-aws-access:
+
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      packages: write
+      id-token: write
+
+    steps:
+
+      - run: uname -a
+
+      # See: https://github.com/aws-actions/configure-aws-credentials
+      # See: https://www.eliasbrange.dev/posts/secure-aws-deploys-from-github-actions-with-oidc/#:~:text=To%20be%20able%20to%20authenticate,Provider%20type%2C%20select%20OpenID%20Connect.
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1-node16
+        with:
+          aws-region: eu-west-2
+          role-to-assume: arn:aws:iam::541134664601:role/intention-com-web-deployment-role
+
+      - run: aws --version
+      - run: aws sts get-caller-identity
+      - run: aws s3 ls
+./.github/workflows/live-build-deploy.yml
+==== Content of ./.github/workflows/live-build-deploy.yml ====
+name: Build and deploy live
+concurrency: build-deploy-or-infrastructure
+
+on:
+  workflow_dispatch:
+
+jobs:
+  terragrunt-apply-stage:
+
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      packages: write
+      id-token: write
+
+    steps:
+
+      - uses: actions/checkout@v3
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1-node16
+        with:
+          aws-region: eu-west-2
+          role-to-assume: arn:aws:iam::541134664601:role/intention-com-web-deployment-role
+
+      # TODO Deploy./.github/workflows/infrastructure-apply.yml
+==== Content of ./.github/workflows/infrastructure-apply.yml ====
+name: Create infrastructure
+concurrency: build-deploy-or-infrastructure
+
+on:
+  push:
+    paths:
+      - 'infrastructure/**'
+      - '.github/workflows/infrastructure-apply.yml'
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  terragrunt-apply:
+
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      packages: write
+      id-token: write
+
+    steps:
+
+      - uses: actions/checkout@v3
+
+      - name: Install Terragrunt
+        run: sudo apt-get install -y wget &&
+          wget https://github.com/gruntwork-io/terragrunt/releases/download/v0.43.0/terragrunt_linux_386 --output-document ./terragrunt &&
+          chmod u+x ./terragrunt &&
+          ./terragrunt --version
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1-node16
+        with:
+          aws-region: eu-west-2
+          role-to-assume: arn:aws:iam::541134664601:role/intention-com-web-infrastructure-role
+
+      - name: Terragrunt apply
+        run: ./terragrunt apply -auto-approve --terragrunt-non-interactive --terragrunt-working-dir ./infrastructure
+./.github/workflows/infrastructure-destroy.yml
+==== Content of ./.github/workflows/infrastructure-destroy.yml ====
+name: Destroy infrastructure
+concurrency: build-deploy-or-infrastructure
+
+on:
+  workflow_dispatch:
+
+jobs:
+  terragrunt-destroy:
+
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      packages: write
+      id-token: write
+
+    steps:
+
+      - uses: actions/checkout@v3
+
+      - name: Install Terragrunt
+        run: sudo apt-get install -y wget &&
+          wget https://github.com/gruntwork-io/terragrunt/releases/download/v0.43.0/terragrunt_linux_386 --output-document ./terragrunt &&
+          chmod u+x ./terragrunt &&
+          ./terragrunt --version
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1-node16
+        with:
+          aws-region: eu-west-2
+          role-to-assume: arn:aws:iam::541134664601:role/intention-com-web-infrastructure-role
+
+      - name: Terragrunt destroy
+        run: ./terragrunt destroy -auto-approve --terragrunt-non-interactive --terragrunt-working-dir ./infrastructure
+./.github/workflows/check-aws-access-for-infrastructure-role.yml
+==== Content of ./.github/workflows/check-aws-access-for-infrastructure-role.yml ====
+name: Check AWS infrastructure credentials
+
+on:
+  workflow_dispatch:
+
+jobs:
+  check-aws-access:
+
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      packages: write
+      id-token: write
+
+    steps:
+
+      - run: uname -a
+
+      # See: https://github.com/aws-actions/configure-aws-credentials
+      # See: https://www.eliasbrange.dev/posts/secure-aws-deploys-from-github-actions-with-oidc/#:~:text=To%20be%20able%20to%20authenticate,Provider%20type%2C%20select%20OpenID%20Connect.
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1-node16
+        with:
+          aws-region: eu-west-2
+          role-to-assume: arn:aws:iam::541134664601:role/intention-com-web-infrastructure-role
+
+      - run: aws --version
+      - run: aws sts get-caller-identity
+      - run: aws s3 ls
+./.github/workflows/dev-build-deploy.yml
+==== Content of ./.github/workflows/dev-build-deploy.yml ====
+name: Build and deploy dev
+concurrency: build-deploy-or-infrastructure
+
+on:
+  push:
+    paths-ignore:
+      - './LICENSE'
+      - './README.md'
+      - '.github/workflows/check*.yml'
+      - '.github/workflows/infrastructure*.yml'
+      - '.gitignore'
+      - './deployment/src/test/**'
+      - './infrastructure/**'
+      - './*.sh'
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  dev-build-deploy:
+
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      packages: write
+      id-token: write
+
+    steps:
+
+      - uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: 'npm'
+          check-latest: true
+
+      - name: Set up Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'corretto'
+          java-version: '17'
+          cache: 'maven'
+          check-latest: true
+
+      - name: Install AWS CDK
+        run: npm install -g aws-cdk ;
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1-node16
+        with:
+          aws-region: eu-west-2
+          role-to-assume: arn:aws:iam::541134664601:role/intention-com-web-deployment-role
+
+      - name: Check AWS CLI version
+        run: aws --version ; echo ;
+
+      - name: Check Java and Maven versions
+        run: ./mvnw --version ; echo ;
+
+      - name: Check Node version
+        run:  node --version ;
+
+      - name: Check AWS CDK versions
+        run: cdk --version ; echo ;
+
+      - name: Check AWS authentication
+        run: aws sts get-caller-identity ;
+
+      - name: Build & test
+        run: ./mvnw clean install ;
+
+      - name: Log Network stack CloudFormation template
+        run: cd ./network-stack ; export TARGET_ENV='dev' ; cdk synth ;
+
+      - name: Log Telemetry stack CloudFormation template
+        run: cd ./telemetry-stack ; export TARGET_ENV='dev' ; cdk synth ;
+
+      - name: Log Application stack CloudFormation template
+        run: cd ./application-stack ; export TARGET_ENV='dev' ; cdk synth ;
+
+      - name: Bootstrap Network stack
+        run: cd ./network-stack ; export TARGET_ENV='dev' ; cdk bootstrap ;
+
+      - name: Bootstrap Telemetry stack
+        run: cd ./telemetry-stack ; export TARGET_ENV='dev' ; cdk bootstrap ;
+
+      - name: Bootstrap Application stack
+        run: cd ./application-stack ; export TARGET_ENV='dev' ; cdk bootstrap ;
+
+      - name: Deploy Network stack
+        run: cd ./network-stack ; export TARGET_ENV='dev' ; cdk deploy --require-approval never ;
+
+      - name: Deploy Telemetry stack
+        run: cd ./telemetry-stack ; export TARGET_ENV='dev' ; cdk deploy --require-approval never ;
+
+      - name: Deploy Application stack
+        run: cd ./application-stack ; export TARGET_ENV='dev' ; cdk deploy --require-approval never ;
+./.github/dependabot.yml
+==== Content of ./.github/dependabot.yml ====
+version: 2
+updates:
+  - package-ecosystem: "maven"
+    directory: "/"
+    schedule:
+      interval: "daily"
+    commit-message:
+      prefix: "dependabot"
+      include: "scope"
+    labels:
+      - "automerge"
+      - "dependencies"

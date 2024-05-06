@@ -72,20 +72,29 @@ jobs:
       - name: Build & test
         run: ./mvnw clean install ;
 
-      - name: Log network stack CloudFormation template
-        run: cd ./network-stack ; TARGET_ENV='dev' cdk synth ;
+      - name: Log Network stack CloudFormation template
+        run: cd ./network-stack ; export TARGET_ENV='dev' ; cdk synth ;
 
-      - name: Log telemetry stack CloudFormation template
-        run: cd ./telemetry-stack ; TARGET_ENV='dev' cdk synth ;
+      - name: Log Telemetry stack CloudFormation template
+        run: cd ./telemetry-stack ; export TARGET_ENV='dev' ; cdk synth ;
 
-      - name: Log application stack CloudFormation template
-        run: cd ./application-stack ; TARGET_ENV='dev' cdk synth ;
+      - name: Log Application stack CloudFormation template
+        run: cd ./application-stack ; export TARGET_ENV='dev' ; cdk synth ;
 
-      - name: Deploy network CloudFormation template
-        run: cd ./network-stack ; TARGET_ENV='dev' cdk deploy --require-approval never ;
+      - name: Bootstrap Network stack
+        run: cd ./network-stack ; export TARGET_ENV='dev' ; cdk bootstrap ;
 
-      - name: Deploy telemetry CloudFormation template
-        run: cd ./telemetry-stack ; TARGET_ENV='dev' cdk deploy --require-approval never ;
+      - name: Bootstrap Telemetry stack
+        run: cd ./telemetry-stack ; export TARGET_ENV='dev' ; cdk bootstrap ;
 
-      - name: Deploy application CloudFormation template
-        run: cd ./application-stack ; TARGET_ENV='dev' cdk deploy --require-approval never ;
+      - name: Bootstrap Application stack
+        run: cd ./application-stack ; export TARGET_ENV='dev' ; cdk bootstrap ;
+
+      - name: Deploy Network stack
+        run: cd ./network-stack ; export TARGET_ENV='dev' ; cdk deploy --require-approval never ;
+
+      - name: Deploy Telemetry stack
+        run: cd ./telemetry-stack ; export TARGET_ENV='dev' ; cdk deploy --require-approval never ;
+
+      - name: Deploy Application stack
+        run: cd ./application-stack ; export TARGET_ENV='dev' ; cdk deploy --require-approval never ;

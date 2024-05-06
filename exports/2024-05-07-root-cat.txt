@@ -33,6 +33,12 @@ Public brand:
 - [ ] Extract CI deploy action to open source it under intentïon (by Polycode).
 - [ ] Deploy through to live including some tests.
 - [ ] Quick deploy for changes to the application stack only.
+- [ ] Maven version upgrades
+- [ ] Maven clean running (no warnings)
+- [ ] Stacks to stacks directory
+- [ ] Libs to libs directory
+- [ ] Pull WebConstants out into a Config module's Parameters class and pass into the stacks 
+- [ ] Encapsulate the stacks components and consider calling them from a single stack
 
 LinkedIn - https://www.linkedin.com/company/intentïon
 ```
@@ -116,7 +122,7 @@ What intentïon brings to the table is not just a promise but a steady march tow
 
 intentïon. Pronunciation: /ɪnˈtɛnʃən/. The diaeresis? It's a style thing (and .com was available for 13 bucks); you are invited to pronounce your intentïon as you please.
 
-# Glossary
+## Glossary
 
 - **intentïon**: An *intentïon* can be *accomplished* in a single *iteration* with at least one *parameter set*.
 - **iteration**: An *iteration* is a finite pre-defined *workflow* of *actions* initiated by a *request*.
@@ -133,28 +139,34 @@ intentïon. Pronunciation: /ɪnˈtɛnʃən/. The diaeresis? It's a style thing (
 - **heuristic**: A *heuristic* can apply the *intentïon* to select a *parameter set* from the *search space*.
 - **enhancement**: An *enhancement* is the *heuristic* applied to previous request & responses and the *intentïon*.
 
-## Getting Started
+# Getting Started
 
 # Infrastructure setup
 
-## Prerequisites
-
 A user with full IAM access to create a role will be needed to execute the Terraform scripts which in turn to create
 the infrastructure level resources such as:
-* The IAM role for the deployment user
+* The IAM role for the infrastructure user
 
 Software required:
 * [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html)
 * [jq](https://stedolan.github.io/jq/download/)
 * [Terraform](https://www.terraform.io/downloads.html)
 * Terragrunt
+* AWS CDK
+
+Terragrunt:
 ```shell
  % brew install terragrunt
 ```
 
-## Steps
+Install the AWS CDK and ensure that version 2 is installed:
+````bash
+ % npm install -g aws-cdk
+ % cdk --version
+2.140.0 (build 46168aa)
+````
 
-* Run:
+Create the IAM role for the infrastructure user:
 ```shell
  % export AWS_ACCOUNT_ID='541134664601'
  % export AWS_ACCESS_KEY_ID='...redacted...'
@@ -165,27 +177,10 @@ Software required:
     "Account": "541134664601",
     "Arn": "arn:aws:iam::541134664601:user/polycode-deploy"
 }
- % ./aws-create-infrastructure-role.sh
+ % ./scripts/aws-create-infrastructure-role.sh
 ```
 
-Assume the infrastructure role created by the script and use Terragrunt to create the infrastructure level resources by running:
-```shell
- % source ./aws-reset-assumed-role.sh
-{
-    "UserId": "AIDAX37RDWOMUJDFBDE6Y",
-    "Account": "541134664601",
-    "Arn": "arn:aws:iam::541134664601:user/polycode-default-account"
-}
- % source ./aws-assume-infrastructure-role.sh
- {
-    "UserId": "AROA45MW5HDLQ2F53F3V4:WorkstationSession-for-antony",
-    "Account": "541134664601",
-    "Arn": "arn:aws:sts::541134664601:assumed-role/intention-com-web-infrastructure-role/WorkstationSession-for-antony"
-}
- % terragrunt apply -auto-approve --terragrunt-non-interactive --terragrunt-working-dir ./infrastructure
-```
-
-Add GitHub as an identity provider
+Add GitHub as an identity provider:
 To be able to authenticate with OIDC from GitHub you will first need to set up GitHub as a federated identity provider in your AWS account.
 1. To do that, navigate to the AWS IAM console and click on Identity Providers on the left-hand side.
 2. Then, click on the Add provider button.
@@ -196,65 +191,83 @@ To be able to authenticate with OIDC from GitHub you will first need to set up G
 See:
 ![setup-add-identity-provider](docs/setup-add-identity-provider.png)
 
-Assume the deployment role locally created by the script by running:
-```shell
- % source ./aws-reset-assumed-role.sh
-{
-    "UserId": "AIDAX37RDWOMUJDFBDE6Y",
-    "Account": "541134664601",
-    "Arn": "arn:aws:iam::541134664601:user/polycode-default-account"
-}
- % source ./aws-assume-deployment-role.sh
-{
-    "UserId": "AROA45MW5HDLRUMTIBS4I:WorkstationSession-for-antony",
-    "Account": "887764105431",
-    "Arn": "arn:aws:sts::887764105431:assumed-role/diyaccounting-co-uk-account-deployment-role/WorkstationSession-for-antony"
-}
- %
-```
-
-## Infrastructure tear-down
-
-Run the following in sequence:
-```shell
- % source ./aws-assume-infrastructure-role.sh
- % terragrunt run-all destroy -auto-approve --terragrunt-non-interactive --terragrunt-working-dir ./infrastructure
- % ./aws-delete-infrastructure-role.sh
-```
-
-# CDK setup
-
-Install the AWS CDK and ensure that version 2 is installed:
-````bash
- % npm install -g aws-cdk
- % cdk --version
-2.140.0 (build 46168aa)
-````
-
-## Preparing the AWS account for CDK deployment
+## First deployment
 
 Bootstrap the stack with a state bucket
 ```bash
- % source ./aws-reset-assumed-role.sh
+ % source ./scripts/aws-reset-assumed-role.sh
 {
     "UserId": "AIDAX37RDWOMUJDFBDE6Y",
     "Account": "541134664601",
     "Arn": "arn:aws:iam::541134664601:user/polycode-default-account"
 }
- % source ./aws-assume-deployment-role.sh
+ % source ./scripts/aws-assume-deployment-role.sh
 {
     "UserId": "AROA45MW5HDLRUMTIBS4I:WorkstationSession-for-antony",
     "Account": "887764105431",
-    "Arn": "arn:aws:sts::887764105431:assumed-role/diyaccounting-co-uk-account-deployment-role/WorkstationSession-for-antony"
+    "Arn": "arn:aws:sts::887764105431:assumed-role/intention-com-web-deployment-role/WorkstationSession-for-antony"
 }
  % TODO...
 ````
+
+The commit and push and the following jobs should run:
+* `infrastructure-apply.yml` - Create infrastructure
+* `dev-build-deploy.yml` - Build and deploy dev
+
+The development side shall now be available at:
+
+TODO website: http://test.com
+
+## Manual infrastructure tear-down
+
+Run the following in sequence:
+```shell
+ % source ./scripts/aws-assume-infrastructure-role.sh
+ % terragrunt run-all destroy -auto-approve --terragrunt-non-interactive --terragrunt-working-dir ./infrastructure
+ % ./scripts/aws-delete-infrastructure-role.sh
+```
 
 # Handy scripts
 
 Cat the workflow and source files to datestamp the files in the export directory.
 ```shell
 ./export-source.sh
+```
+
+## Local access to AWS
+
+You can assume the infrastructure role locally and use Terragrunt to create the infrastructure level resources by running:
+```shell
+ % source ./scripts/aws-reset-assumed-role.sh
+{
+    "UserId": "AIDAX37RDWOMUJDFBDE6Y",
+    "Account": "541134664601",
+    "Arn": "arn:aws:iam::541134664601:user/polycode-default-account"
+}
+ % source ./scripts/aws-assume-infrastructure-role.sh
+ {
+    "UserId": "AROA45MW5HDLQ2F53F3V4:WorkstationSession-for-antony",
+    "Account": "541134664601",
+    "Arn": "arn:aws:sts::541134664601:assumed-role/intention-com-web-infrastructure-role/WorkstationSession-for-antony"
+}
+ % terragrunt apply -auto-approve --terragrunt-non-interactive --terragrunt-working-dir ./infrastructure
+```
+
+You can assume the deployment role locally by running:
+```shell
+ % source ./scripts/aws-reset-assumed-role.sh
+{
+    "UserId": "AIDAX37RDWOMUJDFBDE6Y",
+    "Account": "541134664601",
+    "Arn": "arn:aws:iam::541134664601:user/polycode-default-account"
+}
+ % source ./scripts/aws-assume-deployment-role.sh
+{
+    "UserId": "AROA45MW5HDLRUMTIBS4I:WorkstationSession-for-antony",
+    "Account": "887764105431",
+    "Arn": "arn:aws:sts::887764105431:assumed-role/intention-com-web-deployment-role/WorkstationSession-for-antony"
+}
+ %
 ```
 
 # Prompts
