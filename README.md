@@ -36,6 +36,7 @@ Public brand:
 - [ ] Stacks to stacks directory
 - [ ] Libs to libs directory
 - [ ] Pull WebConstants out into a Config module's Parameters class and pass into the stacks 
+- [ ] Encapsulate the stacks components and consider calling them from a single stack
 
 LinkedIn - https://www.linkedin.com/company/intentïon
 ```
