@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 # Purpose: Create a user for the terraform execution
-# Usage: ./aws-create-infrastructure.sh
+# Usage: ./scripts/aws-create-infrastructure.sh
 # Note: Requires privileges in the current environment to create an IAM role (and anything else in ./infrastructure)
 # shellcheck disable=SC2016
-infrastructure_role_name='xn--intenton-z2a-web-infrastructure-role'
+infrastructure_role_name='intenton-com-web-infrastructure-role'
 aws iam create-role \
   --role-name "${infrastructure_role_name?}" \
   --assume-role-policy-document file://infrastructure/infrastructure-role-trust-policy.json \

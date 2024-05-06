@@ -34,7 +34,7 @@ jobs:
         uses: aws-actions/configure-aws-credentials@v1-node16
         with:
           aws-region: eu-west-2
-          role-to-assume: arn:aws:iam::541134664601:role/xn--intenton-z2a-web-infrastructure-role
+          role-to-assume: arn:aws:iam::541134664601:role/intenton-com-web-infrastructure-role
 
       - name: Terragrunt apply
         run: ./terragrunt apply -auto-approve --terragrunt-non-interactive --terragrunt-working-dir ./infrastructure

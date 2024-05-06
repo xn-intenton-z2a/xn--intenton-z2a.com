@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.xn--intenton-z2a.web</groupId>
+        <groupId>com.intenton.web</groupId>
         <artifactId>web</artifactId>
         <version>0.1-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
@@ -21,7 +21,7 @@
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
                 <configuration>
-                    <mainClass>com.xn--intenton-z2a.web.telemetry.TelemetryApp</mainClass>
+                    <mainClass>com.intenton.web.telemetry.TelemetryApp</mainClass>
                 </configuration>
             </plugin>
         </plugins>
@@ -29,11 +29,11 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.xn--intenton-z2a.web</groupId>
+            <groupId>com.intenton.web</groupId>
             <artifactId>utils-lib</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.xn--intenton-z2a.web</groupId>
+            <groupId>com.intenton.web</groupId>
             <artifactId>constructs-lib</artifactId>
         </dependency>
         <dependency>

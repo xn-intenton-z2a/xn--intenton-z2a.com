@@ -37,6 +37,6 @@ public class TelemetryTest {
 
         template.resourceCountIs("AWS::S3::Bucket", 1);
         template.hasResourceProperties("AWS::S3::Bucket", new HashMap<>()
-            {{ put("BucketName", "%s-intentiion-com-web-cloud-trail".formatted("test")); }});
+            {{ put("BucketName", "%s-web-intention-com-cloud-trail".formatted("test")); }});
     }
 }

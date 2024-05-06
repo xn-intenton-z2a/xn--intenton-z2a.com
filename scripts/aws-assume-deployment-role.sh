@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-# Purpose: Assume a role for the terraform execution
-# Usage: source ./aws-assume-infrastructure-role.sh
+# Purpose: Assume a role for the deployment
+# Usage: source ./scripts/aws-assume-deployment-role.sh
 # Note: Requires privileges in the current environment to assume the role
 # shellcheck disable=SC2016
 unset AWS_ACCOUNT_ID
@@ -10,7 +10,7 @@ unset AWS_SESSION_TOKEN
 unset AWS_DEFAULT_REGION
 
 export AWS_ACCOUNT_ID='541134664601'
-role_to_assume="arn:aws:iam::${AWS_ACCOUNT_ID?}:role/xn--intenton-z2a-web-infrastructure-role"
+role_to_assume="arn:aws:iam::${AWS_ACCOUNT_ID?}:role/intenton-com-web-deployment-role"
 session_name="WorkstationSession-for-${USER?}"
 
 assume_role_output=$(aws sts assume-role \
@@ -26,3 +26,5 @@ export AWS_SESSION_TOKEN=$session_token
 export AWS_DEFAULT_REGION='eu-west-2'
 
 aws sts get-caller-identity
+
+export JSII_SILENCE_WARNING_UNTESTED_NODE_VERSION=true

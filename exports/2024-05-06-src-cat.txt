@@ -1,0 +1,242 @@
+./public/index.html
+==== Content of ./public/index.html ====
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>intentïon</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            /*background: #000000; /* Black background */
+            /*background: #E6DAD7; /* Light grey background */
+            /*background: #FCF7E9; /* Light grey background with a hint of yellow */
+            background: #B2B9BC; /* Blue sky hints */
+            /* background: #7D98A1; /* Blue sky */
+            overflow: hidden;
+            font-family: sans-serif;
+        }
+        .fogOne {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('images/assets/vecteezy_white-fog-illustration_24065516-bottom-low.png') no-repeat center center;
+            background-size: cover;
+            animation: fadeInOut 10s infinite;
+        }
+        .fogTwo {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('images/assets/vecteezy_white-fog-illustration_24065530-bottom-risen.png') no-repeat center center;
+            background-size: cover;
+            animation: fadeInOut 10s infinite;
+        }
+        .fogThree {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('images/assets/vecteezy_white-fog-illustration_24065547-centre.png') no-repeat center center;
+            background-size: cover;
+            animation: fadeInOut 10s infinite;
+        }
+        .fogFour {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('images/assets/vecteezy_white-fog-illustration_24065523-corner-bottom-right.png') no-repeat center center;
+            background-size: cover;
+            animation: fadeInOut 10s infinite;
+        }
+        .fogFive {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('images/assets/vecteezy_white-fog-illustration_24065528-diagonal-down-right.png') no-repeat center center;
+            background-size: cover;
+            animation: fadeInOut 10s infinite;
+        }
+        #intention {
+            color: #333; /* Dark grey text */
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 5vw; /* Responsive font size */
+            opacity: 0;
+            transition: opacity 3s;
+        }
+        @keyframes fadeInOut {
+            0%,100% { opacity: 0; }
+            50% { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="fogOne" style="animation-duration: 3s;"></div>
+<div class="fogTwo" style="animation-duration: 4s;"></div>
+<div class="fogThree" style="animation-duration: 5s;"></div>
+<div class="fogFour" style="animation-duration: 6s;"></div>
+<div class="fogFive" style="animation-duration: 7s;"></div>
+
+<div id="intention">intentïon</div>
+
+<script>
+    document.body.addEventListener('mousemove', function() {
+        document.getElementById('intention').style.opacity = 1;
+        setTimeout(function() {
+            document.getElementById('intention').style.opacity = 0;
+        }, 3000);
+    });
+</script>
+
+</body>
+</html>
+./public/404-error-distribution.html
+==== Content of ./public/404-error-distribution.html ====
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>intentïon - Error page (Distribution)</title>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background: #B2B9BC;
+            overflow: hidden;
+            font-family: sans-serif;
+        }
+
+        header {
+            background-color: #1f1f1f;
+            color: #fff;
+            padding: 20px;
+        }
+
+        .hero {
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            margin-top: 100px;
+        }
+
+        .hero p {
+            font-size: 24px;
+            margin-top: 20px;
+            margin-bottom: 40px;
+        }
+
+        footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+        }
+
+        footer p {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <div class="hero">
+        <h1>intentïon - 404 Not Found (Distribution)</h1>
+        <p>The requested resource could not be found on the server.</p>
+    </div>
+</header>
+
+<footer>
+    <p>&copy; Polycode Limited. All rights reserved.</p>
+</footer>
+</body>
+</html>
+./public/404-error-origin.html
+==== Content of ./public/404-error-origin.html ====
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>intentïon - Error page (Origin)</title>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background: #B2B9BC;
+            overflow: hidden;
+            font-family: sans-serif;
+        }
+
+        header {
+            background-color: #1f1f1f;
+            color: #fff;
+            padding: 20px;
+        }
+
+        .hero {
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            margin-top: 100px;
+        }
+
+        .hero p {
+            font-size: 24px;
+            margin-top: 20px;
+            margin-bottom: 40px;
+        }
+
+        footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+        }
+
+        footer p {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <div class="hero">
+        <h1>intentïon - 404 Not Found (Origin)</h1>
+        <p>The requested resource could not be found on the server.</p>
+    </div>
+</header>
+
+<footer>
+    <p>&copy; Polycode Limited. All rights reserved.</p>
+</footer>
+</body>
+</html>

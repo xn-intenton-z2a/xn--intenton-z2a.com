@@ -55,6 +55,6 @@ public class ApplicationTest {
         Assertions.assertEquals(testRegion, stack.getRegion());
         template.resourceCountIs("AWS::S3::Bucket", 3);
         template.hasResourceProperties("AWS::S3::Bucket", new HashMap<>()
-            {{ put("BucketName", "%s-intentiion-com-com".formatted("test")); }});
+            {{ put("BucketName", "%s-intention-com-com".formatted("test")); }});
     }
 }

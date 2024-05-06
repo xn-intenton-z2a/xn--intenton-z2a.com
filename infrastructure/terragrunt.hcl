@@ -1,7 +1,7 @@
 remote_state {
   backend = "s3"
   config = {
-    bucket = "intentiion-com-web-terraform-state"
+    bucket = "intention-com-web-terraform-state"
     region = "eu-west-2"
     encrypt = true
     key = "terraform.tfstate"
@@ -18,6 +18,6 @@ inputs = {
   service_name = "web.xn--intenton-z2a.com"
   aws_default_region = "eu-west-2"
   aws_account_id = "541134664601"
-  deployment_role_name = "xn--intenton-z2a-web-deployment-role"
-  logs_bucket_name = "intentiion-com-web-logs"
+  deployment_role_name = "intenton-com-web-deployment-role"
+  logs_bucket_name = "intention-com-web-logs"
 }

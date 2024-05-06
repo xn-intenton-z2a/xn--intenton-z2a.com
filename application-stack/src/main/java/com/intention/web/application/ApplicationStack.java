@@ -52,7 +52,7 @@ public class ApplicationStack extends Stack {
 
     // SimpleStackProps specific properties
 
-    private static final String webWebsiteName = "simple-web";
+    private static final String webWebsiteName = "public";
     private static final String webWebsiteDirName = "../%s".formatted(webWebsiteName);
     private static final String defaultHtmlDocument = "index.html";
     private static final String error404HtmlDistribution = "404-error-distribution.html";
