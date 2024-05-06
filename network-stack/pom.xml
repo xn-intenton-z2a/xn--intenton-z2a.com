@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.intenton.web</groupId>
+        <groupId>com.intention.web</groupId>
         <artifactId>web</artifactId>
         <version>0.1-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
@@ -21,7 +21,7 @@
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
                 <configuration>
-                    <mainClass>com.intenton.web.network.NetworkApp</mainClass>
+                    <mainClass>com.intention.web.network.NetworkApp</mainClass>
                 </configuration>
             </plugin>
         </plugins>
@@ -29,11 +29,11 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.intenton.web</groupId>
+            <groupId>com.intention.web</groupId>
             <artifactId>utils-lib</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.intenton.web</groupId>
+            <groupId>com.intention.web</groupId>
             <artifactId>constructs-lib</artifactId>
         </dependency>
         <dependency>

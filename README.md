@@ -184,7 +184,7 @@ Assume the infrastructure role created by the script and use Terragrunt to creat
  {
     "UserId": "AROA45MW5HDLQ2F53F3V4:WorkstationSession-for-antony",
     "Account": "541134664601",
-    "Arn": "arn:aws:sts::541134664601:assumed-role/intenton-com-web-infrastructure-role/WorkstationSession-for-antony"
+    "Arn": "arn:aws:sts::541134664601:assumed-role/intention-com-web-infrastructure-role/WorkstationSession-for-antony"
 }
  % terragrunt apply -auto-approve --terragrunt-non-interactive --terragrunt-working-dir ./infrastructure
 ```

@@ -23,7 +23,7 @@ jobs:
         uses: aws-actions/configure-aws-credentials@v1-node16
         with:
           aws-region: eu-west-2
-          role-to-assume: arn:aws:iam::541134664601:role/intenton-com-web-deployment-role
+          role-to-assume: arn:aws:iam::541134664601:role/intention-com-web-deployment-role
 
       - run: aws --version
       - run: aws sts get-caller-identity

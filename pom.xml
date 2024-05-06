@@ -3,7 +3,7 @@
          xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.intenton.web</groupId>
+    <groupId>com.intention.web</groupId>
     <artifactId>web</artifactId>
     <version>0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
@@ -81,17 +81,17 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>com.intenton.web</groupId>
+                <groupId>com.intention.web</groupId>
                 <artifactId>utils-lib</artifactId>
                 <version>0.1-SNAPSHOT</version>
             </dependency>
             <dependency>
-                <groupId>com.intenton.web</groupId>
+                <groupId>com.intention.web</groupId>
                 <artifactId>constructs-lib</artifactId>
                 <version>0.1-SNAPSHOT</version>
             </dependency>
             <dependency>
-                <groupId>com.intenton.web</groupId>
+                <groupId>com.intention.web</groupId>
                 <artifactId>functions-lib</artifactId>
                 <version>0.1-SNAPSHOT</version>
             </dependency>

@@ -10,7 +10,7 @@ unset AWS_SESSION_TOKEN
 unset AWS_DEFAULT_REGION
 
 export AWS_ACCOUNT_ID='541134664601'
-role_to_assume="arn:aws:iam::${AWS_ACCOUNT_ID?}:role/intenton-com-web-deployment-role"
+role_to_assume="arn:aws:iam::${AWS_ACCOUNT_ID?}:role/intention-com-web-deployment-role"
 session_name="WorkstationSession-for-${USER?}"
 
 assume_role_output=$(aws sts assume-role \

@@ -2,7 +2,7 @@
 # Purpose: Delete the role used to create infrastructure
 # Usage: ./scripts/aws-delete-infrastructure-role.sh
 # Note: Requires privileges in the current environment to delete an IAM role
-infrastructure_role_name='intenton-com-web-infrastructure-role'
+infrastructure_role_name='intention-com-web-infrastructure-role'
 pids=()
 aws iam list-attached-role-policies \
   --role-name "${infrastructure_role_name?}" \

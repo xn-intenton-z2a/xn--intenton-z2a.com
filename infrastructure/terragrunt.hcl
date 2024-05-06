@@ -18,6 +18,6 @@ inputs = {
   service_name = "web.xn--intenton-z2a.com"
   aws_default_region = "eu-west-2"
   aws_account_id = "541134664601"
-  deployment_role_name = "intenton-com-web-deployment-role"
+  deployment_role_name = "intention-com-web-deployment-role"
   logs_bucket_name = "intention-com-web-logs"
 }
