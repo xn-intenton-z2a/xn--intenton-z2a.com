@@ -54,13 +54,17 @@ jobs:
           aws-region: eu-west-2
           role-to-assume: arn:aws:iam::541134664601:role/intention-com-web-deployment-role
 
-      - name: Check versions
-        run: |
-          echo 'AWS CLI:' ; aws --version ; echo \
-          ; echo 'Java and Maven:' ; ./mvnw --version ; echo \
-          ; echo 'Node:' ; node --version ; echo \
-          ; echo 'AWS CDK:' ; cdk --version ; echo \
-          ;
+      - name: Check AWS CLI version
+        run: aws --version ; echo ;
+
+      - name: Check Java and Maven versions
+        run: ./mvnw --version ; echo ;
+
+      - name: Check Node version
+        run:  node --version ;
+
+      - name: Check AWS CDK versions
+        run: cdk --version ; echo ;
 
       - name: Check AWS authentication
         run: aws sts get-caller-identity ;
@@ -77,19 +81,11 @@ jobs:
       - name: Log application stack CloudFormation template
         run: cd ./application-stack ; TARGET_ENV='dev' cdk synth ;
 
-     # - name: Build, test, then log CloudFormation template
-     #   run: |
-     #     ./mvnw clean install \
-     #     ; export TARGET_ENV='dev' \
-     #     ; cd ./network-stack ; cdk synth ; cd .. \
-     #     ; cd ./telemetry-stack ; cdk synth ; cd .. \
-     #     ; cd ./application-stack ; cdk synth ; cd .. \
-     #     ;
+      - name: Deploy network CloudFormation template
+        run: cd ./network-stack ; TARGET_ENV='dev' cdk deploy --require-approval never ;
 
-      - name: Deploy CloudFormation template
-        run: |
-          export TARGET_ENV='dev' \
-          ; cd ./network-stack ; cdk deploy --require-approval never ; cd .. \
-          ; cd ./telemetry-stack ; cdk deploy --require-approval never ; cd .. \
-          ; cd ./application-stack ; cdk deploy --require-approval never ; cd .. \
-          ;
+      - name: Deploy telemetry CloudFormation template
+        run: cd ./telemetry-stack ; TARGET_ENV='dev' cdk deploy --require-approval never ;
+
+      - name: Deploy application CloudFormation template
+        run: cd ./application-stack ; TARGET_ENV='dev' cdk deploy --require-approval never ;
