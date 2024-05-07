@@ -102,6 +102,7 @@ data "aws_iam_policy_document" "inline_policy_document" { # 9
     actions = [
       "s3:*",
       "s3-object-lambda:*",
+      "certificatemanager:*",
       "cloudformation:*",
       "xray:*"
     ]
