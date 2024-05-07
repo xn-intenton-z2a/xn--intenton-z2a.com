@@ -110,6 +110,42 @@ data "aws_iam_policy_document" "inline_policy_document" { # 9
       "*"
     ]
   }
+  statement {
+    effect = "Allow"
+    actions = [
+      "acm:RequestCertificate",
+      "acm:DescribeCertificate",
+      "acm:DeleteCertificate",
+      "acm:GetCertificate"
+    ]
+    resources = [
+      "*"
+    ]
+  }
+  statement {
+    effect = "Allow"
+    actions = [
+      "route53:GetHostedZone",
+      "route53:ChangeResourceRecordSets",
+      "route53:ListResourceRecordSets"
+    ]
+    #"arn:aws:route53:::hostedzone/Z0315522208PWZSSBI9AL"
+    resources = [
+      "*"
+      ]
+  }
+  statement {
+    effect = "Allow"
+    actions = [
+      "lambda:CreateFunction",
+      "lambda:InvokeFunction",
+      "lambda:DeleteFunction",
+      "lambda:UpdateFunctionConfiguration"
+    ]
+    resources = [
+      "*"
+    ]
+  }
 }
 resource "aws_iam_policy" "inline_policy" {
   depends_on = [aws_iam_role.iam_deploy_role]
