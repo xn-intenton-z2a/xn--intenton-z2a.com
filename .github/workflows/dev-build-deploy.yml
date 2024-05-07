@@ -82,8 +82,8 @@ jobs:
         run: cd ./application-stack ; export TARGET_ENV='dev' ; cdk synth ;
 
       # TODO: Re-instate this step when the IAM permissions are fixed
-      #- name: Deploy Network stack
-      #  run: cd ./network-stack ; export TARGET_ENV='dev' ; cdk deploy --require-approval never ;
+      - name: Deploy Network stack
+        run: cd ./network-stack ; export TARGET_ENV='dev' ; cdk deploy --require-approval never ;
 
       - name: Deploy Telemetry stack
         run: cd ./telemetry-stack ; export TARGET_ENV='dev' ; cdk deploy --require-approval never ;
