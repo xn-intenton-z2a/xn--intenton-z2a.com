@@ -72,8 +72,8 @@ jobs:
       - name: Build & test
         run: ./mvnw clean install ;
 
-      #- name: Log Network stack CloudFormation template
-      #  run: cd ./network-stack ; export TARGET_ENV='dev' ; cdk synth ;
+      - name: Log Network stack CloudFormation template
+        run: cd ./network-stack ; export TARGET_ENV='dev' ; cdk synth ;
 
       - name: Log Telemetry stack CloudFormation template
         run: cd ./telemetry-stack ; export TARGET_ENV='dev' ; cdk synth ;
@@ -90,8 +90,8 @@ jobs:
       - name: Bootstrap Application stack
         run: cd ./application-stack ; export TARGET_ENV='dev' ; cdk bootstrap ;
 
-      - name: Deploy Network stack
-        run: cd ./network-stack ; export TARGET_ENV='dev' ; cdk deploy --require-approval never ;
+      #- name: Deploy Network stack
+      #  run: cd ./network-stack ; export TARGET_ENV='dev' ; cdk deploy --require-approval never ;
 
       - name: Deploy Telemetry stack
         run: cd ./telemetry-stack ; export TARGET_ENV='dev' ; cdk deploy --require-approval never ;
