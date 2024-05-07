@@ -2,18 +2,6 @@ name: Build and deploy dev
 concurrency: build-deploy-or-infrastructure
 
 on:
-  push:
-    paths-ignore:
-      - './LICENSE'
-      - './README.md'
-      - '.github/workflows/check*.yml'
-      - '.github/workflows/infrastructure*.yml'
-      - '.gitignore'
-      - './deployment/src/test/**'
-      - './infrastructure/**'
-      - './*.sh'
-    branches:
-      - main
   workflow_dispatch:
 
 jobs:
@@ -72,20 +60,11 @@ jobs:
       - name: Build & test
         run: ./mvnw clean install ;
 
-      - name: Log Network stack CloudFormation template
-        run: cd ./network-stack ; export TARGET_ENV='dev' ; cdk synth ;
+      - name: Bootstrap Network stack
+        run: cd ./network-stack ; export TARGET_ENV='dev' ; cdk bootstrap ;
 
-      - name: Log Telemetry stack CloudFormation template
-        run: cd ./telemetry-stack ; export TARGET_ENV='dev' ; cdk synth ;
+      - name: Bootstrap Telemetry stack
+        run: cd ./telemetry-stack ; export TARGET_ENV='dev' ; cdk bootstrap ;
 
-      - name: Log Application stack CloudFormation template
-        run: cd ./application-stack ; export TARGET_ENV='dev' ; cdk synth ;
-
-      #- name: Deploy Network stack
-      #  run: cd ./network-stack ; export TARGET_ENV='dev' ; cdk deploy --require-approval never ;
-
-      - name: Deploy Telemetry stack
-        run: cd ./telemetry-stack ; export TARGET_ENV='dev' ; cdk deploy --require-approval never ;
-
-      - name: Deploy Application stack
-        run: cd ./application-stack ; export TARGET_ENV='dev' ; cdk deploy --require-approval never ;
+      - name: Bootstrap Application stack
+        run: cd ./application-stack ; export TARGET_ENV='dev' ; cdk bootstrap ;
