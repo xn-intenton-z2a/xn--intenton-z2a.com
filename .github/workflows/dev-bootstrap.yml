@@ -1,4 +1,4 @@
-name: Build and deploy dev
+name: Bootstrap dev
 concurrency: build-deploy-or-infrastructure
 
 on:
