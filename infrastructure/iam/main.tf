@@ -56,7 +56,6 @@ resource "aws_iam_role" "iam_deploy_role" {
   name = var.deployment_role_name
   assume_role_policy = data.aws_iam_policy_document.trust_policy_document.json
 }
-
 resource "aws_iam_role_policy_attachment" "iam-attachment" { # 1
   depends_on = [aws_iam_role.iam_deploy_role]
   role = aws_iam_role.iam_deploy_role.name
