@@ -4,7 +4,11 @@
     {
       "Effect": "Allow",
       "Principal": {
-        "AWS": "arn:aws:iam::541134664601:user/polycode-default-account"
+        "AWS": [
+            "arn:aws:iam::541134664601:user/polycode-default-account",
+            "arn:aws:iam::541134664601:user/antony-local-user",
+            "arn:aws:iam::541134664601:role/agentic-lib-github-actions-role"
+          ]
       },
       "Action": "sts:AssumeRole"
     },
@@ -19,7 +23,7 @@
           "token.actions.githubusercontent.com:aud": "sts.amazonaws.com"
         },
         "StringLike": {
-          "token.actions.githubusercontent.com:sub": "repo:Polycode-Limited/xn--intenton-z2a.com:*"
+          "token.actions.githubusercontent.com:sub": "repo:xn--intenton-z2a/xn--intenton-z2a.com:*"
         }
       }
     }

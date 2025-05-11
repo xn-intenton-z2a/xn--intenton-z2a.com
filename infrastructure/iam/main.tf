@@ -17,7 +17,9 @@ data "aws_iam_policy_document" "trust_policy_document" {
     principals {
       type = "AWS"
       identifiers = [
-        "arn:aws:iam::541134664601:user/polycode-default-account"
+        "arn:aws:iam::541134664601:user/polycode-default-account",
+        "arn:aws:iam::541134664601:user/antony-local-user",
+        "arn:aws:iam::541134664601:role/agentic-lib-github-actions-role"
       ]
     }
     actions = [
@@ -46,7 +48,7 @@ data "aws_iam_policy_document" "trust_policy_document" {
       test = "StringLike"
       variable = "token.actions.githubusercontent.com:sub"
       values = [
-        "repo:Polycode-Limited/xn--intenton-z2a.com:*"
+        "repo:xn--intenton-z2a/xn--intenton-z2a.com:*"
       ]
     }
   }
