@@ -26,18 +26,18 @@ name: Build and deploy dev
 concurrency: build-deploy-or-infrastructure
 
 on:
-  push:
-    paths-ignore:
-      - './LICENSE'
-      - './README.md'
-      - '.github/workflows/check*.yml'
-      - '.github/workflows/infrastructure*.yml'
-      - '.gitignore'
-      - './deployment/src/test/**'
-      - './infrastructure/**'
-      - './*.sh'
-    branches:
-      - main
+  #push:
+  #  paths-ignore:
+  #    - './LICENSE'
+  #    - './README.md'
+  #    - '.github/workflows/check*.yml'
+  #   - '.github/workflows/infrastructure*.yml'
+  #    - '.gitignore'
+  #    - './deployment/src/test/**'
+  #    - './infrastructure/**'
+  #    - './*.sh'
+  #  branches:
+  #    - main
   workflow_dispatch:
     inputs:
       iamActionsRoleArn:
@@ -87,10 +87,10 @@ jobs:
           java-version: '21'
           cache: 'maven'
 
-      - name: download-dependencies
-        id: download-dependencies
-        shell: bash
-        run: ./mvnw --batch-mode --quiet dependency:go-offline > /dev/null 2>&1
+      #- name: download-dependencies
+      #  id: download-dependencies
+      #  shell: bash
+      #  run: ./mvnw --batch-mode --quiet dependency:go-offline > /dev/null 2>&1
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
