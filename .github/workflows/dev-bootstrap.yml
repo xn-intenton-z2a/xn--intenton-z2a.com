@@ -25,11 +25,11 @@
 name: Bootstrap dev
 
 on:
-  push:
-    branches:
-      - main
-    paths:
-      - '.github/workflows/dev-bootstrap.yml'
+  #push:
+  #  branches:
+  #    - main
+  #  paths:
+  #    - '.github/workflows/dev-bootstrap.yml'
   workflow_dispatch:
     inputs:
       iamActionsRoleArn:

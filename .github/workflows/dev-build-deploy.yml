@@ -26,18 +26,18 @@ name: Build and deploy dev
 concurrency: build-deploy-or-infrastructure
 
 on:
-  #push:
-  #  paths-ignore:
-  #    - './LICENSE'
-  #    - './README.md'
-  #    - '.github/workflows/check*.yml'
-  #   - '.github/workflows/infrastructure*.yml'
-  #    - '.gitignore'
-  #    - './deployment/src/test/**'
-  #    - './infrastructure/**'
-  #    - './*.sh'
-  #  branches:
-  #    - main
+  push:
+    paths-ignore:
+      - './LICENSE'
+      - './README.md'
+      - '.github/workflows/check*.yml'
+      - '.github/workflows/infrastructure*.yml'
+      - '.gitignore'
+      - './deployment/src/test/**'
+      - './infrastructure/**'
+      - './*.sh'
+    branches:
+      - main
   workflow_dispatch:
     inputs:
       iamActionsRoleArn:
