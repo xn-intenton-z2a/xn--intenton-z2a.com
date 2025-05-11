@@ -30,12 +30,12 @@ on:
       iamActionsRoleArn:
         description: 'IAM role ARN to assume for actions'
         type: string
-        required: true
+        required: false
         default: ''
       iamDeploymentRoleArn:
         description: 'IAM role ARN to assume for deployment'
         type: string
-        required: true
+        required: false
         default: ''
 
 jobs:
