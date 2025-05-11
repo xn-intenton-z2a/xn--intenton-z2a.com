@@ -21,9 +21,15 @@
 # IMPORTANT: Any derived work must include the following attribution:
 # "This work is derived from https://github.com/xn-intenton-z2a/agentic-lib"
 #
+
 name: Check AWS deployment credentials
 
 on:
+  push:
+    branches:
+      - main
+    paths:
+      - .github/workflows/check-aws-access-for-deployment-role.yml
   workflow_dispatch:
     inputs:
       iamActionsRoleArn:
@@ -70,15 +76,9 @@ jobs:
       - run: aws sts get-caller-identity
 
       - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v1-node16
-        with:
-          aws-region: eu-west-2
-          role-to-assume: arn:aws:iam::541134664601:role/intention-com-web-deployment-role
-
-      - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          role-to-assume: ${{ env.iamStatsBucketWriterRoleArn }}
+          role-to-assume: ${{ env.iamDeploymentRoleArn }}
           role-chaining: true
           aws-region: eu-west-2
           audience: sts.amazonaws.com

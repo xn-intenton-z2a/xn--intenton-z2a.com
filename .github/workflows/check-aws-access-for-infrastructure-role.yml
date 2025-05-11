@@ -1,7 +1,48 @@
+# .github/workflows/check-aws-access-for-infrastructure-role.yml
+#
+# agentic-lib
+# Copyright (C) 2025 Polycode Limited
+#
+# This file is part of agentic-lib.
+#
+# agentic-lib is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License v3.0 (GPL‑3).
+# along with this program. If not, see <https://www.gnu.org/licenses/>.
+#
+# IMPORTANT: Any derived work must include the following attribution:
+# "This work is derived from https://github.com/xn-intenton-z2a/agentic-lib"
+#
+
 name: Check AWS infrastructure credentials
 
+
 on:
+  push:
+    branches:
+      - main
+    paths:
+        - .github/workflows/check-aws-access-for-infrastructure-role.yml
   workflow_dispatch:
+    inputs:
+      iamActionsRoleArn:
+        description: 'IAM role ARN to assume for actions'
+        type: string
+        required: true
+        default: 'arn:aws:iam::541134664601:role/agentic-lib-github-actions-role'
+      iamInfrastructureRoleArn:
+        description: 'IAM role ARN to assume for infrastructure'
+        type: string
+        required: true
+        default: 'arn:aws:iam::541134664601:role/intention-com-web-infrastructure-role'
 
 jobs:
   check-aws-access:
@@ -10,8 +51,11 @@ jobs:
 
     permissions:
       contents: read
-      packages: write
       id-token: write
+
+    env:
+      iamActionsRoleArn: ${{ inputs.iamActionsRoleArn || 'arn:aws:iam::541134664601:role/agentic-lib-github-actions-role' }}
+      iamInfrastructureRoleArn: ${{ inputs.iamInfrastructureRoleArn || 'arn:aws:iam::541134664601:role/intention-com-web-infrastructure-role' }}
 
     steps:
 
@@ -20,10 +64,28 @@ jobs:
       # See: https://github.com/aws-actions/configure-aws-credentials
       # See: https://www.eliasbrange.dev/posts/secure-aws-deploys-from-github-actions-with-oidc/#:~:text=To%20be%20able%20to%20authenticate,Provider%20type%2C%20select%20OpenID%20Connect.
       - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v1-node16
+        uses: aws-actions/configure-aws-credentials@v4
         with:
+          role-to-assume: ${{ env.iamActionsRoleArn }}
+          role-chaining: false
           aws-region: eu-west-2
-          role-to-assume: arn:aws:iam::541134664601:role/intention-com-web-infrastructure-role
+          audience: sts.amazonaws.com
+          role-skip-session-tagging: true
+          output-credentials: true
+          retry-max-attempts: 3
+
+      - run: aws sts get-caller-identity
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ env.iamInfrastructureRoleArn }}
+          role-chaining: true
+          aws-region: eu-west-2
+          audience: sts.amazonaws.com
+          role-skip-session-tagging: true
+          output-credentials: true
+          retry-max-attempts: 3
 
       - run: aws --version
       - run: aws sts get-caller-identity
