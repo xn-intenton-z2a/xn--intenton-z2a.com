@@ -104,4 +104,4 @@ jobs:
           retry-max-attempts: 3
 
       - name: Terragrunt apply
-        run: PATH=.:${PATH} terragrunt apply -auto-approve --terragrunt-non-interactive --terragrunt-working-dir ./infrastructure
+        run: PATH=.:${PATH} terragrunt apply -auto-approve --non-interactive --working-dir ./infrastructure
