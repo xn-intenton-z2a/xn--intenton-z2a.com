@@ -1,105 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
     <title>intentïon</title>
     <style>
         body {
             margin: 0;
             padding: 0;
-            /*background: #000000; /* Black background */
-            /*background: #E6DAD7; /* Light grey background */
-            /*background: #FCF7E9; /* Light grey background with a hint of yellow */
             background: #B2B9BC; /* Blue sky hints */
-            /* background: #7D98A1; /* Blue sky */
             overflow: hidden;
             font-family: sans-serif;
         }
-        .fogOne {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('images/assets/vecteezy_white-fog-illustration_24065516-bottom-low.png') no-repeat center center;
+        .fogOne, .fogTwo, .fogThree, .fogFour, .fogFive {
+            position: absolute; top: 0; left: 0; right: 0; bottom: 0;
             background-size: cover;
             animation: fadeInOut 10s infinite;
         }
-        .fogTwo {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('images/assets/vecteezy_white-fog-illustration_24065530-bottom-risen.png') no-repeat center center;
-            background-size: cover;
-            animation: fadeInOut 10s infinite;
-        }
-        .fogThree {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('images/assets/vecteezy_white-fog-illustration_24065547-centre.png') no-repeat center center;
-            background-size: cover;
-            animation: fadeInOut 10s infinite;
-        }
-        .fogFour {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('images/assets/vecteezy_white-fog-illustration_24065523-corner-bottom-right.png') no-repeat center center;
-            background-size: cover;
-            animation: fadeInOut 10s infinite;
-        }
-        .fogFive {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('images/assets/vecteezy_white-fog-illustration_24065528-diagonal-down-right.png') no-repeat center center;
-            background-size: cover;
-            animation: fadeInOut 10s infinite;
-        }
-        #intention {
-            color: #333; /* Dark grey text */
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 5vw; /* Responsive font size */
-            opacity: 0;
-            transition: opacity 3s;
-        }
+        .fogOne { background: url('images/assets/vecteezy_white-fog-illustration_24065516-bottom-low.png') no-repeat center center; animation-duration: 3s; }
+        .fogTwo { background: url('images/assets/vecteezy_white-fog-illustration_24065530-bottom-risen.png') no-repeat center center; animation-duration: 4s; }
+        .fogThree { background: url('images/assets/vecteezy_white-fog-illustration_24065547-centre.png') no-repeat center center; animation-duration: 5s; }
+        .fogFour { background: url('images/assets/vecteezy_white-fog-illustration_24065523-corner-bottom-right.png') no-repeat center center; animation-duration: 6s; }
+        .fogFive { background: url('images/assets/vecteezy_white-fog-illustration_24065528-diagonal-down-right.png') no-repeat center center; animation-duration: 7s; }
+
         @keyframes fadeInOut {
             0%,100% { opacity: 0; }
-            50% { opacity: 1; }
+            50%     { opacity: 1; }
+        }
+
+        #intention {
+            color: #333;
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 5vw;
+            opacity: 0;
+            transition: opacity 3s;
         }
     </style>
 </head>
 <body>
 
-<div class="fogOne" style="animation-duration: 3s;"></div>
-<div class="fogTwo" style="animation-duration: 4s;"></div>
-<div class="fogThree" style="animation-duration: 5s;"></div>
-<div class="fogFour" style="animation-duration: 6s;"></div>
-<div class="fogFive" style="animation-duration: 7s;"></div>
+<div class="fogOne"></div>
+<div class="fogTwo"></div>
+<div class="fogThree"></div>
+<div class="fogFour"></div>
+<div class="fogFive"></div>
 
 <div id="intention">intentïon</div>
 
+<!-- ─────────────── giscus embed ─────────────── -->
+<script src="https://giscus.app/client.js"
+        data-repo="xn-intenton-z2a/repository0"
+        data-repo-id="REPLACE_WITH_YOUR_REPO_ID"
+        data-category="General"
+        data-category-id="REPLACE_WITH_YOUR_CATEGORY_ID"
+        data-mapping="specific"
+        data-term="1862"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-theme="transparent_light"
+        crossorigin="anonymous"
+        async>
+</script>
+<!-- ────────────────────────────────────────────── -->
+
 <script>
-    document.body.addEventListener('mousemove', function() {
-        document.getElementById('intention').style.opacity = 1;
-        setTimeout(function() {
-            document.getElementById('intention').style.opacity = 0;
-        }, 3000);
-    });
+    // show #intention (and let fog animate) on first mousemove
+    document.body.addEventListener('mousemove', () => {
+        const intent = document.getElementById('intention');
+        intent.style.opacity = 1;
+        setTimeout(() => intent.style.opacity = 0, 3000);
+    }, { once: true });
 </script>
 
 </body>
