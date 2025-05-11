@@ -106,10 +106,10 @@ jobs:
         run: ./mvnw clean install ;
 
       - name: Destroy Network stack
-        run: cd network-stack ; export TARGET_ENV='dev' ; cdk destroy --require-approval never --force ;
+        run: cd network-stack ; export TARGET_ENV='dev' ; npx cdk destroy --require-approval never --force ;
 
       - name: Destroy Telemetry stack
-        run: cd telemetry-stack ; export TARGET_ENV='dev' ; cdk destroy --require-approval never --force ;
+        run: cd telemetry-stack ; export TARGET_ENV='dev' ; npx cdk destroy --require-approval never --force ;
 
       - name: Destroy Application stack
-        run: cd application-stack ; export TARGET_ENV='dev' ; cdk destroy --require-approval never --force ;
+        run: cd application-stack ; export TARGET_ENV='dev' ; npx cdk destroy --require-approval never --force ;

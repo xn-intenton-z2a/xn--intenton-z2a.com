@@ -126,7 +126,7 @@ jobs:
         run:  node --version ;
 
       - name: Check AWS CDK versions
-        run: cdk --version ; echo ;
+        run: npx cdk --version ; echo ;
 
       - name: Check AWS authentication
         run: aws sts get-caller-identity ;
@@ -135,19 +135,19 @@ jobs:
         run: ./mvnw clean install ;
 
       - name: Log Network stack CloudFormation template
-        run: cd ./network-stack ; export TARGET_ENV='live' ; cdk synth ;
+        run: cd ./network-stack ; export TARGET_ENV='live' ; npx cdk synth ;
 
       - name: Log Telemetry stack CloudFormation template
-        run: cd ./telemetry-stack ; export TARGET_ENV='live' ; cdk synth ;
+        run: cd ./telemetry-stack ; export TARGET_ENV='live' ; npx cdk synth ;
 
       - name: Log Application stack CloudFormation template
-        run: cd ./application-stack ; export TARGET_ENV='live' ; cdk synth ;
+        run: cd ./application-stack ; export TARGET_ENV='live' ; npx cdk synth ;
 
       - name: Deploy Network stack
-        run: cd ./network-stack ; export TARGET_ENV='live' ; cdk deploy --require-approval never ;
+        run: cd ./network-stack ; export TARGET_ENV='live' ; npx cdk deploy --require-approval never ;
 
       - name: Deploy Telemetry stack
-        run: cd ./telemetry-stack ; export TARGET_ENV='live' ; cdk deploy --require-approval never ;
+        run: cd ./telemetry-stack ; export TARGET_ENV='live' ; npx cdk deploy --require-approval never ;
 
       - name: Deploy Application stack
-        run: cd ./application-stack ; export TARGET_ENV='live' ; cdk deploy --require-approval never ;
+        run: cd ./application-stack ; export TARGET_ENV='live' ; npx cdk deploy --require-approval never ;
