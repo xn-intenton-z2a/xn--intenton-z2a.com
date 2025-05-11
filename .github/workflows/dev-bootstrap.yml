@@ -39,7 +39,7 @@ on:
         default: 'arn:aws:iam::541134664601:role/intention-com-web-deployment-role'
 
 jobs:
-  dev-build-deploy:
+  dev-bootstrap:
 
     runs-on: ubuntu-latest
 
