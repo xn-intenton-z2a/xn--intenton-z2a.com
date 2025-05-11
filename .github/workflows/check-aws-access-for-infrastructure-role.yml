@@ -36,13 +36,13 @@ on:
       iamActionsRoleArn:
         description: 'IAM role ARN to assume for actions'
         type: string
-        required: true
-        default: 'arn:aws:iam::541134664601:role/agentic-lib-github-actions-role'
+        required: false
+        default: ''
       iamInfrastructureRoleArn:
         description: 'IAM role ARN to assume for infrastructure'
         type: string
-        required: true
-        default: 'arn:aws:iam::541134664601:role/intention-com-web-infrastructure-role'
+        required: false
+        default: ''
 
 jobs:
   check-aws-access:

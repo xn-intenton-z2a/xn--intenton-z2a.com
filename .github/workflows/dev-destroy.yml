@@ -1,8 +1,42 @@
+# .github/workflows/dev-destroy.yml
+#
+# agentic-lib
+# Copyright (C) 2025 Polycode Limited
+#
+# This file is part of agentic-lib.
+#
+# agentic-lib is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License v3.0 (GPL‑3).
+# along with this program. If not, see <https://www.gnu.org/licenses/>.
+#
+# IMPORTANT: Any derived work must include the following attribution:
+# "This work is derived from https://github.com/xn-intenton-z2a/agentic-lib"
+#
+
 name: Destroy dev
-concurrency: build-deploy-or-infrastructure
 
 on:
   workflow_dispatch:
+    inputs:
+      iamActionsRoleArn:
+        description: 'IAM role ARN to assume for actions'
+        type: string
+        required: false
+        default: ''
+      iamDeploymentRoleArn:
+        description: 'IAM role ARN to assume for deployment'
+        type: string
+        required: false
+        default: ''
 
 jobs:
   dev-destroy:
@@ -14,33 +48,55 @@ jobs:
       packages: write
       id-token: write
 
+    env:
+      iamActionsRoleArn: ${{ inputs.iamActionsRoleArn || 'arn:aws:iam::541134664601:role/agentic-lib-github-actions-role' }}
+      iamDeploymentRoleArn: ${{ inputs.iamDeploymentRoleArn || 'arn:aws:iam::541134664601:role/intention-com-web-deployment-role' }}
+
     steps:
 
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Set up Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: 18
           cache: 'npm'
           check-latest: true
 
       - name: Set up Java
-        uses: actions/setup-java@v3
+        uses: actions/setup-java@v4
         with:
           distribution: 'corretto'
           java-version: '21'
           cache: 'maven'
           check-latest: true
 
-      - name: Install AWS CDK
-        run: npm install -g aws-cdk ;
+      #- name: Install AWS CDK
+      #  run: npm install -g aws-cdk ;
 
       - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v1-node16
+        uses: aws-actions/configure-aws-credentials@v4
         with:
+          role-to-assume: ${{ env.iamActionsRoleArn }}
+          role-chaining: false
           aws-region: eu-west-2
-          role-to-assume: arn:aws:iam::541134664601:role/intention-com-web-deployment-role
+          audience: sts.amazonaws.com
+          role-skip-session-tagging: true
+          output-credentials: true
+          retry-max-attempts: 3
+
+      - run: aws sts get-caller-identity
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ env.iamDeploymentRoleArn }}
+          role-chaining: true
+          aws-region: eu-west-2
+          audience: sts.amazonaws.com
+          role-skip-session-tagging: true
+          output-credentials: true
+          retry-max-attempts: 3
 
       - name: Build & test
         run: ./mvnw clean install ;
