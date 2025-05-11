@@ -2,6 +2,8 @@
 
 intentïon: The feedback loop of innovation
 
+Test change.
+
 `xn--intenton-z2a.com` is a project by Polycode Limited which presents the intentïon home page: https://xn--intenton-z2a.com/
 
 ## TODO
