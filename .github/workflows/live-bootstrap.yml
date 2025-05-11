@@ -65,6 +65,8 @@ jobs:
           node-version: 20
           cache: 'npm'
 
+      - run: npm ci || npm install
+
       - name: Set up Java
         uses: actions/setup-java@v4
         with:
@@ -72,8 +74,10 @@ jobs:
           java-version: '21'
           cache: 'maven'
 
-      #- name: Install AWS CDK
-      #  run: npm install -g aws-cdk ;
+      - name: download-dependencies
+        id: download-dependencies
+        shell: bash
+        run: ./mvnw --batch-mode --quiet dependency:go-offline > /dev/null 2>&1
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4

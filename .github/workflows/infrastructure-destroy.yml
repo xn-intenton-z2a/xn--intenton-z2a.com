@@ -65,7 +65,8 @@ jobs:
           wget https://releases.hashicorp.com/terraform/1.11.4/terraform_1.11.4_linux_386.zip --output-document ./terraform.zip &&
           unzip ./terraform.zip &&
           chmod u+x ./terraform &&
-          ./terraform version
+          sudo mv ./terraform /usr/local/bin/ &&
+          terraform version
 
       - name: Install Terragrunt
         run: sudo apt-get install -y wget &&
