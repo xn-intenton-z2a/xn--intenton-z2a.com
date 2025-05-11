@@ -21,14 +21,13 @@ Public brand:
 - [ ] Audience Dashboard
 - [ ] Projects links
 - [ ] Web analytics
-- [ ] Request email action
 - [ ] Automated feed generation
-- [ ] Automated activity generation from showcased projects
+- [~] Automated activity generation from showcased projects
 - [ ] Add contact bots for socials
 - [ ] Add contact bots via Slack / Discord or Redit
 - [ ] Brand protection
 - [ ] Register: intentiion.com, intentionai.com, intentiionai.com, intentiionaii.com
-- [ ] CDK deploy
+- [~] CDK deploy
 - [ ] Extract CDK deploy to open source it under intentïon (by Polycode). 
 - [ ] Extract CI deploy action to open source it under intentïon (by Polycode).
 - [ ] Deploy through to live including some tests.

@@ -74,11 +74,6 @@ jobs:
           java-version: '21'
           cache: 'maven'
 
-      #- name: download-dependencies
-      #  id: download-dependencies
-      #  shell: bash
-      #  run: ./mvnw --batch-mode --quiet dependency:go-offline > /dev/null 2>&1
-
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
@@ -118,14 +113,11 @@ jobs:
       - name: Check AWS authentication
         run: aws sts get-caller-identity ;
 
-      - name: Build & test
-        run: ./mvnw clean install ;
+      - name: Bootstrap Network stack
+        run: cd ./network-stack ; export TARGET_ENV='dev' ; npx cdk bootstrap ;
 
-      #- name: Bootstrap Network stack
-      #  run: cd ./network-stack ; export TARGET_ENV='dev' ; npx cdk bootstrap ;
-
-      #- name: Bootstrap Telemetry stack
-      #  run: cd ./telemetry-stack ; export TARGET_ENV='dev' ; npx cdk bootstrap ;
+      - name: Bootstrap Telemetry stack
+        run: cd ./telemetry-stack ; export TARGET_ENV='dev' ; npx cdk bootstrap ;
 
       - name: Bootstrap Application stack
         run: cd ./application-stack ; export TARGET_ENV='dev' ; npx cdk bootstrap ;
