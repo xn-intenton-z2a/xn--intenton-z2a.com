@@ -12,7 +12,7 @@
   },
   "keywords": [],
   "author": "https://github.com/xn-intenton-z2a",
-  "license": "ISC",
+  "license": "AGPL-3.0-or-later",
   "dependencies": {
   },
   "devDependencies": {
