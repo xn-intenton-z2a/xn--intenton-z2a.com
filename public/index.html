@@ -9,14 +9,16 @@
         body {
             margin: 0;
             padding: 0;
-            background: #B2B9BC; /* Blue sky hints */
-            overflow: hidden;
+            background: #B2B9BC;
+            overflow-x: hidden;
             font-family: sans-serif;
         }
         .fogOne, .fogTwo, .fogThree, .fogFour, .fogFive {
-            position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+            position: fixed; top: 0; left: 0; right: 0; bottom: 0;
             background-size: cover;
             animation: fadeInOut 10s infinite;
+            pointer-events: none;
+            z-index: 0;
         }
         .fogOne { background: url('images/assets/vecteezy_white-fog-illustration_24065516-bottom-low.png') no-repeat center center; animation-duration: 3s; }
         .fogTwo { background: url('images/assets/vecteezy_white-fog-illustration_24065530-bottom-risen.png') no-repeat center center; animation-duration: 4s; }
@@ -29,18 +31,128 @@
             50%     { opacity: 1; }
         }
 
+        .content {
+            position: relative;
+            z-index: 1;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2em;
+        }
+
         #intention {
             color: #333;
-            position: absolute;
-            top: 50%; left: 50%;
-            transform: translate(-50%, -50%);
             font-size: 5vw;
+            margin-bottom: 0.2em;
             opacity: 0;
             transition: opacity 3s;
+        }
+
+        .tagline {
+            color: #555;
+            font-size: 1.6em;
+            font-style: italic;
+            margin-bottom: 0.3em;
+            opacity: 0;
+            transition: opacity 3s;
+            text-align: center;
+        }
+
+        .pronunciation {
+            color: #777;
+            font-size: 0.9em;
+            margin-bottom: 2em;
+            opacity: 0;
+            transition: opacity 3s;
+        }
+
+        .submit-box {
+            background: rgba(255, 255, 255, 0.85);
+            border-radius: 8px;
+            padding: 1.5em 2em;
+            max-width: 500px;
+            width: 100%;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+            opacity: 0;
+            transition: opacity 3s;
+        }
+
+        .submit-box h2 {
+            color: #333;
+            font-size: 1.1em;
+            margin: 0 0 0.8em 0;
+        }
+
+        .submit-box input[type="text"] {
+            width: 100%;
+            padding: 0.6em;
+            font-size: 1em;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            margin-bottom: 0.8em;
+        }
+
+        .submit-box label {
+            display: block;
+            font-size: 0.85em;
+            color: #666;
+            margin-bottom: 0.8em;
+            cursor: pointer;
+        }
+
+        .submit-box label input[type="checkbox"] {
+            margin-right: 0.4em;
+        }
+
+        .submit-box button {
+            background: #333;
+            color: #fff;
+            border: none;
+            padding: 0.6em 1.5em;
+            font-size: 1em;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .submit-box button:hover {
+            background: #555;
+        }
+
+        .submit-box button:disabled {
+            background: #aaa;
+            cursor: not-allowed;
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            right: 0;
+            z-index: 2;
+            padding: 1em 1.5em;
+        }
+
+        nav a {
+            color: #555;
+            text-decoration: none;
+            font-size: 0.9em;
+            margin-left: 1.2em;
+        }
+
+        nav a:hover {
+            color: #333;
+            text-decoration: underline;
         }
     </style>
 </head>
 <body>
+
+<nav>
+    <a href="https://github.com/xn-intenton-z2a/agentic-lib">GitHub</a>
+    <a href="showcase.html">Showcase</a>
+</nav>
 
 <div class="fogOne"></div>
 <div class="fogTwo"></div>
@@ -48,7 +160,21 @@
 <div class="fogFour"></div>
 <div class="fogFive"></div>
 
-<div id="intention">intentïon</div>
+<div class="content">
+    <div id="intention">intentïon</div>
+    <div class="tagline" id="tagline">What is your intentïon?</div>
+    <div class="pronunciation" id="pronunciation">/in-ten-shee-on/</div>
+
+    <div class="submit-box" id="submitBox">
+        <h2>Describe your project idea</h2>
+        <input type="text" id="intentionInput" placeholder="A CLI tool that..." />
+        <label>
+            <input type="checkbox" id="termsCheck" />
+            I understand this will create a public GitHub Discussion
+        </label>
+        <button id="submitBtn" disabled>Submit</button>
+    </div>
+</div>
 
 <!-- ─────────────── giscus embed ─────────────── -->
 <script src="https://giscus.app/client.js"
@@ -70,12 +196,35 @@
 <!-- ────────────────────────────────────────────── -->
 
 <script>
-    // show #intention (and let fog animate) on first mousemove
-    document.body.addEventListener('mousemove', () => {
-        const intent = document.getElementById('intention');
-        intent.style.opacity = 1;
-        setTimeout(() => intent.style.opacity = 0, 3000);
-    }, { once: true });
+    // Show content on first interaction
+    function revealContent() {
+        document.getElementById('intention').style.opacity = 1;
+        document.getElementById('tagline').style.opacity = 1;
+        document.getElementById('pronunciation').style.opacity = 1;
+        document.getElementById('submitBox').style.opacity = 1;
+    }
+
+    document.body.addEventListener('mousemove', revealContent, { once: true });
+    document.body.addEventListener('touchstart', revealContent, { once: true });
+
+    // Enable submit button when terms are checked
+    var termsCheck = document.getElementById('termsCheck');
+    var submitBtn = document.getElementById('submitBtn');
+
+    termsCheck.addEventListener('change', function() {
+        submitBtn.disabled = !termsCheck.checked;
+    });
+
+    // Submit links to GitHub Discussions with pre-filled content
+    submitBtn.addEventListener('click', function() {
+        var text = document.getElementById('intentionInput').value.trim();
+        if (!text) return;
+        var discussionUrl = 'https://github.com/xn-intenton-z2a/repository0/discussions/new?category=general&title='
+            + encodeURIComponent(text)
+            + '&body='
+            + encodeURIComponent('## My intentïon\n\n' + text + '\n\n---\n*Submitted from xn--intenton-z2a.com*');
+        window.open(discussionUrl, '_blank');
+    });
 </script>
 
 </body>

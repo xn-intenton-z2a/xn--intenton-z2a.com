@@ -35,8 +35,8 @@ The **home page infrastructure** for intentïon at [xn--intenton-z2a.com](https:
 
 ## What This Repository Is NOT
 
-- Not the consumer front-end — that's `repository0-xn--intenton-z2a.com`
-- Not the agentic-lib SDK — this is infrastructure only
+- Not the agentic-lib SDK — this is website infrastructure only
+- Not the template — that's `repository0`
 
 ## Key Architecture
 
@@ -49,8 +49,8 @@ The **home page infrastructure** for intentïon at [xn--intenton-z2a.com](https:
 
 | Repository | Relationship |
 |------------|-------------|
-| `repository0-xn--intenton-z2a.com` | Consumer front-end (separate project) |
-| `agentic-lib` | Referenced as a showcase project |
+| `agentic-lib` | Core SDK — provides the autonomous evolution engine |
+| `repository0` | Template — the experiment this website showcases |
 
 ## Test Commands
 
