@@ -149,6 +149,37 @@
             font-family: monospace;
         }
 
+        .activity-log {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 8px;
+            padding: 1.5em;
+            margin-top: 2em;
+        }
+
+        .activity-log h2 {
+            color: #ddd;
+            font-size: 1.2em;
+            margin: 0 0 0.5em 0;
+        }
+
+        .activity-log-content {
+            color: #bbb;
+            font-size: 0.9em;
+            line-height: 1.6;
+            white-space: pre-wrap;
+            font-family: monospace;
+            max-height: 600px;
+            overflow-y: auto;
+        }
+
+        .activity-log-content h2 {
+            color: #9bc;
+            font-size: 1em;
+            margin-top: 1.2em;
+            font-family: monospace;
+        }
+
         footer {
             text-align: center;
             color: #555;
@@ -177,6 +208,11 @@
 
     <div id="experiments">
         <div class="loading" id="loadingMsg">Loading experiment data...</div>
+    </div>
+
+    <div class="activity-log">
+        <h2>intentïon Activity Log</h2>
+        <div class="activity-log-content" id="activityLog">Loading activity log...</div>
     </div>
 </div>
 
@@ -248,6 +284,31 @@ function escapeHtml(str) {
 
 var loaded = 0;
 var errors = 0;
+
+// Fetch and render intentïon.md activity log
+var activityLogEl = document.getElementById('activityLog');
+var INTENTION_URL = 'https://raw.githubusercontent.com/xn-intenton-z2a/repository0/main/intenti%C3%B6n.md';
+
+fetch(INTENTION_URL)
+    .then(function(res) {
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        return res.text();
+    })
+    .then(function(md) {
+        // Simple markdown rendering: headers, bold, links, code blocks
+        var html = escapeHtml(md)
+            .replace(/^## (.+)$/gm, '<h2>$1</h2>')
+            .replace(/^# (.+)$/gm, '<h1 style="color:#ddd;font-size:1.1em">$1</h1>')
+            .replace(/^&gt; (.+)$/gm, '<em style="color:#888">$1</em>')
+            .replace(/```json\n([\s\S]*?)```/g, '<code style="color:#8a8">$1</code>')
+            .replace(/---/g, '<hr style="border-color:rgba(255,255,255,0.1)">')
+            .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+        activityLogEl.innerHTML = html;
+    })
+    .catch(function(err) {
+        activityLogEl.textContent = 'Activity log unavailable.';
+        console.error('Failed to load intentïon.md:', err);
+    });
 
 STATS_FILES.forEach(function(file) {
     fetch(STATS_BASE + file)
