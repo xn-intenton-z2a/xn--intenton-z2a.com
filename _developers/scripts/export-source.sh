@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# SPDX-License-Identifier: AGPL-3.0-only
+# Copyright (C) 2025-2026 Polycode Limited
 # Purpose: Export the source code to date stamped files.
 # Usage: ./scripts/export-source.sh
 mkdir -p './exports/'

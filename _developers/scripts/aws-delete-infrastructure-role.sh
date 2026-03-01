@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# SPDX-License-Identifier: AGPL-3.0-only
+# Copyright (C) 2025-2026 Polycode Limited
 # Purpose: Delete the role used to create infrastructure
 # Usage: ./scripts/aws-delete-infrastructure-role.sh
 # Note: Requires privileges in the current environment to delete an IAM role
