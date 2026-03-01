@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# SPDX-License-Identifier: AGPL-3.0-only
+# Copyright (C) 2025-2026 Polycode Limited
 # Purpose: Create a user for the terraform execution
 # Usage: ./scripts/aws-create-infrastructure.sh
 # Note: Requires privileges in the current environment to create an IAM role (and anything else in ./infrastructure)

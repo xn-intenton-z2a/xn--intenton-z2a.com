@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# SPDX-License-Identifier: AGPL-3.0-only
+# Copyright (C) 2025-2026 Polycode Limited
 # Purpose: Reset an assumed role back to the platform shell default
 # Usage: source ./scripts/aws-reset-assumed-role.sh
 unset AWS_ACCOUNT_ID

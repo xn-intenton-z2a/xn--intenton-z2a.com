@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# SPDX-License-Identifier: AGPL-3.0-only
+# Copyright (C) 2025-2026 Polycode Limited
 # Purpose: Assume a role for the deployment
 # Usage: source ./scripts/aws-assume-deployment-role.sh
 # Note: Requires privileges in the current environment to assume the role

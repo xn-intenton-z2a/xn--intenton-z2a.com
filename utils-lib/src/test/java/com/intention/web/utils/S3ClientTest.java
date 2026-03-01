@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: AGPL-3.0-only
+// Copyright (C) 2025-2026 Polycode Limited
 package com.intention.web.utils;
 
 import com.amazonaws.services.lambda.runtime.events.models.s3.S3EventNotification;
