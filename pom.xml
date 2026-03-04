@@ -57,8 +57,7 @@
                         </dependency>
                     </dependencies>
                     <configuration>
-                        <argLine>--add-opens java.base/java.util=ALL-UNNAMED</argLine>
-                        <argLine>--add-opens java.base/java.lang=ALL-UNNAMED</argLine>
+                        <argLine>--add-opens java.base/java.util=ALL-UNNAMED --add-opens java.base/java.lang=ALL-UNNAMED</argLine>
                     </configuration>
                 </plugin>
                 <plugin>
@@ -112,7 +111,7 @@
             <dependency>
                 <groupId>org.junit</groupId>
                 <artifactId>junit-bom</artifactId>
-                <version>5.11.0</version>
+                <version>5.12.2</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
