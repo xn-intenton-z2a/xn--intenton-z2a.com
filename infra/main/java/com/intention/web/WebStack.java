@@ -85,8 +85,8 @@ public class WebStack extends Stack {
                                         "script-src 'self' https://giscus.app; " +
                                         "style-src 'self' 'unsafe-inline'; " +
                                         "frame-src https://giscus.app; " +
-                                        "img-src 'self' data:; " +
-                                        "connect-src 'self'; " +
+                                        "img-src 'self' data: https://avatars.githubusercontent.com; " +
+                                        "connect-src 'self' https://api.github.com https://raw.githubusercontent.com; " +
                                         "frame-ancestors 'none'; " +
                                         "form-action 'self' https://github.com")
                                 .override(true)
@@ -95,7 +95,7 @@ public class WebStack extends Stack {
                                 .override(true)
                                 .build())
                         .frameOptions(ResponseHeadersFrameOptions.builder()
-                                .frameOption(HeadersFrameOption.DENY)
+                                .frameOption(HeadersFrameOption.SAMEORIGIN)
                                 .override(true)
                                 .build())
                         .referrerPolicy(ResponseHeadersReferrerPolicy.builder()
