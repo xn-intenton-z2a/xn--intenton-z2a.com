@@ -82,8 +82,8 @@ public class WebStack extends Stack {
                         .contentSecurityPolicy(ResponseHeadersContentSecurityPolicy.builder()
                                 .contentSecurityPolicy(
                                         "default-src 'self'; " +
-                                        "script-src 'self' https://giscus.app; " +
-                                        "style-src 'self' 'unsafe-inline'; " +
+                                        "script-src 'self' 'unsafe-inline' https://giscus.app; " +
+                                        "style-src 'self' 'unsafe-inline' https://giscus.app; " +
                                         "frame-src https://giscus.app; " +
                                         "img-src 'self' data: https://avatars.githubusercontent.com; " +
                                         "connect-src 'self' https://api.github.com https://raw.githubusercontent.com; " +
