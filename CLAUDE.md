@@ -12,12 +12,6 @@
 - Track all user goals as Tasks with status (pending → in_progress → completed)
 - Update `PLAN_*.md` with progress before context gets large
 
-**PLAN file pattern:**
-- Active plans live at project root: `PLAN_<DESCRIPTION>.md`
-- Each plan has user assertions verbatim at the top (non-negotiable requirements)
-- If no plan file exists for the current work, create one before starting
-- Never nest plans in subdirectories — always project root
-
 **Anti-patterns to avoid:**
 - Do NOT drift to side issues when a plan file defines the priority
 - Do NOT silently fail and move on — throw, don't skip
@@ -25,25 +19,47 @@
 
 ## What This Repository Is
 
-The **home page infrastructure** for intentïon at [xn--intenton-z2a.com](https://xn--intenton-z2a.com/). AWS CDK project deploying the intentïon brand website.
+The **home page infrastructure** for intentïon at [xn--intenton-z2a.com](https://xn--intenton-z2a.com/). Single CDK stack deploying the intentïon brand website.
 
-- **Package**: `xn--intenton-z2a.com`
 - **Organisation**: `xn-intenton-z2a`
-- **Entry point**: `index.js`
-- **Infrastructure**: AWS CDK (CloudFront, S3, Route53, CloudTrail)
+- **Infrastructure**: Single AWS CDK stack (CloudFront + OAC, S3, Route53, CloudWatch Logs)
 - **Sensitive file**: `intentïon brand accounts.kdbx` — KeePass database (never commit plaintext secrets)
-
-## What This Repository Is NOT
-
-- Not the agentic-lib SDK — this is website infrastructure only
-- Not the template — that's `repository0`
 
 ## Key Architecture
 
-- AWS CDK application stack
-- Functions library
-- Application constructs library
-- GitHub Actions CI/CD
+Single flat Maven project producing one shaded JAR (`target/web.jar`):
+
+| File | Purpose |
+|------|---------|
+| `infra/main/java/.../WebApp.java` | CDK entry point — reads env vars, creates stack |
+| `infra/main/java/.../WebStack.java` | Single CDK stack — S3, CloudFront OAC, Route53, CloudWatch |
+| `infra/test/java/.../WebStackTest.java` | CDK assertions tests |
+| `public/` | Static website content (index.html, images, error pages) |
+| `.github/workflows/deploy.yml` | Single deploy workflow (ci/prod auto-selection) |
+| `scripts/assume-deployment-role.sh` | Local AWS role assumption |
+
+**Environments:** `ci` (branches → `ci.web.xn--intenton-z2a.com`) and `prod` (main → `xn--intenton-z2a.com`)
+
+**GitHub variables:** `ACTIONS_ROLE_ARN`, `DEPLOY_ROLE_ARN` (repo-level), `CERTIFICATE_ARN` (per environment)
+
+## Test Commands
+
+```bash
+./mvnw clean verify   # Build, test, and package shaded JAR
+```
+
+## Infrastructure
+
+**AWS CDK** — Java-based, single stack, deployed via GitHub Actions.
+
+**Always ask before writing to AWS.** Read-only AWS operations are always permitted.
+
+Preferred path for infrastructure: CDK code → git push → GitHub Actions deploy.
+
+To assume the deployment role locally:
+```bash
+source scripts/assume-deployment-role.sh
+```
 
 ## Related Repositories
 
@@ -51,21 +67,6 @@ The **home page infrastructure** for intentïon at [xn--intenton-z2a.com](https:
 |------------|-------------|
 | `agentic-lib` | Core SDK — provides the autonomous evolution engine |
 | `repository0` | Template — the experiment this website showcases |
-
-## Test Commands
-
-```bash
-npm test              # Unit tests
-./mvnw clean verify   # CDK build and validation
-```
-
-## Infrastructure
-
-**AWS CDK** — Java-based CDK stacks for deployment.
-
-**Always ask before writing to AWS.** Read-only AWS operations are always permitted.
-
-Preferred path for infrastructure: CDK code → git push → GitHub Actions deploy.
 
 ## Git Workflow
 
