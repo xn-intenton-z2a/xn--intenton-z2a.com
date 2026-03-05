@@ -202,6 +202,7 @@ public class WebStack extends Stack {
                 .distributionPaths(List.of("/index.html", "/404-error-distribution.html"))
                 .retainOnDelete(true)
                 .prune(false)
+                .memoryLimit(512)
                 .build();
 
         // Outputs
