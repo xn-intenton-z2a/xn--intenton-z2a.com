@@ -1,0 +1,111 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+# Copyright (C) 2025-2026 Polycode Limited
+name: Deploy
+
+on:
+  push:
+    branches-ignore:
+      - 'dependabot/**'
+  workflow_dispatch:
+    inputs:
+      environment-name:
+        description: 'Environment name (ci or prod). Auto-detected from branch if empty.'
+        type: string
+        required: false
+        default: ''
+      skip-deploy:
+        description: 'Skip CDK deploy (build and synth only)'
+        type: boolean
+        required: false
+        default: false
+
+concurrency:
+  group: deploy-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+
+  params:
+    runs-on: ubuntu-latest
+    outputs:
+      environment-name: ${{ steps.env.outputs.environment-name }}
+      skip-deploy: ${{ steps.env.outputs.skip-deploy }}
+    steps:
+      - name: Determine environment
+        id: env
+        run: |
+          # Manual input takes priority
+          ENV_NAME="${{ inputs.environment-name }}"
+          if [ -z "$ENV_NAME" ]; then
+            if [ "${{ github.ref }}" = "refs/heads/main" ]; then
+              ENV_NAME="prod"
+            else
+              ENV_NAME="ci"
+            fi
+          fi
+          echo "environment-name=${ENV_NAME}" >> "$GITHUB_OUTPUT"
+          echo "skip-deploy=${{ inputs.skip-deploy || 'false' }}" >> "$GITHUB_OUTPUT"
+          echo "Environment: ${ENV_NAME}"
+
+  deploy:
+    needs: params
+    runs-on: ubuntu-latest
+    environment: ${{ needs.params.outputs.environment-name }}
+
+    permissions:
+      contents: read
+      id-token: write
+
+    env:
+      ENVIRONMENT_NAME: ${{ needs.params.outputs.environment-name }}
+      CERTIFICATE_ARN: ${{ vars.CERTIFICATE_ARN }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'corretto'
+          java-version: '21'
+          cache: 'maven'
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Configure AWS Credentials (GitHub Actions role)
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ vars.ACTIONS_ROLE_ARN }}
+          role-chaining: false
+          aws-region: us-east-1
+          audience: sts.amazonaws.com
+          role-skip-session-tagging: true
+          output-credentials: true
+          retry-max-attempts: 3
+
+      - name: Configure AWS Credentials (Deployment role)
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ vars.DEPLOY_ROLE_ARN }}
+          role-chaining: true
+          aws-region: us-east-1
+          audience: sts.amazonaws.com
+          role-skip-session-tagging: true
+          output-credentials: true
+          retry-max-attempts: 3
+
+      - name: Verify AWS identity
+        run: aws sts get-caller-identity
+
+      - name: Build and test
+        run: ./mvnw --batch-mode clean verify
+
+      - name: CDK synth
+        run: npx cdk synth "${{ env.ENVIRONMENT_NAME }}-web-stack"
+
+      - name: CDK deploy
+        if: needs.params.outputs.skip-deploy != 'true'
+        run: npx cdk deploy "${{ env.ENVIRONMENT_NAME }}-web-stack" --require-approval never --ci true
