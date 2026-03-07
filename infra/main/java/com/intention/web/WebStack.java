@@ -85,7 +85,7 @@ public class WebStack extends Stack {
                                         "script-src 'self' 'unsafe-inline' https://giscus.app; " +
                                         "style-src 'self' 'unsafe-inline' https://giscus.app; " +
                                         "frame-src https://giscus.app; " +
-                                        "img-src 'self' data: https://avatars.githubusercontent.com; " +
+                                        "img-src 'self' data: https://avatars.githubusercontent.com https://raw.githubusercontent.com; " +
                                         "connect-src 'self' https://api.github.com https://raw.githubusercontent.com; " +
                                         "frame-ancestors 'none'; " +
                                         "form-action 'self' https://github.com")
