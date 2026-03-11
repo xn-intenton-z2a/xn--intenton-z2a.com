@@ -317,7 +317,7 @@
 
 <div id="menu-items">
     <a href="#" id="about-link">What is this website?</a>
-    <a href="https://github.com/xn-intenton-z2a/repository0/blob/.logs/intentïon.md" id="current-experiment" target="_blank" style="pointer-events: auto;">Current experiment narrative</a>
+    <a href="https://github.com/xn-intenton-z2a/repository0/blob/agentic-lib-logs/intentïon.md" id="current-experiment" target="_blank" style="pointer-events: auto;">Current experiment narrative</a>
 </div>
 
 <div id="about-box">
@@ -650,9 +650,9 @@
     // Function to poll the intention URL and update the menu
     function pollIntentionUrl() {
         const rawContentBaseUrl = `https://raw.githubusercontent.com/${repositoryOwner}/${repositoryName}`;
-        const intentionUrl = `${rawContentBaseUrl}/.logs/intentïon.md`;
+        const intentionUrl = `${rawContentBaseUrl}/agentic-lib-logs/intentïon.md`;
 
-        // Fetch the intention file from the .logs branch for terminal display
+        // Fetch the intention file from the agentic-lib-logs branch for terminal display
         fetch(intentionUrl)
             .then(response => {
                 if (!response.ok) {
@@ -745,7 +745,7 @@
             owner: 'xn-intenton-z2a',
             repo: 'repository0',
             file: 'SCREENSHOT_INDEX.png',
-            branch: '.logs'
+            branch: 'agentic-lib-logs'
         }
     ];
 
