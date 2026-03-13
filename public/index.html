@@ -106,17 +106,17 @@
 
         #steps-overlay {
             position: fixed;
-            top: 0;
+            bottom: 0;
             right: -30px;
-            /* transform: translateY(+50%); */
             width: 75vw;
-            height: 50vh;
+            height: auto;
             background-color: rgba(255, 255, 255, 0%);
             display: flex;
             justify-content: stretch;
-            align-items: stretch;
+            align-items: flex-end;
             z-index: 2000;
             pointer-events: none; /* Allow clicks to pass through */
+            padding-bottom: 2vh;
         }
 
         #steps-content {
@@ -169,6 +169,130 @@
             background-color: #00FF00;
             animation: blink 1s infinite;
             vertical-align: middle;
+        }
+
+        #terminal-link {
+            position: absolute;
+            top: 4px;
+            left: 8px;
+            color: #00FF00;
+            font-family: "Courier New", monospace;
+            font-size: 0.9vw;
+            text-decoration: none;
+            opacity: 0.7;
+            transition: opacity 0.3s;
+            z-index: 601;
+            pointer-events: auto;
+        }
+
+        #terminal-link:hover {
+            opacity: 1;
+            text-decoration: underline;
+        }
+
+        /* Mission link */
+        #mission-link {
+            position: fixed;
+            top: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #3F5965;
+            font-family: sans-serif;
+            font-size: 1.2vw;
+            font-weight: bold;
+            text-decoration: none;
+            opacity: 0.7;
+            transition: opacity 0.3s;
+            z-index: 2500;
+            cursor: pointer;
+            background-color: rgba(255, 255, 255, 0.4);
+            padding: 4px 16px;
+            border-radius: 4px;
+        }
+
+        #mission-link:hover {
+            opacity: 1;
+        }
+
+        /* Mission lightbox */
+        #mission-lightbox {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.85);
+            z-index: 5000;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        #mission-lightbox.active {
+            display: flex;
+        }
+
+        #mission-lightbox .mission-content {
+            background: #fff;
+            color: #333;
+            max-width: 80vw;
+            max-height: 70vh;
+            overflow-y: auto;
+            padding: 32px;
+            border-radius: 8px;
+            box-shadow: 0 4px 30px rgba(0,0,0,0.5);
+            font-family: sans-serif;
+            font-size: 14px;
+            line-height: 1.6;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        #mission-lightbox .mission-links {
+            margin-top: 16px;
+            display: flex;
+            gap: 24px;
+            align-items: center;
+        }
+
+        #mission-lightbox .mission-link-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #fff;
+            text-decoration: none;
+            font-size: 14px;
+            opacity: 0.8;
+            transition: opacity 0.3s;
+        }
+
+        #mission-lightbox .mission-link-item:hover {
+            opacity: 1;
+        }
+
+        #mission-lightbox .mission-link-item img,
+        #mission-lightbox .mission-link-item svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        #mission-lightbox .mission-pages-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: #fff;
+            text-decoration: underline;
+            font-size: 14px;
+            opacity: 0.8;
+            transition: opacity 0.3s;
+        }
+
+        #mission-lightbox .mission-pages-link:hover {
+            opacity: 1;
+        }
+
+        #mission-lightbox .mission-pages-link .external-icon {
+            width: 14px;
+            height: 14px;
+            flex-shrink: 0;
         }
 
         /* Screenshot showcase */
@@ -317,7 +441,7 @@
 
 <div id="menu-items">
     <a href="#" id="about-link">What is this website?</a>
-    <a href="https://github.com/xn-intenton-z2a/repository0/blob/main/intentïon.md" id="current-experiment" target="_blank" style="pointer-events: auto;">Current experiment narrative</a>
+    <a href="https://github.com/xn-intenton-z2a/repository0/blob/agentic-lib-logs/intentïon.md" id="current-experiment" target="_blank" style="pointer-events: auto;">Current experiment narrative</a>
 </div>
 
 <div id="about-box">
@@ -329,6 +453,24 @@
         workflows.
     </p>
     <p>This website's repository is licensed under the GNU General Public License (GPL).</p>
+</div>
+
+<!-- Mission link -->
+<a id="mission-link" href="#" title="View current mission">MISSION.md</a>
+
+<!-- Mission lightbox -->
+<div id="mission-lightbox">
+    <div class="mission-content" id="mission-content">Loading MISSION.md...</div>
+    <div class="mission-links">
+        <a class="mission-pages-link" href="https://xn-intenton-z2a.github.io/repository0/" target="_blank" rel="noopener">
+            <span>Visit website</span>
+            <svg class="external-icon" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        </a>
+        <a class="mission-link-item" href="https://github.com/xn-intenton-z2a/repository0/blob/main/MISSION.md" target="_blank" rel="noopener">
+            <svg viewBox="0 0 16 16" width="20" height="20" fill="white"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+            <span>View MISSION.md</span>
+        </a>
+    </div>
 </div>
 
 <div class="fogOne"></div>
@@ -366,6 +508,7 @@
 
 <!-- VT100 Terminal Emulator -->
 <div id="terminal-container">
+    <a id="terminal-link" href="https://github.com/xn-intenton-z2a/repository0/blob/agentic-lib-logs/intenti%C3%B6n.md" target="_blank" rel="noopener">intenti&ouml;n.md</a>
     <div id="terminal-output"></div>
     <span class="cursor"></span>
 </div>
@@ -650,9 +793,9 @@
     // Function to poll the intention URL and update the menu
     function pollIntentionUrl() {
         const rawContentBaseUrl = `https://raw.githubusercontent.com/${repositoryOwner}/${repositoryName}`;
-        const intentionUrl = `${rawContentBaseUrl}/main/intentïon.md`;
+        const intentionUrl = `${rawContentBaseUrl}/agentic-lib-logs/intentïon.md`;
 
-        // First, fetch the intention file from the main branch for terminal display
+        // Fetch the intention file from the agentic-lib-logs branch for terminal display
         fetch(intentionUrl)
             .then(response => {
                 if (!response.ok) {
@@ -745,7 +888,7 @@
             owner: 'xn-intenton-z2a',
             repo: 'repository0',
             file: 'SCREENSHOT_INDEX.png',
-            branch: 'main'
+            branch: 'agentic-lib-logs'
         }
     ];
 
@@ -808,6 +951,55 @@
     }
 
     buildScreenshotShowcase();
+
+    // Mission lightbox — fetch MISSION.md from repository0 and display
+    function buildMissionLightbox() {
+        const missionLink = document.getElementById('mission-link');
+        const missionLightbox = document.getElementById('mission-lightbox');
+        const missionContent = document.getElementById('mission-content');
+        const missionUrl = 'https://raw.githubusercontent.com/xn-intenton-z2a/repository0/main/MISSION.md';
+
+        let missionText = null;
+
+        // Fetch MISSION.md on page load
+        fetch(missionUrl)
+            .then(function(response) {
+                if (!response.ok) throw new Error('Failed to fetch MISSION.md');
+                return response.text();
+            })
+            .then(function(text) {
+                missionText = text;
+                console.log('Fetched MISSION.md (' + text.length + ' chars)');
+            })
+            .catch(function(err) {
+                console.error('Error fetching MISSION.md:', err);
+                missionText = '(Could not load MISSION.md)';
+            });
+
+        // Open lightbox on click
+        missionLink.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            missionContent.textContent = missionText || 'Loading...';
+            missionLightbox.classList.add('active');
+        });
+
+        // Close lightbox on click outside content
+        missionLightbox.addEventListener('click', function(e) {
+            if (e.target === missionLightbox) {
+                missionLightbox.classList.remove('active');
+            }
+        });
+
+        // Close on Escape
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                missionLightbox.classList.remove('active');
+            }
+        });
+    }
+
+    buildMissionLightbox();
 </script>
 
 </body>
