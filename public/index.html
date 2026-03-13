@@ -35,6 +35,32 @@
             50%     { opacity: 1; }
         }
 
+        #menu {
+            position: absolute;
+            left: 2%;
+            top: 1%;
+            opacity: 0;
+            transition: opacity 3s;
+            cursor: pointer;
+            z-index: 100;
+            width: 15vw; /* 25% of viewport width */
+            height: 15vw; /* Make it a square */
+            /*border: 2px solid transparent;*/
+            border-radius: 5px;
+            padding: 5px;
+        }
+
+        #menu img {
+            position: absolute;
+            top: -35%;
+            left: -20%;
+            width: calc(25vw - 10px); /* Account for padding */
+            height: calc(25vw - 10px); /* Match container height minus padding */
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+            object-fit: contain; /* Ensure the image maintains its aspect ratio */
+        }
+
         /* VT100 Terminal Emulator Styles */
         #terminal-container {
             position: absolute;
@@ -318,6 +344,11 @@
 </head>
 <body>
 
+<div id="menu">
+    <img src="brand/mesh/intention-mesh-transparent-steel.png" alt="Intention Mesh Steel" id="menu-img-1">
+    <img src="brand/mesh/intention-mesh-transparent-black.png" alt="Intention Mesh White" id="menu-img-2">
+</div>
+
 <!-- Mission link -->
 <a id="mission-link" href="#" title="View current mission">MISSION.md</a>
 
@@ -395,6 +426,73 @@
     // Repository details for the experiments
     const repositoryOwner = 'xn-intenton-z2a';
     const repositoryName = 'repository0';
+
+    // Variables for logo display
+    let isMenuVisible = false;
+    let menuTimeout;
+    let currentImageIndex = 0;
+    let imageInterval;
+
+    // Function to cycle through menu images
+    function cycleMenuImages() {
+        const images = [
+            document.getElementById('menu-img-1'),
+            document.getElementById('menu-img-2'),
+        ];
+
+        // Hide all images
+        images.forEach(img => img.style.opacity = '0');
+
+        // Show current image
+        currentImageIndex = (currentImageIndex + 1) % images.length;
+        images[currentImageIndex].style.opacity = '1';
+
+        // Set the next timeout based on which image is showing
+        if (imageInterval) clearTimeout(imageInterval);
+
+        // menu-img-1 (index 0) shows for 0.9s, menu-img-2 (index 1) shows for 0.1s
+        const nextDelay = currentImageIndex === 0 ? 1500 : 50;
+        imageInterval = setTimeout(cycleMenuImages, nextDelay);
+    }
+
+    function showMenu() {
+        const menu = document.getElementById('menu');
+        menu.style.opacity = '1';
+        isMenuVisible = true;
+
+        // Clear any existing timeout
+        if (menuTimeout) clearTimeout(menuTimeout);
+        if (imageInterval) clearTimeout(imageInterval);
+
+        // Start cycling images
+        cycleMenuImages();
+
+        // Hide menu after 10 seconds
+        menuTimeout = setTimeout(() => {
+            menu.style.opacity = '0';
+            isMenuVisible = false;
+            if (imageInterval) clearTimeout(imageInterval);
+        }, 10000);
+    }
+
+    // Show logo on mousemove
+    document.body.addEventListener('mousemove', function() {
+        showMenu();
+    });
+
+    // Initialize menu images on page load
+    window.addEventListener('load', function() {
+        document.getElementById('menu-img-1').style.opacity = '1';
+        currentImageIndex = 0;
+        if (isMenuVisible) {
+            cycleMenuImages();
+        }
+    });
+
+    // Show logo after a short delay
+    setTimeout(function() {
+        showMenu();
+    }, 5000);
 
     // Variables for terminal display
     let intentionLines = [];
