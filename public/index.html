@@ -171,6 +171,25 @@
             vertical-align: middle;
         }
 
+        #terminal-link {
+            position: absolute;
+            top: 4px;
+            left: 8px;
+            color: #00FF00;
+            font-family: "Courier New", monospace;
+            font-size: 0.9vw;
+            text-decoration: none;
+            opacity: 0.7;
+            transition: opacity 0.3s;
+            z-index: 601;
+            pointer-events: auto;
+        }
+
+        #terminal-link:hover {
+            opacity: 1;
+            text-decoration: underline;
+        }
+
         /* Screenshot showcase */
         #screenshot-showcase {
             position: absolute;
@@ -366,6 +385,7 @@
 
 <!-- VT100 Terminal Emulator -->
 <div id="terminal-container">
+    <a id="terminal-link" href="https://github.com/xn-intenton-z2a/repository0/blob/agentic-lib-logs/intenti%C3%B6n.md" target="_blank" rel="noopener">intenti&ouml;n.md</a>
     <div id="terminal-output"></div>
     <span class="cursor"></span>
 </div>
