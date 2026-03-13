@@ -35,102 +35,6 @@
             50%     { opacity: 1; }
         }
 
-        #menu {
-            position: absolute;
-            left: 2%;
-            top: 1%;
-            opacity: 0;
-            transition: opacity 3s;
-            cursor: pointer;
-            z-index: 100;
-            width: 15vw; /* 25% of viewport width */
-            height: 15vw; /* Make it a square */
-            /*border: 2px solid transparent;*/
-            border-radius: 5px;
-            padding: 5px;
-        }
-
-        #menu img {
-            position: absolute;
-            top: -35%;
-            left: -20%;
-            width: calc(25vw - 10px); /* Account for padding */
-            height: calc(25vw - 10px); /* Match container height minus padding */
-            opacity: 0;
-            transition: opacity 0.3s ease-in-out;
-            object-fit: contain; /* Ensure the image maintains its aspect ratio */
-        }
-
-        #menu-items {
-            position: absolute;
-            left: 5%;
-            top: calc(5px + 15vw + 10px); /* Position below the menu (menu top position + menu height + padding) */
-            background-color: rgba(255, 255, 255, 0.5);
-            border: 2px solid #3F5965;
-            border-radius: 5px;
-            padding: 10px;
-            display: none;
-            z-index: 2000;
-        }
-
-        #menu-items a {
-            display: block;
-            color: #333;
-            text-decoration: none;
-            margin: 10px 0;
-            padding: 5px;
-            z-index: 2001;
-            border: 1px solid transparent;
-            transition: border-color 0.3s;
-        }
-
-        #menu-items a:hover {
-            border-color: #3F5965;
-        }
-
-        #about-box {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: rgba(255, 255, 255, 0.9);
-            border: 2px solid #3F5965;
-            border-radius: 5px;
-            padding: 20px;
-            max-width: 80%;
-            max-height: 80%;
-            overflow-y: auto;
-            z-index: 3000;
-            display: none;
-        }
-
-        #steps-overlay {
-            position: fixed;
-            bottom: 0;
-            right: -30px;
-            width: 75vw;
-            height: auto;
-            background-color: rgba(255, 255, 255, 0%);
-            display: flex;
-            justify-content: stretch;
-            align-items: flex-end;
-            z-index: 2000;
-            pointer-events: none; /* Allow clicks to pass through */
-            padding-bottom: 2vh;
-        }
-
-        #steps-content {
-            max-width: 100%;
-            padding: 0;
-            font-size: 3vw;
-            color: #3F5965;
-            opacity: 75%;
-            text-align: justify;
-            line-height: 1.5;
-            font-weight: bold;
-            text-shadow: 0 0 1px rgba(245, 127, 64, 10%);
-        }
-
         /* VT100 Terminal Emulator Styles */
         #terminal-container {
             position: absolute;
@@ -171,31 +75,11 @@
             vertical-align: middle;
         }
 
-        #terminal-link {
-            position: absolute;
-            top: 4px;
-            left: 8px;
-            color: #00FF00;
-            font-family: "Courier New", monospace;
-            font-size: 0.9vw;
-            text-decoration: none;
-            opacity: 0.7;
-            transition: opacity 0.3s;
-            z-index: 601;
-            pointer-events: auto;
-        }
-
-        #terminal-link:hover {
-            opacity: 1;
-            text-decoration: underline;
-        }
-
         /* Mission link */
         #mission-link {
             position: fixed;
             top: 8px;
-            left: 50%;
-            transform: translateX(-50%);
+            right: 8px;
             color: #3F5965;
             font-family: sans-serif;
             font-size: 1.2vw;
@@ -205,7 +89,7 @@
             transition: opacity 0.3s;
             z-index: 2500;
             cursor: pointer;
-            background-color: rgba(255, 255, 255, 0.4);
+            background-color: transparent;
             padding: 4px 16px;
             border-radius: 4px;
         }
@@ -434,27 +318,6 @@
 </head>
 <body>
 
-<div id="menu">
-    <img src="brand/mesh/intention-mesh-transparent-steel.png" alt="Intention Mesh Steel" id="menu-img-1">
-    <img src="brand/mesh/intention-mesh-transparent-black.png" alt="Intention Mesh White" id="menu-img-2">
-</div>
-
-<div id="menu-items">
-    <a href="#" id="about-link">What is this website?</a>
-    <a href="https://github.com/xn-intenton-z2a/repository0/blob/agentic-lib-logs/intentïon.md" id="current-experiment" target="_blank" style="pointer-events: auto;">Current experiment narrative</a>
-</div>
-
-<div id="about-box">
-    <h2>intentïon</h2>
-    <p>
-        intentïon.com showcases experiments from repository template
-        <a href="https://github.com/xn-intenton-z2a/repository0" target="_blank">repository0</a>
-        built from the <a href="https://github.com/xn-intenton-z2a/agentic-lib" target="_blank">agentic-lib</a>
-        workflows.
-    </p>
-    <p>This website's repository is licensed under the GNU General Public License (GPL).</p>
-</div>
-
 <!-- Mission link -->
 <a id="mission-link" href="#" title="View current mission">MISSION.md</a>
 
@@ -479,15 +342,6 @@
 <div class="fogFour"></div>
 <div class="fogFive"></div>
 
-<div id="steps-overlay">
-    <div id="steps-content">
-        a&nbsp;&nbsp;create a GitHub repository from our template<br>
-        b&nbsp;&nbsp;write your goal as a mission statement<br>
-        c&nbsp;&nbsp;your repository grows as long as you want<br>
-        (you can change the prompts at every step)
-    </div>
-</div>
-
 <!-- Screenshot showcase -->
 <div id="screenshot-showcase"></div>
 
@@ -508,7 +362,6 @@
 
 <!-- VT100 Terminal Emulator -->
 <div id="terminal-container">
-    <a id="terminal-link" href="https://github.com/xn-intenton-z2a/repository0/blob/agentic-lib-logs/intenti%C3%B6n.md" target="_blank" rel="noopener">intenti&ouml;n.md</a>
     <div id="terminal-output"></div>
     <span class="cursor"></span>
 </div>
@@ -539,190 +392,18 @@
 <script>
     console.log('Script started executing');
 
-    // Function to show intention with a random position
-    let isMenuVisible = false;
-    let menuTimeout;
-    let currentImageIndex = 0;
-    let imageInterval;
-    let menuItemsVisible = false;
-    let aboutBoxVisible = false;
-    let resizeTimeout;
-
     // Repository details for the experiments
     const repositoryOwner = 'xn-intenton-z2a';
     const repositoryName = 'repository0';
 
-    // Variables for random lines from intentïon.md
-    let intentionLines = [];
-
     // Variables for terminal display
+    let intentionLines = [];
     let terminalTimeout;
     let currentLineIndex = 0;
     let currentCharIndex = 0;
     let isTyping = false;
     let typingSpeed = 5; // 5 milliseconds per character
     let linePauseDuration = 100; // 1/10 second pause at end of line
-
-    // Function to cycle through menu images
-    function cycleMenuImages() {
-        const images = [
-            document.getElementById('menu-img-1'),
-            document.getElementById('menu-img-2'),
-        ];
-
-        // Hide all images
-        images.forEach(img => img.style.opacity = '0');
-
-        // Show current image
-        currentImageIndex = (currentImageIndex + 1) % images.length;
-        images[currentImageIndex].style.opacity = '1';
-
-        // Set the next timeout based on which image is showing
-        if (imageInterval) clearTimeout(imageInterval);
-
-        // menu-img-1 (index 0) shows for 0.9s, menu-img-2 (index 1) shows for 0.1s
-        const nextDelay = currentImageIndex === 0 ? 1500 : 50;
-        imageInterval = setTimeout(cycleMenuImages, nextDelay);
-    }
-
-    function showMenu() {
-        const menu = document.getElementById('menu');
-        menu.style.opacity = '1';
-        isMenuVisible = true;
-
-        // Clear any existing timeout
-        if (menuTimeout) clearTimeout(menuTimeout);
-        if (imageInterval) clearTimeout(imageInterval);
-
-        // Start cycling images
-        cycleMenuImages();
-
-        // Hide menu after 10 seconds
-        menuTimeout = setTimeout(() => {
-            menu.style.opacity = '0';
-            isMenuVisible = false;
-            if (imageInterval) clearTimeout(imageInterval);
-
-            // Also hide menu items if they're visible
-            if (menuItemsVisible) {
-                toggleMenuItems();
-            }
-        }, 10000);
-    }
-
-    // Function to toggle menu items visibility
-    function toggleMenuItems() {
-        const menuItems = document.getElementById('menu-items');
-
-        if (menuItemsVisible) {
-            menuItems.style.display = 'none';
-            menuItemsVisible = false;
-        } else {
-            menuItems.style.display = 'block';
-            menuItemsVisible = true;
-        }
-    }
-
-    // Function to show/hide about box
-    function toggleAboutBox() {
-        const aboutBox = document.getElementById('about-box');
-
-        if (aboutBoxVisible) {
-            aboutBox.style.display = 'none';
-            aboutBoxVisible = false;
-        } else {
-            aboutBox.style.display = 'block';
-            aboutBoxVisible = true;
-        }
-    }
-
-    // Hide about box when clicking anywhere
-    function hideAboutBox() {
-        if (aboutBoxVisible) {
-            document.getElementById('about-box').style.display = 'none';
-            aboutBoxVisible = false;
-        }
-    }
-
-    // Hide menu items when clicking anywhere
-    function hideMenuItems() {
-        if (menuItemsVisible) {
-            document.getElementById('menu-items').style.display = 'none';
-            menuItemsVisible = false;
-        }
-    }
-
-    // Make sure DOM is fully loaded before adding event listeners
-    document.addEventListener('DOMContentLoaded', function() {
-        console.log('DOM fully loaded');
-
-        // Show menu on mousemove
-        document.body.addEventListener('mousemove', function(e) {
-            console.log('mousemove event triggered');
-            showMenu();
-        });
-
-        // Menu click handler
-        document.getElementById('menu').addEventListener('click', function(e) {
-            e.stopPropagation(); // Prevent document click from firing
-            toggleMenuItems();
-        });
-
-        // About link click handler
-        document.getElementById('about-link').addEventListener('click', function(e) {
-            e.preventDefault();
-            e.stopPropagation(); // Prevent document click from firing
-            toggleAboutBox();
-        });
-
-        // Document click handler to hide about box and menu items
-        document.addEventListener('click', function(e) {
-            hideAboutBox();
-            hideMenuItems();
-        });
-
-        // Prevent clicks inside about box from closing it
-        document.getElementById('about-box').addEventListener('click', function(e) {
-            e.stopPropagation(); // Prevent document click from firing
-        });
-
-        // Prevent clicks inside menu items from closing it
-        document.getElementById('menu-items').addEventListener('click', function(e) {
-            e.stopPropagation(); // Prevent document click from firing
-        });
-
-    });
-
-    // Add a window resize event listener to update running position
-    window.addEventListener('resize', function() {
-        // Debounce the resize event to avoid excessive calculations
-        if (resizeTimeout) clearTimeout(resizeTimeout);
-    });
-
-    // Add event listeners immediately as well (in case DOMContentLoaded already fired)
-    document.body.addEventListener('mousemove', function(e) {
-        console.log('mousemove event triggered on body (immediate)');
-        showMenu();
-    });
-
-    // Initialize menu images on page load
-    window.addEventListener('load', function() {
-        // Show first image
-        document.getElementById('menu-img-1').style.opacity = '1';
-        currentImageIndex = 0;
-
-        // Start cycling images when menu is visible
-        if (isMenuVisible) {
-            cycleMenuImages();
-        }
-    });
-
-    // Call showIntention directly after a short delay to test if it works
-    console.log('Setting timeout to call showIntention directly');
-    setTimeout(function() {
-        console.log('Calling showIntention directly');
-        showMenu();
-    }, 5000);
 
     // Function to type a character at a time in the terminal
     function typeCharacter() {
@@ -790,100 +471,64 @@
         startNextLine();
     }
 
-    // Function to poll the intention URL and update the menu
+    // Function to poll for agent-log files and update the terminal display
     function pollIntentionUrl() {
-        const rawContentBaseUrl = `https://raw.githubusercontent.com/${repositoryOwner}/${repositoryName}`;
-        const intentionUrl = `${rawContentBaseUrl}/agentic-lib-logs/intentïon.md`;
+        var contentsApiUrl = 'https://api.github.com/repos/' + repositoryOwner + '/' + repositoryName + '/contents/?ref=agentic-lib-logs';
 
-        // Fetch the intention file from the agentic-lib-logs branch for terminal display
-        fetch(intentionUrl)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.text();
+        fetch(contentsApiUrl)
+            .then(function(response) {
+                if (!response.ok) throw new Error('Network response was not ok');
+                return response.json();
             })
-            .then(content => {
-                // Split the content into lines
-                const lines = content.split('\n');
+            .then(function(files) {
+                // Filter for agent-log-*.md files and sort by name (contains timestamp)
+                var logFiles = files
+                    .filter(function(f) { return f.name.indexOf('agent-log-') === 0 && f.name.endsWith('.md'); })
+                    .sort(function(a, b) { return a.name.localeCompare(b.name); });
 
-                // Store all non-empty lines for random display
-                intentionLines = lines.filter(line => line.trim() !== '');
-                console.log(`Stored ${intentionLines.length} lines from intentïon.md`);
+                // Take last 5
+                var recentLogs = logFiles.slice(-5);
+
+                if (recentLogs.length === 0) {
+                    // Fallback to the old single intentïon.md file
+                    var fallbackUrl = 'https://raw.githubusercontent.com/' + repositoryOwner + '/' + repositoryName + '/agentic-lib-logs/intenti%C3%B6n.md';
+                    return fetch(fallbackUrl).then(function(r) {
+                        if (!r.ok) return [];
+                        return r.text().then(function(t) { return [t]; });
+                    });
+                }
+
+                // Fetch all log file contents via raw URLs
+                return Promise.all(recentLogs.map(function(f) {
+                    return fetch(f.download_url).then(function(r) { return r.text(); });
+                }));
+            })
+            .then(function(contents) {
+                if (!contents || contents.length === 0) return;
+
+                // Concatenate all log contents
+                var combined = contents.join('\n\n');
+                var lines = combined.split('\n').filter(function(line) { return line.trim() !== ''; });
+
+                intentionLines = lines;
+                console.log('Stored ' + intentionLines.length + ' lines from ' + contents.length + ' agent-log file(s)');
 
                 // Start the terminal display if not already typing
                 if (!isTyping) {
                     startTerminalDisplay();
                 }
             })
-            .catch(error => {
-                console.error('Error fetching intention file:', error);
+            .catch(function(error) {
+                console.error('Error fetching agent-log files:', error);
             });
     }
 
-    function selectExperimentBranches(){
-        const repositoryUrl = `https://github.com/${repositoryOwner}/${repositoryName}`;
-        const currentExperimentLinkAnchor = document.getElementById('current-experiment');
-        const branchesApiUrl = `https://api.github.com/repos/${repositoryOwner}/${repositoryName}/branches`;
-
-        // Fetch all branches from GitHub API
-        fetch(branchesApiUrl)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json();
-            })
-            .then(branches => {
-                // Filter branches that match the regex intentïon-.*
-                const intentionBranchPattern = /^intention-.*/;
-                const intentionBranches = branches.filter(branch => intentionBranchPattern.test(branch.name));
-
-                if (intentionBranches.length === 0) {
-                    console.log('No matching experiment branches found');
-                } else {
-                    // Sort branches in their natural ordering
-                    intentionBranches.sort((a, b) => a.name.localeCompare(b.name, undefined, { numeric: true, sensitivity: 'base' }));
-
-                    console.log(`Found ${intentionBranches.length} experiment branches`);
-
-                    // Create a dropdown menu for all branches
-                    const menuItems = document.getElementById('menu-items');
-
-                    // Remove any existing experiment links (except the main one)
-                    const existingLinks = menuItems.querySelectorAll('a[data-experiment-branch]');
-                    existingLinks.forEach(link => link.remove());
-
-                    // Add individual links for each branch
-                    intentionBranches.forEach(branch => {
-                        const branchName = branch.name;
-                        const branchUrl = `${repositoryUrl}/blob/${branchName}`;
-
-                        // Create a new link for this branch
-                        const branchLink = document.createElement('a');
-                        branchLink.href = `${branchUrl}/intentïon.md`;
-                        branchLink.target = "_blank";
-                        branchLink.textContent = branchName;
-                        branchLink.setAttribute('data-experiment-branch', branchName);
-
-                        // Add the link after the main experiment link
-                        menuItems.insertBefore(branchLink, currentExperimentLinkAnchor.nextSibling);
-                    });
-                }
-            })
-            .catch(error => {
-                console.error('Error fetching branches:', error);
-            });
-    }
-
-    selectExperimentBranches();
-
-    // Poll the intention URL immediately and then every minute
+    // Poll immediately and then every 5 minutes
     pollIntentionUrl();
-    setInterval(pollIntentionUrl, 60000); // 60000 ms = 1 minute
+    setInterval(pollIntentionUrl, 300000); // 300000 ms = 5 minutes
 
     // Screenshot showcase — fetch from repository0 and display with lightbox
-    const screenshotSources = [
+    var screenshotSources = [
         {
             owner: 'xn-intenton-z2a',
             repo: 'repository0',
@@ -893,27 +538,27 @@
     ];
 
     function buildScreenshotShowcase() {
-        const showcase = document.getElementById('screenshot-showcase');
-        const lightbox = document.getElementById('lightbox-overlay');
-        const lightboxImg = lightbox.querySelector('.lightbox-img');
-        const lightboxLink = lightbox.querySelector('.lightbox-link');
-        const lightboxPagesLink = lightbox.querySelector('.lightbox-pages-link');
+        var showcase = document.getElementById('screenshot-showcase');
+        var lightbox = document.getElementById('lightbox-overlay');
+        var lightboxImg = lightbox.querySelector('.lightbox-img');
+        var lightboxLink = lightbox.querySelector('.lightbox-link');
+        var lightboxPagesLink = lightbox.querySelector('.lightbox-pages-link');
 
-        screenshotSources.forEach(source => {
-            const imgUrl = `https://raw.githubusercontent.com/${source.owner}/${source.repo}/${source.branch}/${source.file}`;
-            const repoUrl = `https://github.com/${source.owner}/${source.repo}`;
-            const pagesUrl = `https://${source.owner}.github.io/${source.repo}/`;
+        screenshotSources.forEach(function(source) {
+            var imgUrl = 'https://raw.githubusercontent.com/' + source.owner + '/' + source.repo + '/' + source.branch + '/' + source.file;
+            var repoUrl = 'https://github.com/' + source.owner + '/' + source.repo;
+            var pagesUrl = 'https://' + source.owner + '.github.io/' + source.repo + '/';
 
-            const item = document.createElement('div');
+            var item = document.createElement('div');
             item.className = 'screenshot-item';
 
-            const img = document.createElement('img');
+            var img = document.createElement('img');
             img.className = 'screenshot-img';
             img.src = imgUrl;
-            img.alt = `${source.repo} screenshot`;
+            img.alt = source.repo + ' screenshot';
             img.loading = 'lazy';
 
-            const badge = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+            var badge = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
             badge.setAttribute('class', 'gh-badge');
             badge.setAttribute('viewBox', '0 0 16 16');
             badge.setAttribute('fill', '#333');
@@ -926,7 +571,7 @@
             item.addEventListener('click', function(e) {
                 e.stopPropagation();
                 lightboxImg.src = imgUrl;
-                lightboxImg.alt = `${source.repo} screenshot`;
+                lightboxImg.alt = source.repo + ' screenshot';
                 lightboxLink.href = repoUrl;
                 lightboxPagesLink.href = pagesUrl;
                 lightbox.classList.add('active');
@@ -954,12 +599,12 @@
 
     // Mission lightbox — fetch MISSION.md from repository0 and display
     function buildMissionLightbox() {
-        const missionLink = document.getElementById('mission-link');
-        const missionLightbox = document.getElementById('mission-lightbox');
-        const missionContent = document.getElementById('mission-content');
-        const missionUrl = 'https://raw.githubusercontent.com/xn-intenton-z2a/repository0/main/MISSION.md';
+        var missionLink = document.getElementById('mission-link');
+        var missionLightbox = document.getElementById('mission-lightbox');
+        var missionContent = document.getElementById('mission-content');
+        var missionUrl = 'https://raw.githubusercontent.com/xn-intenton-z2a/repository0/main/MISSION.md';
 
-        let missionText = null;
+        var missionText = null;
 
         // Fetch MISSION.md on page load
         fetch(missionUrl)
