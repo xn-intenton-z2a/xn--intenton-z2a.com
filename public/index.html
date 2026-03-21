@@ -647,7 +647,7 @@
         var stateP = fetch('https://raw.githubusercontent.com/' + OWNER + '/' + repoName + '/agentic-lib-logs/agentic-lib-state.toml')
             .then(function(r) { return r.ok ? r.text() : ''; })
             .then(function(text) {
-                var m = text.match(/cumulative-cost\s*=\s*(\d+)/);
+                var m = text.match(/cumulative-transforms\s*=\s*(\d+)/);
                 if (m) meta.transforms = parseInt(m[1], 10);
             })
             .catch(function() {});
@@ -688,16 +688,16 @@
 
             var statusSpan = document.createElement('span');
             statusSpan.className = 'showcase-status ' + meta.status;
-            var statusLabels = { 'complete': 'COMPLETE', 'in-progress': 'IN-PROGRESS', 'not-started': 'NOT STARTED', 'blocked': 'BLOCKED', 'unavailable': 'N/A' };
+            var statusLabels = { 'complete': '\u2713', 'in-progress': '\u2014', 'not-started': '0', 'blocked': '\u2717', 'unavailable': '\u2014' };
             statusSpan.textContent = statusLabels[meta.status] || meta.status;
 
             var transformsSpan = document.createElement('span');
             transformsSpan.className = 'showcase-transforms';
-            transformsSpan.textContent = meta.transforms + ' transforms';
+            transformsSpan.textContent = '[' + meta.transforms + ']';
 
             var defaultBtn = document.createElement('button');
             defaultBtn.className = 'showcase-default-btn' + (repo.name === currentDefault ? ' is-default' : '');
-            defaultBtn.textContent = repo.name === currentDefault ? 'default' : 'make default';
+            defaultBtn.textContent = repo.name === currentDefault ? '\u25CF' : '\u25CB';
             if (repo.name !== currentDefault) {
                 defaultBtn.addEventListener('click', (function(rn) {
                     return function(e) { e.preventDefault(); switchDefault(rn); };
@@ -945,10 +945,10 @@
             label.className = 'grid-cell-label';
             label.textContent = repo.label;
 
-            var statusLabels = { 'complete': 'COMPLETE', 'in-progress': 'IN-PROGRESS', 'not-started': 'NOT STARTED', 'blocked': 'BLOCKED', 'unavailable': 'N/A' };
+            var gridStatusLabels = { 'complete': 'COMPLETE', 'in-progress': 'IN-PROGRESS', 'not-started': 'NOT STARTED', 'blocked': 'BLOCKED', 'unavailable': 'N/A' };
             var statusSpan = document.createElement('span');
             statusSpan.className = 'showcase-status ' + meta.status;
-            statusSpan.textContent = statusLabels[meta.status] || meta.status;
+            statusSpan.textContent = gridStatusLabels[meta.status] || meta.status;
             statusSpan.style.marginLeft = '8px';
 
             var mission = document.createElement('div');
