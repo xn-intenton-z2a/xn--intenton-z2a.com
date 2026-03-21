@@ -652,14 +652,10 @@
             })
             .catch(function() {});
 
-        var discussionP = fetch('https://api.github.com/repos/' + OWNER + '/' + repoName + '/discussions?per_page=1&direction=desc')
-            .then(function(r) { return r.ok ? r.json() : []; })
-            .then(function(discussions) {
-                if (Array.isArray(discussions) && discussions.length > 0 && discussions[0].title) {
-                    meta.discussionTerm = discussions[0].title;
-                }
-            })
-            .catch(function() {});
+        // Discussion term is always 'Talk to the repository' — the bot creates discussions
+        // with this title. The REST API doesn't support reliable newest-first sorting,
+        // and the repo has many discussions with this title, so we use the default.
+        var discussionP = Promise.resolve();
 
         return Promise.all([listingP, missionP, tomlP, stateP, discussionP]).then(function() {
             repoMeta[repoName] = meta;
