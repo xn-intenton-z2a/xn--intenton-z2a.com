@@ -550,6 +550,8 @@
           repoId: 'R_kgDON6E8ZA', categoryId: 'DIC_kwDON6E8ZM4CpwzM', giscus: true },
         { name: 'repository0-string-utils', label: 'string-utils',
           repoId: 'R_kgDORsndTg', categoryId: 'DIC_kwDORsndTs4C45WB', giscus: false },
+        { name: 'repository0-dense-encoder', label: 'dense-encoding',
+          repoId: 'R_kgDORsnZxA', categoryId: 'DIC_kwDORsnZxM4C45Vj', giscus: false },
         { name: 'repository0-random', label: 'random',
           repoId: 'R_kgDORsnWVw', categoryId: 'DIC_kwDORsnWV84C45VR', giscus: false },
         { name: 'repository0-crucible', label: 'crucible',
@@ -925,23 +927,6 @@
 
             grid.appendChild(cell);
         });
-
-        // 6th cell: "Create your own"
-        var ctaCell = document.createElement('div');
-        ctaCell.className = 'grid-cell';
-        var ctaLink = document.createElement('a');
-        ctaLink.className = 'grid-cell-cta';
-        ctaLink.href = 'https://github.com/' + OWNER + '/repository0';
-        ctaLink.target = '_blank';
-        ctaLink.rel = 'noopener';
-        ctaLink.textContent = 'Create your own +';
-        var ctaInfo = document.createElement('div');
-        ctaInfo.className = 'grid-cell-info';
-        ctaInfo.innerHTML = '<div class="grid-cell-label">Use this template</div><div class="grid-cell-mission">Fork repository0 and write your mission</div>';
-        ctaCell.appendChild(ctaLink);
-        ctaCell.appendChild(ctaInfo);
-        ctaCell.style.cursor = 'default';
-        grid.appendChild(ctaCell);
 
         overlay.classList.add('active');
     }
