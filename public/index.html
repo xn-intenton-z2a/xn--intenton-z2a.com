@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
-    <title>intentïon</title>
+    <title>intenti&ouml;n</title>
     <style>
         body {
             margin: 0;
@@ -101,28 +101,82 @@
             vertical-align: middle;
         }
 
-        /* Mission link */
-        #mission-link {
+        /* Showcase bar */
+        #showcase-bar {
             position: fixed;
             top: 8px;
             right: 8px;
-            color: #3F5965;
+            z-index: 2500;
             font-family: sans-serif;
-            font-size: 1.2vw;
+            font-size: 0.85vw;
+            opacity: 0.75;
+            transition: opacity 0.3s;
+            background: rgba(255,255,255,0.15);
+            border-radius: 6px;
+            padding: 6px 10px;
+        }
+        #showcase-bar:hover { opacity: 1; }
+
+        .showcase-row {
+            display: flex;
+            align-items: center;
+            gap: 0.6em;
+            line-height: 1.8;
+            white-space: nowrap;
+            color: #3F5965;
+        }
+        .showcase-mission {
+            color: #3F5965;
+            text-decoration: none;
+            font-weight: bold;
+            cursor: pointer;
+            max-width: 14em;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .showcase-mission:hover { text-decoration: underline; }
+        .showcase-status {
+            font-size: 0.75em;
+            font-weight: bold;
+            padding: 1px 5px;
+            border-radius: 3px;
+            text-transform: uppercase;
+        }
+        .showcase-status.complete { color: #2ea043; }
+        .showcase-status.in-progress { color: #d29922; }
+        .showcase-status.not-started { color: #8b949e; }
+        .showcase-status.blocked { color: #f85149; }
+        .showcase-status.unavailable { color: #8b949e; font-style: italic; }
+        .showcase-transforms { color: #57606a; font-size: 0.85em; }
+        .showcase-default-btn {
+            color: #3F5965;
+            cursor: pointer;
+            font-size: 0.8em;
+            text-decoration: underline;
+            background: none;
+            border: none;
+            padding: 0;
+            font-family: inherit;
+        }
+        .showcase-default-btn.is-default {
             font-weight: bold;
             text-decoration: none;
-            opacity: 0.7;
-            transition: opacity 0.3s;
-            z-index: 2500;
+            cursor: default;
+        }
+        #showcase-show-all {
+            display: block;
+            margin-top: 4px;
+            color: #3F5965;
+            font-size: 0.8em;
+            text-align: right;
             cursor: pointer;
-            background-color: transparent;
-            padding: 4px 16px;
-            border-radius: 4px;
+            background: none;
+            border: none;
+            padding: 0;
+            font-family: inherit;
+            text-decoration: underline;
         }
-
-        #mission-link:hover {
-            opacity: 1;
-        }
+        #showcase-show-all:hover { font-weight: bold; }
 
         /* Mission lightbox */
         #mission-lightbox {
@@ -340,6 +394,83 @@
                 width: 50%;
             }
         }
+
+        /* Show-all grid overlay */
+        #grid-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.9);
+            z-index: 6000;
+            justify-content: center;
+            align-items: center;
+            padding: 4vw;
+            box-sizing: border-box;
+        }
+        #grid-overlay.active { display: flex; }
+        #grid-close {
+            position: absolute;
+            top: 16px;
+            right: 24px;
+            color: #fff;
+            font-size: 28px;
+            cursor: pointer;
+            z-index: 6001;
+            background: none;
+            border: none;
+            font-family: inherit;
+            opacity: 0.7;
+        }
+        #grid-close:hover { opacity: 1; }
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2vw;
+            max-width: 90vw;
+            max-height: 85vh;
+            overflow-y: auto;
+        }
+        @media (max-width: 768px), (orientation: portrait) {
+            .grid-container { grid-template-columns: repeat(2, 1fr); }
+        }
+        .grid-cell {
+            background: #1a1a2e;
+            border-radius: 8px;
+            overflow: hidden;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: border-color 0.3s, transform 0.2s;
+            display: flex;
+            flex-direction: column;
+        }
+        .grid-cell:hover { border-color: #3F5965; transform: scale(1.02); }
+        .grid-cell.is-default { border-color: #2ea043; }
+        .grid-cell-img {
+            width: 100%;
+            aspect-ratio: 16/9;
+            object-fit: cover;
+            background: #111;
+            display: block;
+        }
+        .grid-cell-info {
+            padding: 8px 12px;
+            color: #ccc;
+            font-size: 13px;
+        }
+        .grid-cell-label { font-weight: bold; color: #fff; margin-bottom: 2px; }
+        .grid-cell-mission { color: #aaa; font-size: 12px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .grid-cell-cta {
+            background: #2ea043;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            font-weight: bold;
+            text-decoration: none;
+            aspect-ratio: 16/9;
+        }
+        .grid-cell-cta:hover { background: #3fb950; }
     </style>
 </head>
 <body>
@@ -349,18 +480,18 @@
     <img src="brand/mesh/intention-mesh-transparent-black.png" alt="Intention Mesh White" id="menu-img-2">
 </div>
 
-<!-- Mission link -->
-<a id="mission-link" href="#" title="View current mission">MISSION.md</a>
+<!-- Showcase bar (replaces mission-link) -->
+<div id="showcase-bar"></div>
 
 <!-- Mission lightbox -->
 <div id="mission-lightbox">
     <div class="mission-content" id="mission-content">Loading MISSION.md...</div>
-    <div class="mission-links">
-        <a class="mission-pages-link" href="https://xn-intenton-z2a.github.io/repository0/" target="_blank" rel="noopener">
+    <div class="mission-links" id="mission-links">
+        <a class="mission-pages-link" id="mission-pages-link" href="#" target="_blank" rel="noopener">
             <span>Visit website</span>
             <svg class="external-icon" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
         </a>
-        <a class="mission-link-item" href="https://github.com/xn-intenton-z2a/repository0/blob/main/MISSION.md" target="_blank" rel="noopener">
+        <a class="mission-link-item" id="mission-repo-link" href="#" target="_blank" rel="noopener">
             <svg viewBox="0 0 16 16" width="20" height="20" fill="white"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
             <span>View MISSION.md</span>
         </a>
@@ -400,349 +531,520 @@
 <div id="random-line"></div>
 
 <!-- ─────────────── giscus embed ─────────────── -->
-<div id="giscus-container">
-    <script src="https://giscus.app/client.js"
-            data-repo="xn-intenton-z2a/repository0"
-            data-repo-id="R_kgDON6E8ZA"
-            data-category="General"
-            data-category-id="DIC_kwDON6E8ZM4CpwzM"
-            data-mapping="specific"
-            data-term="Talk to the repository"
-            data-strict="0"
-            data-reactions-enabled="0"
-            data-emit-metadata="0"
-            data-input-position="top"
-            data-theme="noborder_light"
-            data-lang="en"
-            crossorigin="anonymous"
-            async>
-    </script>
-</div>
+<div id="giscus-container"></div>
 <!-- ────────────────────────────────────────────── -->
+
+<!-- Show-all grid overlay -->
+<div id="grid-overlay">
+    <button id="grid-close">&times;</button>
+    <div class="grid-container" id="grid-container"></div>
+</div>
 
 <script>
     console.log('Script started executing');
 
-    // Repository details for the experiments
-    const repositoryOwner = 'xn-intenton-z2a';
-    const repositoryName = 'repository0';
+    // ─── W1: Repository config ──────────────────────────────────────
+    var OWNER = 'xn-intenton-z2a';
+    var SHOWCASE_REPOS = [
+        { name: 'repository0', label: 'repository0',
+          repoId: 'R_kgDON6E8ZA', categoryId: 'DIC_kwDON6E8ZM4CpwzM' },
+        { name: 'repository0-string-utils', label: 'string-utils',
+          repoId: 'R_kgDORsndTg', categoryId: 'DIC_kwDORsndTs4C45WB' },
+        { name: 'repository0-random', label: 'random',
+          repoId: 'R_kgDORsnWVw', categoryId: 'DIC_kwDORsnWV84C45VR' },
+        { name: 'repository0-crucible', label: 'crucible',
+          repoId: 'R_kgDORsnROA', categoryId: 'DIC_kwDORsnROM4C45Uz' },
+        { name: 'repository0-plot-code-lib', label: 'plot-code-lib',
+          repoId: 'R_kgDORrzlsg', categoryId: 'DIC_kwDORrzlss4C40yA' },
+    ];
 
-    // Variables for logo display
-    let isMenuVisible = false;
-    let menuTimeout;
-    let currentImageIndex = 0;
-    let imageInterval;
+    // ─── W2: localStorage for default repo ──────────────────────────
+    var currentDefault = localStorage.getItem('intention-showcase-default') || 'repository0';
 
-    // Function to cycle through menu images
-    function cycleMenuImages() {
-        const images = [
-            document.getElementById('menu-img-1'),
-            document.getElementById('menu-img-2'),
-        ];
+    // ─── Metadata cache ─────────────────────────────────────────────
+    var repoMeta = {}; // { repoName: { missionName, missionText, status, transforms, discussionTerm } }
 
-        // Hide all images
-        images.forEach(img => img.style.opacity = '0');
+    // ─── W3: Fetch per-repo metadata (batched) ─────────────────────
+    function fetchRepoMeta(repoName) {
+        if (repoMeta[repoName]) return Promise.resolve(repoMeta[repoName]);
 
-        // Show current image
-        currentImageIndex = (currentImageIndex + 1) % images.length;
-        images[currentImageIndex].style.opacity = '1';
+        var meta = { missionName: repoName, missionText: null, status: 'unavailable', transforms: 0, discussionTerm: 'Talk to the repository' };
 
-        // Set the next timeout based on which image is showing
-        if (imageInterval) clearTimeout(imageInterval);
+        var listingP = fetch('https://api.github.com/repos/' + OWNER + '/' + repoName + '/contents/?ref=main')
+            .then(function(r) { return r.ok ? r.json() : []; })
+            .then(function(files) {
+                var names = Array.isArray(files) ? files.map(function(f) { return f.name; }) : [];
+                if (names.indexOf('MISSION_COMPLETE.md') >= 0) meta.status = 'complete';
+                else if (names.indexOf('MISSION_FAILED.md') >= 0) meta.status = 'blocked';
+                else if (names.indexOf('MISSION.md') >= 0) meta.status = 'in-progress';
+                else meta.status = 'not-started';
+            })
+            .catch(function() { meta.status = 'unavailable'; });
 
-        // menu-img-1 (index 0) shows for 0.9s, menu-img-2 (index 1) shows for 0.1s
-        const nextDelay = currentImageIndex === 0 ? 1500 : 50;
-        imageInterval = setTimeout(cycleMenuImages, nextDelay);
+        var missionP = fetch('https://raw.githubusercontent.com/' + OWNER + '/' + repoName + '/main/MISSION.md')
+            .then(function(r) { return r.ok ? r.text() : null; })
+            .then(function(text) {
+                if (text) {
+                    meta.missionText = text;
+                    var lines = text.split('\n');
+                    for (var i = 0; i < lines.length; i++) {
+                        var line = lines[i].trim();
+                        if (line && !line.startsWith('#')) { meta.missionName = line.substring(0, 50); break; }
+                    }
+                }
+            })
+            .catch(function() {});
+
+        var stateP = fetch('https://raw.githubusercontent.com/' + OWNER + '/' + repoName + '/agentic-lib-logs/agentic-lib-state.toml')
+            .then(function(r) { return r.ok ? r.text() : ''; })
+            .then(function(text) {
+                var m = text.match(/cumulative-cost\s*=\s*(\d+)/);
+                if (m) meta.transforms = parseInt(m[1], 10);
+            })
+            .catch(function() {});
+
+        var discussionP = fetch('https://api.github.com/repos/' + OWNER + '/' + repoName + '/discussions?per_page=1&direction=desc')
+            .then(function(r) { return r.ok ? r.json() : []; })
+            .then(function(discussions) {
+                if (Array.isArray(discussions) && discussions.length > 0 && discussions[0].title) {
+                    meta.discussionTerm = discussions[0].title;
+                }
+            })
+            .catch(function() {});
+
+        return Promise.all([listingP, missionP, stateP, discussionP]).then(function() {
+            repoMeta[repoName] = meta;
+            return meta;
+        });
     }
 
-    function showMenu() {
-        const menu = document.getElementById('menu');
-        menu.style.opacity = '1';
-        isMenuVisible = true;
-
-        // Clear any existing timeout
-        if (menuTimeout) clearTimeout(menuTimeout);
-        if (imageInterval) clearTimeout(imageInterval);
-
-        // Start cycling images
-        cycleMenuImages();
-
-        // Hide menu after 10 seconds
-        menuTimeout = setTimeout(() => {
-            menu.style.opacity = '0';
-            isMenuVisible = false;
-            if (imageInterval) clearTimeout(imageInterval);
-        }, 10000);
+    function fetchAllMeta() {
+        return Promise.all(SHOWCASE_REPOS.map(function(r) { return fetchRepoMeta(r.name); }));
     }
 
-    // Show logo on mousemove
-    document.body.addEventListener('mousemove', function() {
-        showMenu();
-    });
+    // ─── W4: Showcase bar ───────────────────────────────────────────
+    function renderShowcaseBar() {
+        var bar = document.getElementById('showcase-bar');
+        bar.innerHTML = '';
+        SHOWCASE_REPOS.forEach(function(repo) {
+            var meta = repoMeta[repo.name] || { missionName: repo.label, status: 'unavailable', transforms: 0 };
+            var row = document.createElement('div');
+            row.className = 'showcase-row';
+            row.setAttribute('data-repo', repo.name);
 
-    // Initialize menu images on page load
-    window.addEventListener('load', function() {
-        document.getElementById('menu-img-1').style.opacity = '1';
-        currentImageIndex = 0;
-        if (isMenuVisible) {
-            cycleMenuImages();
-        }
-    });
+            var missionLink = document.createElement('a');
+            missionLink.className = 'showcase-mission';
+            missionLink.textContent = meta.missionName;
+            missionLink.title = 'View MISSION.md for ' + repo.label;
+            missionLink.href = '#';
+            missionLink.addEventListener('click', (function(rn) {
+                return function(e) { e.preventDefault(); openMissionLightbox(rn); };
+            })(repo.name));
 
-    // Show logo after a short delay
-    setTimeout(function() {
-        showMenu();
-    }, 5000);
+            var statusSpan = document.createElement('span');
+            statusSpan.className = 'showcase-status ' + meta.status;
+            var statusLabels = { 'complete': 'COMPLETE', 'in-progress': 'IN-PROGRESS', 'not-started': 'NOT STARTED', 'blocked': 'BLOCKED', 'unavailable': 'N/A' };
+            statusSpan.textContent = statusLabels[meta.status] || meta.status;
 
-    // Variables for terminal display
-    let intentionLines = [];
-    let terminalTimeout;
-    let currentLineIndex = 0;
-    let currentCharIndex = 0;
-    let isTyping = false;
-    let typingSpeed = 5; // 5 milliseconds per character
-    let linePauseDuration = 100; // 1/10 second pause at end of line
+            var transformsSpan = document.createElement('span');
+            transformsSpan.className = 'showcase-transforms';
+            transformsSpan.textContent = meta.transforms + ' transforms';
 
-    // Function to type a character at a time in the terminal
+            var defaultBtn = document.createElement('button');
+            defaultBtn.className = 'showcase-default-btn' + (repo.name === currentDefault ? ' is-default' : '');
+            defaultBtn.textContent = repo.name === currentDefault ? 'default' : 'make default';
+            if (repo.name !== currentDefault) {
+                defaultBtn.addEventListener('click', (function(rn) {
+                    return function(e) { e.preventDefault(); switchDefault(rn); };
+                })(repo.name));
+            }
+
+            row.appendChild(missionLink);
+            row.appendChild(statusSpan);
+            row.appendChild(transformsSpan);
+            row.appendChild(defaultBtn);
+            bar.appendChild(row);
+        });
+
+        var showAllBtn = document.createElement('button');
+        showAllBtn.id = 'showcase-show-all';
+        showAllBtn.textContent = 'Show all';
+        showAllBtn.addEventListener('click', openGridOverlay);
+        bar.appendChild(showAllBtn);
+    }
+
+    // ─── W5 + W10: Unified switchDefault ────────────────────────────
+    function switchDefault(repoName) {
+        currentDefault = repoName;
+        localStorage.setItem('intention-showcase-default', repoName);
+
+        // Clear terminal and restart
+        var termOut = document.getElementById('terminal-output');
+        termOut.textContent = '';
+        intentionLines = [];
+        currentLineIndex = 0;
+        currentCharIndex = 0;
+        isTyping = false;
+        if (terminalTimeout) clearTimeout(terminalTimeout);
+        if (pollInterval) clearInterval(pollInterval);
+        pollIntentionUrl(repoName);
+        pollInterval = setInterval(function() { pollIntentionUrl(repoName); }, 300000);
+
+        // Switch screenshot
+        buildScreenshotShowcase(repoName);
+
+        // Switch Giscus
+        switchGiscus(repoName);
+
+        // Re-render showcase bar
+        renderShowcaseBar();
+
+        // Close grid if open
+        document.getElementById('grid-overlay').classList.remove('active');
+    }
+
+    // ─── W6: Parameterised VT100 polling ────────────────────────────
+    var intentionLines = [];
+    var terminalTimeout;
+    var currentLineIndex = 0;
+    var currentCharIndex = 0;
+    var isTyping = false;
+    var typingSpeed = 5;
+    var linePauseDuration = 100;
+    var pollInterval;
+
     function typeCharacter() {
         if (intentionLines.length === 0 || currentLineIndex >= intentionLines.length) {
-            currentLineIndex = 0; // Reset to beginning if we've gone through all lines
-            // Clear the screen only when we've gone through all lines
-            const terminalOutput = document.getElementById('terminal-output');
-            terminalOutput.textContent = '';
+            currentLineIndex = 0;
+            document.getElementById('terminal-output').textContent = '';
         }
-
-        const terminalOutput = document.getElementById('terminal-output');
-        const terminalContainer = document.getElementById('terminal-container');
-        const currentLine = intentionLines[currentLineIndex];
-
+        var terminalOutput = document.getElementById('terminal-output');
+        var terminalContainer = document.getElementById('terminal-container');
+        var currentLine = intentionLines[currentLineIndex];
         if (currentCharIndex < currentLine.length) {
-            // Add the next character
             terminalOutput.textContent += currentLine.charAt(currentCharIndex);
             currentCharIndex++;
-
-            // Auto-scroll to the bottom to ensure the latest content is visible
             terminalContainer.scrollTop = terminalContainer.scrollHeight;
-
-            // Schedule next character
             terminalTimeout = setTimeout(typeCharacter, typingSpeed);
         } else {
-            // Finished typing the line, pause before starting next line
             isTyping = false;
             terminalTimeout = setTimeout(startNextLine, linePauseDuration);
         }
     }
 
-    // Function to start typing the next line
     function startNextLine() {
         if (isTyping) return;
-
         isTyping = true;
         currentCharIndex = 0;
-
-        // Increment line index
         currentLineIndex = (currentLineIndex + 1) % intentionLines.length;
-
-        // Add a newline character before starting the next line (except for the first line)
         if (currentLineIndex !== 0) {
-            const terminalOutput = document.getElementById('terminal-output');
-            const terminalContainer = document.getElementById('terminal-container');
+            var terminalOutput = document.getElementById('terminal-output');
+            var terminalContainer = document.getElementById('terminal-container');
             terminalOutput.textContent += '\n';
-
-            // Auto-scroll to the bottom to ensure the latest content is visible
             terminalContainer.scrollTop = terminalContainer.scrollHeight;
         }
-
-        // Start typing the next line
         typeCharacter();
     }
 
-    // Function to start the terminal display
     function startTerminalDisplay() {
-        // Don't start if there are no lines or already typing
         if (intentionLines.length === 0 || isTyping) return;
-
-        // Clear any existing timeout
         if (terminalTimeout) clearTimeout(terminalTimeout);
-
-        // Start typing the first line
         startNextLine();
     }
 
-    // Function to poll for agent-log files and update the terminal display
-    function pollIntentionUrl() {
-        var contentsApiUrl = 'https://api.github.com/repos/' + repositoryOwner + '/' + repositoryName + '/contents/?ref=agentic-lib-logs';
-
+    function pollIntentionUrl(repoName) {
+        var contentsApiUrl = 'https://api.github.com/repos/' + OWNER + '/' + repoName + '/contents/?ref=agentic-lib-logs';
         fetch(contentsApiUrl)
             .then(function(response) {
                 if (!response.ok) throw new Error('Network response was not ok');
                 return response.json();
             })
             .then(function(files) {
-                // Filter for agent-log-*.md files and sort by name (contains timestamp)
                 var logFiles = files
                     .filter(function(f) { return f.name.indexOf('agent-log-') === 0 && f.name.endsWith('.md'); })
                     .sort(function(a, b) { return a.name.localeCompare(b.name); });
-
-                // Take last 5
                 var recentLogs = logFiles.slice(-5);
-
                 if (recentLogs.length === 0) {
-                    // Fallback to the old single intentïon.md file
-                    var fallbackUrl = 'https://raw.githubusercontent.com/' + repositoryOwner + '/' + repositoryName + '/agentic-lib-logs/intenti%C3%B6n.md';
+                    var fallbackUrl = 'https://raw.githubusercontent.com/' + OWNER + '/' + repoName + '/agentic-lib-logs/intenti%C3%B6n.md';
                     return fetch(fallbackUrl).then(function(r) {
                         if (!r.ok) return [];
                         return r.text().then(function(t) { return [t]; });
                     });
                 }
-
-                // Fetch all log file contents via raw URLs
                 return Promise.all(recentLogs.map(function(f) {
                     return fetch(f.download_url).then(function(r) { return r.text(); });
                 }));
             })
             .then(function(contents) {
                 if (!contents || contents.length === 0) return;
-
-                // Concatenate all log contents
                 var combined = contents.join('\n\n');
                 var lines = combined.split('\n').filter(function(line) { return line.trim() !== ''; });
-
                 intentionLines = lines;
-                console.log('Stored ' + intentionLines.length + ' lines from ' + contents.length + ' agent-log file(s)');
-
-                // Start the terminal display if not already typing
-                if (!isTyping) {
-                    startTerminalDisplay();
-                }
+                if (!isTyping) startTerminalDisplay();
             })
             .catch(function(error) {
                 console.error('Error fetching agent-log files:', error);
             });
     }
 
-    // Poll immediately and then every 5 minutes
-    pollIntentionUrl();
-    setInterval(pollIntentionUrl, 300000); // 300000 ms = 5 minutes
-
-    // Screenshot showcase — fetch from repository0 and display with lightbox
-    var screenshotSources = [
-        {
-            owner: 'xn-intenton-z2a',
-            repo: 'repository0',
-            file: 'SCREENSHOT_INDEX.png',
-            branch: 'agentic-lib-logs'
-        }
-    ];
-
-    function buildScreenshotShowcase() {
+    // ─── W6: Parameterised screenshot ───────────────────────────────
+    function buildScreenshotShowcase(repoName) {
         var showcase = document.getElementById('screenshot-showcase');
         var lightbox = document.getElementById('lightbox-overlay');
         var lightboxImg = lightbox.querySelector('.lightbox-img');
         var lightboxLink = lightbox.querySelector('.lightbox-link');
         var lightboxPagesLink = lightbox.querySelector('.lightbox-pages-link');
 
-        screenshotSources.forEach(function(source) {
-            var imgUrl = 'https://raw.githubusercontent.com/' + source.owner + '/' + source.repo + '/' + source.branch + '/' + source.file;
-            var repoUrl = 'https://github.com/' + source.owner + '/' + source.repo;
-            var pagesUrl = 'https://' + source.owner + '.github.io/' + source.repo + '/';
+        showcase.innerHTML = '';
+        var imgUrl = 'https://raw.githubusercontent.com/' + OWNER + '/' + repoName + '/agentic-lib-logs/SCREENSHOT_INDEX.png';
+        var repoUrl = 'https://github.com/' + OWNER + '/' + repoName;
+        var pagesUrl = 'https://' + OWNER + '.github.io/' + repoName + '/';
 
-            var item = document.createElement('div');
-            item.className = 'screenshot-item';
+        var item = document.createElement('div');
+        item.className = 'screenshot-item';
 
-            var img = document.createElement('img');
-            img.className = 'screenshot-img';
-            img.src = imgUrl;
-            img.alt = source.repo + ' screenshot';
-            img.loading = 'lazy';
+        var img = document.createElement('img');
+        img.className = 'screenshot-img';
+        img.src = imgUrl;
+        img.alt = repoName + ' screenshot';
+        img.loading = 'lazy';
 
-            var badge = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-            badge.setAttribute('class', 'gh-badge');
-            badge.setAttribute('viewBox', '0 0 16 16');
-            badge.setAttribute('fill', '#333');
-            badge.innerHTML = '<path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>';
+        var badge = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+        badge.setAttribute('class', 'gh-badge');
+        badge.setAttribute('viewBox', '0 0 16 16');
+        badge.setAttribute('fill', '#333');
+        badge.innerHTML = '<path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>';
 
-            item.appendChild(img);
-            item.appendChild(badge);
+        item.appendChild(img);
+        item.appendChild(badge);
+        item.addEventListener('click', function(e) {
+            e.stopPropagation();
+            lightboxImg.src = imgUrl;
+            lightboxImg.alt = repoName + ' screenshot';
+            lightboxLink.href = repoUrl;
+            lightboxPagesLink.href = pagesUrl;
+            lightbox.classList.add('active');
+        });
+        showcase.appendChild(item);
 
-            // Click to open lightbox
-            item.addEventListener('click', function(e) {
-                e.stopPropagation();
-                lightboxImg.src = imgUrl;
-                lightboxImg.alt = source.repo + ' screenshot';
-                lightboxLink.href = repoUrl;
-                lightboxPagesLink.href = pagesUrl;
-                lightbox.classList.add('active');
+        // Close lightbox handlers (idempotent — only bind once)
+        if (!lightbox._bound) {
+            lightbox.addEventListener('click', function(e) {
+                if (e.target === lightbox) lightbox.classList.remove('active');
             });
-
-            showcase.appendChild(item);
-        });
-
-        // Close lightbox on click outside image
-        lightbox.addEventListener('click', function(e) {
-            if (e.target === lightbox) {
-                lightbox.classList.remove('active');
-            }
-        });
-
-        // Close lightbox on Escape
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                lightbox.classList.remove('active');
-            }
-        });
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    lightbox.classList.remove('active');
+                    document.getElementById('mission-lightbox').classList.remove('active');
+                    document.getElementById('grid-overlay').classList.remove('active');
+                }
+            });
+            lightbox._bound = true;
+        }
     }
 
-    buildScreenshotShowcase();
-
-    // Mission lightbox — fetch MISSION.md from repository0 and display
-    function buildMissionLightbox() {
-        var missionLink = document.getElementById('mission-link');
+    // ─── W7: Mission lightbox (per-repo) ────────────────────────────
+    function openMissionLightbox(repoName) {
         var missionLightbox = document.getElementById('mission-lightbox');
         var missionContent = document.getElementById('mission-content');
-        var missionUrl = 'https://raw.githubusercontent.com/xn-intenton-z2a/repository0/main/MISSION.md';
+        var pagesLink = document.getElementById('mission-pages-link');
+        var repoLink = document.getElementById('mission-repo-link');
 
-        var missionText = null;
+        pagesLink.href = 'https://' + OWNER + '.github.io/' + repoName + '/';
+        repoLink.href = 'https://github.com/' + OWNER + '/' + repoName + '/blob/main/MISSION.md';
 
-        // Fetch MISSION.md on page load
-        fetch(missionUrl)
-            .then(function(response) {
-                if (!response.ok) throw new Error('Failed to fetch MISSION.md');
-                return response.text();
-            })
-            .then(function(text) {
-                missionText = text;
-                console.log('Fetched MISSION.md (' + text.length + ' chars)');
-            })
-            .catch(function(err) {
-                console.error('Error fetching MISSION.md:', err);
-                missionText = '(Could not load MISSION.md)';
+        var meta = repoMeta[repoName];
+        if (meta && meta.missionText) {
+            missionContent.textContent = meta.missionText;
+        } else {
+            missionContent.textContent = 'Loading...';
+            fetchRepoMeta(repoName).then(function(m) {
+                missionContent.textContent = m.missionText || '(Could not load MISSION.md)';
             });
-
-        // Open lightbox on click
-        missionLink.addEventListener('click', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            missionContent.textContent = missionText || 'Loading...';
-            missionLightbox.classList.add('active');
-        });
-
-        // Close lightbox on click outside content
-        missionLightbox.addEventListener('click', function(e) {
-            if (e.target === missionLightbox) {
-                missionLightbox.classList.remove('active');
-            }
-        });
-
-        // Close on Escape
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                missionLightbox.classList.remove('active');
-            }
-        });
+        }
+        missionLightbox.classList.add('active');
     }
 
-    buildMissionLightbox();
+    // Close mission lightbox on click outside
+    document.getElementById('mission-lightbox').addEventListener('click', function(e) {
+        if (e.target === this) this.classList.remove('active');
+    });
+
+    // ─── W8: Show-all grid overlay ──────────────────────────────────
+    function openGridOverlay() {
+        var overlay = document.getElementById('grid-overlay');
+        var grid = document.getElementById('grid-container');
+        grid.innerHTML = '';
+
+        SHOWCASE_REPOS.forEach(function(repo) {
+            var meta = repoMeta[repo.name] || { missionName: repo.label, status: 'unavailable', transforms: 0 };
+            var cell = document.createElement('div');
+            cell.className = 'grid-cell' + (repo.name === currentDefault ? ' is-default' : '');
+
+            var img = document.createElement('img');
+            img.className = 'grid-cell-img';
+            img.alt = repo.label + ' screenshot';
+            img.loading = 'lazy';
+            // Lazy-load: only fetch screenshot when grid opens
+            img.src = 'https://raw.githubusercontent.com/' + OWNER + '/' + repo.name + '/agentic-lib-logs/SCREENSHOT_INDEX.png';
+            img.onerror = function() {
+                this.style.background = '#222';
+                this.style.display = 'flex';
+                this.alt = 'No screenshot';
+            };
+
+            var info = document.createElement('div');
+            info.className = 'grid-cell-info';
+
+            var label = document.createElement('div');
+            label.className = 'grid-cell-label';
+            label.textContent = repo.label;
+
+            var statusLabels = { 'complete': 'COMPLETE', 'in-progress': 'IN-PROGRESS', 'not-started': 'NOT STARTED', 'blocked': 'BLOCKED', 'unavailable': 'N/A' };
+            var statusSpan = document.createElement('span');
+            statusSpan.className = 'showcase-status ' + meta.status;
+            statusSpan.textContent = statusLabels[meta.status] || meta.status;
+            statusSpan.style.marginLeft = '8px';
+
+            var mission = document.createElement('div');
+            mission.className = 'grid-cell-mission';
+            mission.textContent = meta.missionName;
+
+            label.appendChild(statusSpan);
+            info.appendChild(label);
+            info.appendChild(mission);
+            cell.appendChild(img);
+            cell.appendChild(info);
+
+            cell.addEventListener('click', (function(rn) {
+                return function() { switchDefault(rn); };
+            })(repo.name));
+
+            grid.appendChild(cell);
+        });
+
+        // 6th cell: "Create your own"
+        var ctaCell = document.createElement('div');
+        ctaCell.className = 'grid-cell';
+        var ctaLink = document.createElement('a');
+        ctaLink.className = 'grid-cell-cta';
+        ctaLink.href = 'https://github.com/' + OWNER + '/repository0';
+        ctaLink.target = '_blank';
+        ctaLink.rel = 'noopener';
+        ctaLink.textContent = 'Create your own +';
+        var ctaInfo = document.createElement('div');
+        ctaInfo.className = 'grid-cell-info';
+        ctaInfo.innerHTML = '<div class="grid-cell-label">Use this template</div><div class="grid-cell-mission">Fork repository0 and write your mission</div>';
+        ctaCell.appendChild(ctaLink);
+        ctaCell.appendChild(ctaInfo);
+        ctaCell.style.cursor = 'default';
+        grid.appendChild(ctaCell);
+
+        overlay.classList.add('active');
+    }
+
+    document.getElementById('grid-close').addEventListener('click', function() {
+        document.getElementById('grid-overlay').classList.remove('active');
+    });
+    document.getElementById('grid-overlay').addEventListener('click', function(e) {
+        if (e.target === this) this.classList.remove('active');
+    });
+
+    // ─── W9: Dynamic Giscus discussions ─────────────────────────────
+    function switchGiscus(repoName) {
+        var config = SHOWCASE_REPOS.find(function(r) { return r.name === repoName; });
+        if (!config) return;
+        var meta = repoMeta[repoName] || {};
+        var term = meta.discussionTerm || 'Talk to the repository';
+
+        var iframe = document.querySelector('iframe.giscus-frame');
+        if (iframe) {
+            iframe.contentWindow.postMessage({
+                giscus: {
+                    setConfig: {
+                        repo: OWNER + '/' + repoName,
+                        repoId: config.repoId,
+                        category: 'General',
+                        categoryId: config.categoryId,
+                        term: term,
+                    }
+                }
+            }, 'https://giscus.app');
+        } else {
+            loadGiscusScript(repoName, config, term);
+        }
+    }
+
+    function loadGiscusScript(repoName, config, term) {
+        var container = document.getElementById('giscus-container');
+        container.innerHTML = '';
+        var script = document.createElement('script');
+        script.src = 'https://giscus.app/client.js';
+        script.setAttribute('data-repo', OWNER + '/' + repoName);
+        script.setAttribute('data-repo-id', config.repoId);
+        script.setAttribute('data-category', 'General');
+        script.setAttribute('data-category-id', config.categoryId);
+        script.setAttribute('data-mapping', 'specific');
+        script.setAttribute('data-term', term);
+        script.setAttribute('data-strict', '0');
+        script.setAttribute('data-reactions-enabled', '0');
+        script.setAttribute('data-emit-metadata', '0');
+        script.setAttribute('data-input-position', 'top');
+        script.setAttribute('data-theme', 'noborder_light');
+        script.setAttribute('data-lang', 'en');
+        script.crossOrigin = 'anonymous';
+        script.async = true;
+        container.appendChild(script);
+    }
+
+    // ─── Logo menu (unchanged) ──────────────────────────────────────
+    var isMenuVisible = false;
+    var menuTimeout;
+    var currentImageIndex = 0;
+    var imageInterval;
+
+    function cycleMenuImages() {
+        var images = [document.getElementById('menu-img-1'), document.getElementById('menu-img-2')];
+        images.forEach(function(img) { img.style.opacity = '0'; });
+        currentImageIndex = (currentImageIndex + 1) % images.length;
+        images[currentImageIndex].style.opacity = '1';
+        if (imageInterval) clearTimeout(imageInterval);
+        var nextDelay = currentImageIndex === 0 ? 1500 : 50;
+        imageInterval = setTimeout(cycleMenuImages, nextDelay);
+    }
+
+    function showMenu() {
+        var menu = document.getElementById('menu');
+        menu.style.opacity = '1';
+        isMenuVisible = true;
+        if (menuTimeout) clearTimeout(menuTimeout);
+        if (imageInterval) clearTimeout(imageInterval);
+        cycleMenuImages();
+        menuTimeout = setTimeout(function() {
+            menu.style.opacity = '0';
+            isMenuVisible = false;
+            if (imageInterval) clearTimeout(imageInterval);
+        }, 10000);
+    }
+
+    document.body.addEventListener('mousemove', showMenu);
+    window.addEventListener('load', function() {
+        document.getElementById('menu-img-1').style.opacity = '1';
+        currentImageIndex = 0;
+        if (isMenuVisible) cycleMenuImages();
+    });
+    setTimeout(showMenu, 5000);
+
+    // ─── Initialise ─────────────────────────────────────────────────
+    fetchAllMeta().then(function() {
+        renderShowcaseBar();
+        pollIntentionUrl(currentDefault);
+        pollInterval = setInterval(function() { pollIntentionUrl(currentDefault); }, 300000);
+        buildScreenshotShowcase(currentDefault);
+        var defaultConfig = SHOWCASE_REPOS.find(function(r) { return r.name === currentDefault; });
+        var defaultMeta = repoMeta[currentDefault] || {};
+        loadGiscusScript(currentDefault, defaultConfig, defaultMeta.discussionTerm || 'Talk to the repository');
+    });
 </script>
 
 </body>
