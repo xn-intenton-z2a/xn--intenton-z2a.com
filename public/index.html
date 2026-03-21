@@ -547,15 +547,15 @@
     var OWNER = 'xn-intenton-z2a';
     var SHOWCASE_REPOS = [
         { name: 'repository0', label: 'repository0',
-          repoId: 'R_kgDON6E8ZA', categoryId: 'DIC_kwDON6E8ZM4CpwzM' },
+          repoId: 'R_kgDON6E8ZA', categoryId: 'DIC_kwDON6E8ZM4CpwzM', giscus: true },
         { name: 'repository0-string-utils', label: 'string-utils',
-          repoId: 'R_kgDORsndTg', categoryId: 'DIC_kwDORsndTs4C45WB' },
+          repoId: 'R_kgDORsndTg', categoryId: 'DIC_kwDORsndTs4C45WB', giscus: false },
         { name: 'repository0-random', label: 'random',
-          repoId: 'R_kgDORsnWVw', categoryId: 'DIC_kwDORsnWV84C45VR' },
+          repoId: 'R_kgDORsnWVw', categoryId: 'DIC_kwDORsnWV84C45VR', giscus: false },
         { name: 'repository0-crucible', label: 'crucible',
-          repoId: 'R_kgDORsnROA', categoryId: 'DIC_kwDORsnROM4C45Uz' },
+          repoId: 'R_kgDORsnROA', categoryId: 'DIC_kwDORsnROM4C45Uz', giscus: false },
         { name: 'repository0-plot-code-lib', label: 'plot-code-lib',
-          repoId: 'R_kgDORrzlsg', categoryId: 'DIC_kwDORrzlss4C40yA' },
+          repoId: 'R_kgDORrzlsg', categoryId: 'DIC_kwDORrzlss4C40yA', giscus: false },
     ];
 
     // ─── W2: localStorage for default repo ──────────────────────────
@@ -957,6 +957,22 @@
     function switchGiscus(repoName) {
         var config = SHOWCASE_REPOS.find(function(r) { return r.name === repoName; });
         if (!config) return;
+
+        var container = document.getElementById('giscus-container');
+
+        // If giscus isn't installed on this repo, show a link to discussions instead
+        if (!config.giscus) {
+            container.innerHTML = '';
+            var link = document.createElement('a');
+            link.href = 'https://github.com/' + OWNER + '/' + repoName + '/discussions';
+            link.target = '_blank';
+            link.rel = 'noopener';
+            link.textContent = 'View discussions for ' + config.label + ' on GitHub';
+            link.style.cssText = 'color: #3F5965; font-size: 14px; text-decoration: underline; display: block; text-align: center; padding: 16px;';
+            container.appendChild(link);
+            return;
+        }
+
         var meta = repoMeta[repoName] || {};
         var term = meta.discussionTerm || 'Talk to the repository';
 
