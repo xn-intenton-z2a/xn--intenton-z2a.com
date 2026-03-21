@@ -688,12 +688,12 @@
 
             var statusSpan = document.createElement('span');
             statusSpan.className = 'showcase-status ' + meta.status;
-            var statusLabels = { 'complete': 'COMPLETE', 'in-progress': 'IN-PROGRESS', 'not-started': 'NOT STARTED', 'blocked': 'BLOCKED', 'unavailable': 'N/A' };
+            var statusLabels = { 'complete': '\u2713', 'in-progress': '\u2014', 'not-started': '0', 'blocked': '\u2717', 'unavailable': '\u2014' };
             statusSpan.textContent = statusLabels[meta.status] || meta.status;
 
             var transformsSpan = document.createElement('span');
             transformsSpan.className = 'showcase-transforms';
-            transformsSpan.textContent = meta.transforms + ' transforms';
+            transformsSpan.textContent = '[' + meta.transforms + ']';
 
             var defaultBtn = document.createElement('button');
             defaultBtn.className = 'showcase-default-btn' + (repo.name === currentDefault ? ' is-default' : '');
@@ -945,7 +945,7 @@
             label.className = 'grid-cell-label';
             label.textContent = repo.label;
 
-            var statusLabels = { 'complete': 'COMPLETE', 'in-progress': 'IN-PROGRESS', 'not-started': 'NOT STARTED', 'blocked': 'BLOCKED', 'unavailable': 'N/A' };
+            var statusLabels = { 'complete': '\u2713', 'in-progress': '\u2014', 'not-started': '0', 'blocked': '\u2717', 'unavailable': '\u2014' };
             var statusSpan = document.createElement('span');
             statusSpan.className = 'showcase-status ' + meta.status;
             statusSpan.textContent = statusLabels[meta.status] || meta.status;
