@@ -647,7 +647,7 @@
         var stateP = fetch('https://raw.githubusercontent.com/' + OWNER + '/' + repoName + '/agentic-lib-logs/agentic-lib-state.toml')
             .then(function(r) { return r.ok ? r.text() : ''; })
             .then(function(text) {
-                var m = text.match(/cumulative-cost\s*=\s*(\d+)/);
+                var m = text.match(/cumulative-transforms\s*=\s*(\d+)/);
                 if (m) meta.transforms = parseInt(m[1], 10);
             })
             .catch(function() {});
