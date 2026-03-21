@@ -697,7 +697,7 @@
 
             var defaultBtn = document.createElement('button');
             defaultBtn.className = 'showcase-default-btn' + (repo.name === currentDefault ? ' is-default' : '');
-            defaultBtn.textContent = repo.name === currentDefault ? 'default' : 'make default';
+            defaultBtn.textContent = repo.name === currentDefault ? 'showing' : 'show it';
             if (repo.name !== currentDefault) {
                 defaultBtn.addEventListener('click', (function(rn) {
                     return function(e) { e.preventDefault(); switchDefault(rn); };
