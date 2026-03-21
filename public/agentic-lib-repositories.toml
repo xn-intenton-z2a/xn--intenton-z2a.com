@@ -1,0 +1,53 @@
+# agentic-lib-repositories.toml — Showcase repository configuration
+# Used by index.html to populate the multi-repo showcase bar, grid, and discussions.
+#
+# To add a new repository:
+#   1. Add a new entry below (copy an existing block)
+#   2. Get the repo-id from: gh api repos/xn-intenton-z2a/<name> --jq '.node_id'
+#   3. Get the category-id from: gh api graphql -f query='{ repository(owner:"xn-intenton-z2a", name:"<name>") { discussionCategories(first:5) { nodes { id name } } } }' --jq '.data.repository.discussionCategories.nodes[] | select(.name == "General") | .id'
+#   4. Install giscus on the repo at https://github.com/apps/giscus
+
+[owner]
+name = "xn-intenton-z2a"
+
+[[repositories]]
+name = "repository0"
+label = "repository0"
+repo-id = "R_kgDON6E8ZA"
+category-id = "DIC_kwDON6E8ZM4CpwzM"
+giscus = true
+
+[[repositories]]
+name = "repository0-string-utils"
+label = "string-utils"
+repo-id = "R_kgDORsndTg"
+category-id = "DIC_kwDORsndTs4C45WB"
+giscus = true
+
+[[repositories]]
+name = "repository0-dense-encoder"
+label = "dense-encoding"
+repo-id = "R_kgDORsnZxA"
+category-id = "DIC_kwDORsnZxM4C45Vj"
+giscus = true
+
+[[repositories]]
+name = "repository0-random"
+label = "random"
+repo-id = "R_kgDORsnWVw"
+category-id = "DIC_kwDORsnWV84C45VR"
+giscus = true
+
+[[repositories]]
+name = "repository0-crucible"
+label = "crucible"
+repo-id = "R_kgDORsnROA"
+category-id = "DIC_kwDORsnROM4C45Uz"
+giscus = true
+
+[[repositories]]
+name = "repository0-plot-code-lib"
+label = "plot-code-lib"
+repo-id = "R_kgDORrzlsg"
+category-id = "DIC_kwDORrzlss4C40yA"
+giscus = true

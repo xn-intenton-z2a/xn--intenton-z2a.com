@@ -199,7 +199,7 @@ public class WebStack extends Stack {
                 .sources(List.of(Source.asset("public")))
                 .destinationBucket(originBucket)
                 .distribution(distribution)
-                .distributionPaths(List.of("/index.html", "/404-error-distribution.html"))
+                .distributionPaths(List.of("/index.html", "/404-error-distribution.html", "/agentic-lib-repositories.toml"))
                 .retainOnDelete(true)
                 .prune(false)
                 .memoryLimit(512)
