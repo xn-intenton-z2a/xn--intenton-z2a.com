@@ -595,8 +595,12 @@
             .then(function(r) { return r.ok ? r.text() : ''; })
             .then(function(text) {
                 // Extract [init].mission — the seed name like "7-kyu-understand-fizz-buzz"
-                var missionMatch = text.match(/^\s*mission\s*=\s*"([^"]*)"/m);
-                if (missionMatch) meta.missionName = missionMatch[1];
+                // Must match under [init] section, not [paths] which has mission = "MISSION.md"
+                var initSection = text.match(/\[init\]([\s\S]*?)(?=\n\[|$)/);
+                if (initSection) {
+                    var missionMatch = initSection[1].match(/^\s*mission\s*=\s*"([^"]*)"/m);
+                    if (missionMatch && missionMatch[1] !== 'MISSION.md') meta.missionName = missionMatch[1];
+                }
             })
             .catch(function() {});
 
