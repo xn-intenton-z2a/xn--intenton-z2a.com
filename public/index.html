@@ -584,14 +584,17 @@
         var missionP = fetch('https://raw.githubusercontent.com/' + OWNER + '/' + repoName + '/main/MISSION.md')
             .then(function(r) { return r.ok ? r.text() : null; })
             .then(function(text) {
-                if (text) {
-                    meta.missionText = text;
-                    var lines = text.split('\n');
-                    for (var i = 0; i < lines.length; i++) {
-                        var line = lines[i].trim();
-                        if (line && !line.startsWith('#')) { meta.missionName = line.substring(0, 50); break; }
-                    }
-                }
+                if (text) meta.missionText = text;
+            })
+            .catch(function() {});
+
+        // Fetch agentic-lib.toml for mission seed name and transform count
+        var tomlP = fetch('https://raw.githubusercontent.com/' + OWNER + '/' + repoName + '/main/agentic-lib.toml')
+            .then(function(r) { return r.ok ? r.text() : ''; })
+            .then(function(text) {
+                // Extract [init].mission — the seed name like "7-kyu-understand-fizz-buzz"
+                var missionMatch = text.match(/^\s*mission\s*=\s*"([^"]*)"/m);
+                if (missionMatch) meta.missionName = missionMatch[1];
             })
             .catch(function() {});
 
@@ -612,7 +615,7 @@
             })
             .catch(function() {});
 
-        return Promise.all([listingP, missionP, stateP, discussionP]).then(function() {
+        return Promise.all([listingP, missionP, tomlP, stateP, discussionP]).then(function() {
             repoMeta[repoName] = meta;
             return meta;
         });
