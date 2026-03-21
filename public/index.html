@@ -543,22 +543,62 @@
 <script>
     console.log('Script started executing');
 
-    // ─── W1: Repository config ──────────────────────────────────────
+    // ─── W1: Repository config (loaded from agentic-lib-repositories.toml) ──
     var OWNER = 'xn-intenton-z2a';
-    var SHOWCASE_REPOS = [
-        { name: 'repository0', label: 'repository0',
-          repoId: 'R_kgDON6E8ZA', categoryId: 'DIC_kwDON6E8ZM4CpwzM', giscus: true },
-        { name: 'repository0-string-utils', label: 'string-utils',
-          repoId: 'R_kgDORsndTg', categoryId: 'DIC_kwDORsndTs4C45WB', giscus: true },
-        { name: 'repository0-dense-encoder', label: 'dense-encoding',
-          repoId: 'R_kgDORsnZxA', categoryId: 'DIC_kwDORsnZxM4C45Vj', giscus: true },
-        { name: 'repository0-random', label: 'random',
-          repoId: 'R_kgDORsnWVw', categoryId: 'DIC_kwDORsnWV84C45VR', giscus: true },
-        { name: 'repository0-crucible', label: 'crucible',
-          repoId: 'R_kgDORsnROA', categoryId: 'DIC_kwDORsnROM4C45Uz', giscus: true },
-        { name: 'repository0-plot-code-lib', label: 'plot-code-lib',
-          repoId: 'R_kgDORrzlsg', categoryId: 'DIC_kwDORrzlss4C40yA', giscus: true },
-    ];
+    var SHOWCASE_REPOS = []; // populated by loadRepoConfig()
+
+    function parseRepoToml(text) {
+        // Parse owner
+        var ownerMatch = text.match(/\[owner\][\s\S]*?name\s*=\s*"([^"]*)"/);
+        if (ownerMatch) OWNER = ownerMatch[1];
+
+        // Parse [[repositories]] entries
+        var repos = [];
+        var blocks = text.split(/\[\[repositories\]\]/);
+        for (var i = 1; i < blocks.length; i++) {
+            var block = blocks[i];
+            var get = function(key) {
+                var m = block.match(new RegExp('^\\s*' + key.replace('-', '\\-') + '\\s*=\\s*"([^"]*)"', 'm'));
+                return m ? m[1] : '';
+            };
+            var getBool = function(key) {
+                var m = block.match(new RegExp('^\\s*' + key + '\\s*=\\s*(true|false)', 'm'));
+                return m ? m[1] === 'true' : false;
+            };
+            repos.push({
+                name: get('name'),
+                label: get('label'),
+                repoId: get('repo-id'),
+                categoryId: get('category-id'),
+                giscus: getBool('giscus'),
+            });
+        }
+        return repos;
+    }
+
+    function loadRepoConfig() {
+        return fetch('agentic-lib-repositories.toml')
+            .then(function(r) { return r.ok ? r.text() : ''; })
+            .then(function(text) {
+                if (text) {
+                    SHOWCASE_REPOS = parseRepoToml(text);
+                    console.log('Loaded ' + SHOWCASE_REPOS.length + ' repos from agentic-lib-repositories.toml');
+                }
+                if (SHOWCASE_REPOS.length === 0) {
+                    // Fallback if toml fails to load
+                    console.warn('No repos loaded from toml — using hardcoded fallback');
+                    SHOWCASE_REPOS = [
+                        { name: 'repository0', label: 'repository0', repoId: 'R_kgDON6E8ZA', categoryId: 'DIC_kwDON6E8ZM4CpwzM', giscus: true },
+                    ];
+                }
+            })
+            .catch(function(err) {
+                console.error('Failed to load repo config:', err);
+                SHOWCASE_REPOS = [
+                    { name: 'repository0', label: 'repository0', repoId: 'R_kgDON6E8ZA', categoryId: 'DIC_kwDON6E8ZM4CpwzM', giscus: true },
+                ];
+            });
+    }
 
     // ─── W2: localStorage for default repo ──────────────────────────
     var currentDefault = localStorage.getItem('intention-showcase-default') || 'repository0';
@@ -1044,14 +1084,18 @@
     setTimeout(showMenu, 5000);
 
     // ─── Initialise ─────────────────────────────────────────────────
-    fetchAllMeta().then(function() {
+    loadRepoConfig().then(function() {
+        return fetchAllMeta();
+    }).then(function() {
         renderShowcaseBar();
         pollIntentionUrl(currentDefault);
         pollInterval = setInterval(function() { pollIntentionUrl(currentDefault); }, 300000);
         buildScreenshotShowcase(currentDefault);
         var defaultConfig = SHOWCASE_REPOS.find(function(r) { return r.name === currentDefault; });
         var defaultMeta = repoMeta[currentDefault] || {};
-        loadGiscusScript(currentDefault, defaultConfig, defaultMeta.discussionTerm || 'Talk to the repository');
+        if (defaultConfig) {
+            loadGiscusScript(currentDefault, defaultConfig, defaultMeta.discussionTerm || 'Talk to the repository');
+        }
     });
 </script>
 
