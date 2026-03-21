@@ -945,10 +945,10 @@
             label.className = 'grid-cell-label';
             label.textContent = repo.label;
 
-            var statusLabels = { 'complete': '\u2713', 'in-progress': '\u2014', 'not-started': '0', 'blocked': '\u2717', 'unavailable': '\u2014' };
+            var gridStatusLabels = { 'complete': 'COMPLETE', 'in-progress': 'IN-PROGRESS', 'not-started': 'NOT STARTED', 'blocked': 'BLOCKED', 'unavailable': 'N/A' };
             var statusSpan = document.createElement('span');
             statusSpan.className = 'showcase-status ' + meta.status;
-            statusSpan.textContent = statusLabels[meta.status] || meta.status;
+            statusSpan.textContent = gridStatusLabels[meta.status] || meta.status;
             statusSpan.style.marginLeft = '8px';
 
             var mission = document.createElement('div');
