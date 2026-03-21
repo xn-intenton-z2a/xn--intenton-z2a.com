@@ -554,7 +554,7 @@
 
         // Parse [[repositories]] entries
         var repos = [];
-        var blocks = text.split(/\[\[repositories\]\]/);
+        var blocks = text.split(/^\[\[repositories\]\]/m);
         for (var i = 1; i < blocks.length; i++) {
             var block = blocks[i];
             var get = function(key) {
