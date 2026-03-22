@@ -39,13 +39,6 @@ category-id = "DIC_kwDORsnWV84C45VR"
 giscus = true
 
 [[repositories]]
-name = "repository0-crucible"
-label = "crucible"
-repo-id = "R_kgDORsnROA"
-category-id = "DIC_kwDORsnROM4C45Uz"
-giscus = true
-
-[[repositories]]
 name = "repository0-plot-code-lib"
 label = "plot-code-lib"
 repo-id = "R_kgDORrzlsg"
